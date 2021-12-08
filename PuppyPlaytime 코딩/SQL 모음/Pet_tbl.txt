@@ -1,0 +1,12 @@
+create table Pet_tbl(
+	p_num number(6) not null,
+	p_name varchar2(10) not null,
+	p_dogbreed varchar2(15) not null,
+	p_unique varchar2(200),
+	p_gender varchar2(2) not null,
+	p_weight varchar2(15) not null,
+	p_picture varchar2(50),
+	m_id varchar2(20) not null,
+	constraint Pet_tbl_pk primary key(p_num),
+	constraint Pet_tbl_fk foreign key(m_id) references Member_tbl(m_id)
+);
