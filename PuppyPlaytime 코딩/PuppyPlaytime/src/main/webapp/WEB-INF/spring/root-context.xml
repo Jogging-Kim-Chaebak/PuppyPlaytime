@@ -14,4 +14,7 @@
 		<property name="jndiName" value="java:comp/env/jdbc/Oracle" />
 	</bean> -->
 	
+	<!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage"><value>com.puppy.**.**.dao</value></property>
+	</bean>-->
 </beans>
