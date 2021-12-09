@@ -22,6 +22,10 @@
 		<tiles:insertAttribute name="header" />
 	</nav>
 	
+	<nav>
+		
+	</nav>
+	
 	<!-- Begin page content -->
 	<div class="container">
 		<div class="page-header">
