@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
+		<put-attribute name="title" value="000 사이트" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+</tiles-definitions>
