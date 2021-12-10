@@ -19,4 +19,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/client/hi", method=RequestMethod.GET)
+	public String hi() {
+		return "client/hi";
+	}
+
 }
