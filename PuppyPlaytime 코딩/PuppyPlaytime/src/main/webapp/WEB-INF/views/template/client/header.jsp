@@ -1,17 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page trimDirectiveWhitespaces="true" %>
-<div class="container-fluid"><!-- img 215px 108px -->
-	<nav id="navbarColor03" class="collapse navbar-collapse">
-		<a class="navbar-brand col-auto me-auto" href="/"><img src="/resources/images/logo.png" width=100px height=70px></a>
-		
-		<ul class="navbar-nav col-auto align-self-end">
-			<li class="nav-item"><a class="nav-link" href="#">로그인</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">이용안내</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">예약하기</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page trimDirectiveWhitespaces="true"%>
+<style>
+nav .navbar-nav li a {
+	font-size: 25px;
+}
+</style>
+
+<div class="container">
+	<a class="navbar-brand" href="/"> <img
+		src="/resources/images/logo.png" width=100px height=70px>
+	</a>
+	<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+		data-bs-target="#navbarColor03" aria-controls="navbarColor03"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div
+		class="collapse navbar-collapse justify-content-end align-self-end"
+		id="navbarColor03">
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/client/hi">로그인&nbsp;&nbsp;</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="#">마이페이지&nbsp;&nbsp;</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="#">이용안내&nbsp;&nbsp;</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="#">예약하기&nbsp;&nbsp;</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="#">고객센터&nbsp;&nbsp;</a>
+			</li>
 		</ul>
-	</nav>
+	</div>
 </div>
