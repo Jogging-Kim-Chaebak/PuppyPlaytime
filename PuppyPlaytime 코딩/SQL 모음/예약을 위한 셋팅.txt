@@ -1,0 +1,51 @@
+CREATE table Member_tbl(
+m_id VARCHAR2(20) not null,
+m_pw VARCHAR2(20) not null,
+m_name VARCHAR2(10)not null,
+m_birth DATE not null,
+m_email VARCHAR2(30) not null,
+m_phone VARCHAR2(20) not null,
+m_address VARCHAR2(50) not null,
+m_optional VARCHAR2(2) not null,
+m_required1 VARCHAR2(2) not null,
+m_required2 VARCHAR2(2) not null,
+CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
+);
+
+create sequence member_tbl_seq
+start with 1
+increment by 1;
+
+create table cageroom_tbl(
+c_no number(6) not null,
+c_kind varchar2(15) not null,
+c_type varchar2(10) not null,
+c_price varchar2(7) not null,
+c_explain varchar2(1000) not null,
+c_picture varchar2(50) not null,
+c_status varchar2(15) not null check(c_status in('unuse','use')),
+c_usestatus varchar2(20) not null check(c_usestatus in('using','reserved','unusing')),
+CONSTRAINT cageroom_tbl_pk PRIMARY KEY(c_no));
+
+create sequence cageroom_tbl_seq
+start with 1
+increment by 1;
+
+create table Reservation_tbl(
+	r_no number(6) not null,
+	r_approval varchar2(10) not null,
+	r_payprice varchar2(15) not null,
+	r_status varchar2(200),
+	r_requestdate varchar2(2) not null,
+	r_startdate varchar2(15) not null,
+	r_enddate varchar2(50),
+	m_id varchar2(20) not null,
+	c_no number(6) not null,
+	constraint Reservation_tbl_pk primary key(r_no),
+	constraint Reservation_tbl_fk1 foreign key(m_id) references Member_tbl(m_id),
+	constraint Reservation_tbl_fk2 foreign key(c_no) references CageRoom_tbl(c_no)
+);
+
+create sequence reservation_tbl_seq
+start with 1
+increment by 1;

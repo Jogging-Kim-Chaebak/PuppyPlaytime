@@ -3,14 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+
 nav .navbar-nav li a {
-	font-size: 25px;
+	font-family: 'Hanna', sans-serif;
+	font-size: 20px;
 }
 </style>
 
 <div class="container">
 	<a class="navbar-brand" href="/"> <img
-		src="/resources/images/logo.png" width=100px height=70px>
+		src="/resources/images/logo.png" width=100px height=55px>
 	</a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 		data-bs-target="#navbarColor03" aria-controls="navbarColor03"

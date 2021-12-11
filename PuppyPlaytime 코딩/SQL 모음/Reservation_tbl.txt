@@ -1,0 +1,18 @@
+create table Reservation_tbl(
+	r_no number(6) not null,
+	r_approval varchar2(10) not null,
+	r_payprice varchar2(15) not null,
+	r_status varchar2(200),
+	r_requestdate varchar2(2) not null,
+	r_startdate varchar2(15) not null,
+	r_enddate varchar2(50),
+	m_id varchar2(20) not null,
+	c_no number(6) not null,
+	constraint Reservation_tbl_pk primary key(r_no),
+	constraint Reservation_tbl_fk1 foreign key(m_id) references Member_tbl(m_id),
+	constraint Reservation_tbl_fk2 foreign key(c_no) references CageRoom_tbl(c_no)
+);
+
+create sequence reservation_tbl_seq
+start with 1
+increment by 1;
