@@ -11,3 +11,7 @@ m_required1 VARCHAR2(2) not null,
 m_required2 VARCHAR2(2) not null,
 CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
 );
+
+create sequence member_tbl_seq
+start with 1
+increment by 1;
