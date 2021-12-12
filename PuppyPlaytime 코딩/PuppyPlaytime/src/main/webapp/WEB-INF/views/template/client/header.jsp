@@ -31,7 +31,7 @@ nav .navbar-nav li a {
 			</li>
 			<li class="nav-item"><a class="nav-link" href="#">이용안내&nbsp;&nbsp;</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">예약하기&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/reserve/reserveCalendar">예약하기&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="#">고객센터&nbsp;&nbsp;</a>
 			</li>
