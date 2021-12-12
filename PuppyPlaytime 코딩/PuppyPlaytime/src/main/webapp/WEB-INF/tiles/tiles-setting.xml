@@ -17,8 +17,13 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<definition name="client/*" extends="content">
+	<definition name="client/login/*" extends="content">
 		<put-attribute name="title" value="000 사이트" />
-		<put-attribute name="body" value="/WEB-INF/views/client/hey.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/login/hey.jsp" />
+	</definition>
+	
+	<definition name="client/reserve/*" extends="content">
+		<put-attribute name="title" value="000 사이트" />
+		<put-attribute name="body" value="/WEB-INF/views/client/reserve/reserveCalendar.jsp" />
 	</definition>
 </tiles-definitions>
