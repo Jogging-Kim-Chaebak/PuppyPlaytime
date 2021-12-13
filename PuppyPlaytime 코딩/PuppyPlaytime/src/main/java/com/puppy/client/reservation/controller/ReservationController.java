@@ -19,15 +19,19 @@ public class ReservationController {
 	//private ReservationService reservationService;
 	
 	@RequestMapping(value="/reserveCalendar")
-	public String reserveCalendar(@RequestParam(value="monthEnd") int monthEnd, Model model) {
+	public String reserveCalendar(Model model) {
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate = LocalDate.now();
 		YearMonth yearMonth = YearMonth.now();
-		//monthEnd = yearMonth.atEndOfMonth();
+		int year = localDate.getYear();
+		int month = localDate.getMonth().getValue();
+		int monthEnd = yearMonth.atEndOfMonth().getDayOfMonth();
+		int monthFirst = yearMonth.atDay(1).getDayOfWeek().getValue();
 		
-		model.addAttribute("year", localDate.getYear());
-		model.addAttribute("month", localDate.getMonth());
-		//model.addAttribute("monthEnd", monthEnd);
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("monthEnd", monthEnd);
+		model.addAttribute("monthFirst", monthFirst);
 		
 		return "client/reserve/reserveCalendar";
 	}

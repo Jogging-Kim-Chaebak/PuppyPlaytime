@@ -66,8 +66,7 @@
 </script>
 </head>
 <body>
-
-	<form name="f1" method="post"></form>
+	<!--  
 	<form name="form1" action="#" method="post">
 		<div>로그인</div>
 		<br /> <label> 아이디 </label><br /> <input type="text" name="m_id"
@@ -75,10 +74,27 @@
 			<label> 패스워드 </label><br /> 
 			<input type="password" name="m_pw" id="m_pw" /><br />
 			 <br /> <input type="button" value="로그인 " name="m_login" id="m_login"  onclick="login()" />
+	</form>-->
+	
+	<form name="form1" action="#" method="post">
+		<div class="form-group">
+		  <label class="form-label mt-4">로그인</label>
+		  <div class="form-floating mb-3">
+		    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+		    <label for="floatingInput">아이디</label>
+		  </div>
+		  <div class="form-floating">
+		    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+		    <label for="floatingPassword">패스워드</label>
+		  </div>
+		</div>
 	</form>
+    <br>
+    <br>
+    
 	<div class="form-group">
-		<a href="joinBtn">회원가입</a> <a href="findId">아이디 찾기</a> <a
-			href="findPw">비밀번호 찾기</a>
+		<button type="button" class="btn btn-primary">회원가입</button>
+			<button type="button" class="btn btn-primary">비밀번호 찾기</button>
 	</div>
 
 </body>

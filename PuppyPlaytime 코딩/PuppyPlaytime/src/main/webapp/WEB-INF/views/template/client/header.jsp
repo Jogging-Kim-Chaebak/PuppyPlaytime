@@ -25,7 +25,7 @@ nav .navbar-nav li a {
 		class="collapse navbar-collapse justify-content-end align-self-end"
 		id="navbarColor03">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/client/hi">로그인&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/login/login">로그인&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="#">마이페이지&nbsp;&nbsp;</a>
 			</li>
