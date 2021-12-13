@@ -18,12 +18,12 @@
 	</definition>
 	
 	<definition name="client/login/*" extends="content">
-		<put-attribute name="title" value="000 사이트" />
-		<put-attribute name="body" value="/WEB-INF/views/client/login/hey.jsp" />
+		<put-attribute name="title" value="로그인" />
+		<put-attribute name="body" value="/WEB-INF/views/client/login/{1}.jsp" />
 	</definition>
 	
 	<definition name="client/reserve/*" extends="content">
 		<put-attribute name="title" value="000 사이트" />
-		<put-attribute name="body" value="/WEB-INF/views/client/reserve/reserveCalendar.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
 </tiles-definitions>
