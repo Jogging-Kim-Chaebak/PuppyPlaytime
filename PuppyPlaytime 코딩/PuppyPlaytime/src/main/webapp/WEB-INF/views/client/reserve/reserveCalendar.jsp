@@ -39,7 +39,7 @@
 <script>
 	var firstCheck = false;
 	var reCheck = false;
-	var first;
+	var first, last;
 	
 	$(function(){
 		// 예약하러가기 버튼 클릭
@@ -58,6 +58,14 @@
 				}
 			});*/
 			
+			// 시작 날짜 보내기
+			var start = $("#startDate").val()+first+"일";
+			$("#startDate").val(start);
+			
+			// 종료 날짜 보내기
+			var end = $("#endDate").val() + last +"일";
+			$("#endDate").val(end);
+			
 			$("#dateSend").attr({
 				"method" : "GET",
 				"action" : "/client/reserve/reserveRoom"
@@ -70,33 +78,35 @@
 		if(reCheck == true){
 			$("td").css("background-color", "#F2F2F2");		
 			reCheck = false;
+			
+			first = i;
+			firstCheck = true;
+			
+			// 예약하러가기 disable
+			$("#reservation").attr("disabled", true);
 		}
 		if(firstCheck == false){
 			// 선택자에 변수넣기
 			$("#date"+i).css("background-color", "green");
 			firstCheck = true;
 			first = i;
-			// 시작 날짜 보내기
-			var start = $("#startDate").val()+first+"일";
-			$("#startDate").val(start);
 		}else{
 			if(first >= i){
 				$("#date"+first).css("background-color", "#F2F2F2");
 				$("#date"+i).css("background-color", "green");
 				first = i;
-				// 시작 날짜 보내기
-				var start = $("#startDate").val()+first+"일";
-				$("#startDate").val(start);
-				return;
+			}else{
+				// 끝날짜 정해짐
+				for(var j=first; j <= i; j++){
+					$("#date"+j).css("background-color", "green");
+					reCheck = true;
+				}
+				
+				last = i;
+				
+				// 예약하러가기 풀기
+				$("#reservation").attr("disabled", false);
 			}
-			// 끝날짜 정해짐
-			for(var j=first; j <= i; j++){
-				$("#date"+j).css("background-color", "green");
-				reCheck = true;
-			}
-			// 종료 날짜 보내기
-			var end = $("#endDate").val() + i +"일";
-			$("#endDate").val(end);
 		}
 	}
 </script>
@@ -154,7 +164,7 @@
 	<form id="dateSend" name="dateSend">
 		<input type="hidden" id="startDate" name="startDate" value="${year}년${month}월" />
 		<input type="hidden" id="endDate" name="endDate" value="${year}년${month}월" />
-		<button type="button" class="btn btn-lg btn-outline-success" id="reservation">예약하러 가기</button>
+		<button type="button" class="btn btn-lg btn-outline-success" id="reservation" disabled>예약하러 가기</button>
 	</form>
 </body>
 </html>
