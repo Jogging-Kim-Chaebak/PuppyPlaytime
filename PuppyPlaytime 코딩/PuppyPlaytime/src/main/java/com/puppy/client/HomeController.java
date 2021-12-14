@@ -18,4 +18,10 @@ public class HomeController {
 	
 		return "home";
 	}
+	
+	//마이페이지 화면 보여주기 위한 메소드	 
+	@RequestMapping(value="/client/mypage/mypageReservation", method = RequestMethod.GET)
+	public String mypage() {
+		return "client/mypage/mypageReservation";
+	}
 }

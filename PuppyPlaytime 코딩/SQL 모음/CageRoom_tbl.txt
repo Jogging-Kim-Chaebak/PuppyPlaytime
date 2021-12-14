@@ -12,4 +12,5 @@ CONSTRAINT cageroom_tbl_pk PRIMARY KEY(c_no));
 
 create sequence cageroom_tbl_seq
 start with 1
-increment by 1;
+increment by 1 
+nocache;

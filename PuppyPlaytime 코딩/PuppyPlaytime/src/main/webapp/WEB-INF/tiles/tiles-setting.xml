@@ -4,12 +4,13 @@
 
 <tiles-definitions>
 	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
-		<put-attribute name="title" value="000 사이트" />
+		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/main/mainPage.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<definition name="content" template="/WEB-INF/views/template/client/subLayout.jsp">
+	<definition name="content1" template="/WEB-INF/views/template/client/subLayout.jsp">
 		<put-attribute name="title" value="000 사이트" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="menu" value="/WEB-INF/views/template/client/menu.jsp" />
@@ -17,13 +18,25 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<definition name="client/login/*" extends="content">
+	<definition name="content2" template="/WEB-INF/views/template/client/mainLayout.jsp">
+		<put-attribute name="title" value="000 사이트" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<definition name="client/mypage/*" extends="content1">
+		<put-attribute name="title" value="마이페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
+	</definition>
+	
+	<definition name="client/login/*" extends="content2">
 		<put-attribute name="title" value="로그인" />
 		<put-attribute name="body" value="/WEB-INF/views/client/login/{1}.jsp" />
 	</definition>
 	
-	<definition name="client/reserve/*" extends="content">
-		<put-attribute name="title" value="000 사이트" />
+	<definition name="client/reserve/*" extends="content2">
+		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
 </tiles-definitions>
