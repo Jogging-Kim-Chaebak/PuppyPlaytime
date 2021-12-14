@@ -2,7 +2,7 @@ create table cageroom_tbl(
 c_no number(6) not null,
 c_kind varchar2(15) not null,
 c_type varchar2(10) not null,
-c_price varchar2(7) not null,
+c_price number(7) not null,
 c_explain varchar2(1000) not null,
 c_picture varchar2(50) not null,
 c_status varchar2(15) not null check(c_status in('unuse','use')),
