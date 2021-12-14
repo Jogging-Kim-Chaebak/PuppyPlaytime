@@ -27,7 +27,7 @@ nav .navbar-nav li a {
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="/client/login/login">로그인&nbsp;&nbsp;</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">마이페이지&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/mypage/mypageReservation">마이페이지&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="#">이용안내&nbsp;&nbsp;</a>
 			</li>

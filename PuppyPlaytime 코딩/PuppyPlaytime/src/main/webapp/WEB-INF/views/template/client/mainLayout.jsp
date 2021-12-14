@@ -26,14 +26,13 @@
 			<!--<nav class="navbar navbar-default navbar-fixed-top"> -->
 			<tiles:insertAttribute name="header"/>
 		</nav>
-		
+
 		<!-- Begin page content -->
 		<div class="container">
 			<div class="page-header">
-				<div class="jumbotron">
-					<h1> 노력은 배신 x</h1>
-				</div>
+				<h1><tiles:getAsString name="title"/></h1>
 			</div>
+			<tiles:insertAttribute name="body" />
 		</div>
 	
 		<footer class="footer">
