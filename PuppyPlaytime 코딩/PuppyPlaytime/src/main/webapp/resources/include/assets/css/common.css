@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/*공통 부분*/
+/*세로 스크롤바 생성*/
+a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
+.vm{vertical-align:middle;}
+.tac{text-align:center;}
+.tal{text-align:left}
+.tar{text-align:right}
+.required{color:red;}
+
+/*본문 영역*/
+.contentContainer{width:100%;}
+
+/*버튼 영역*/
+.contentContainer.contentBtn{width:96%; margin-top:10px; text-align:right;}
