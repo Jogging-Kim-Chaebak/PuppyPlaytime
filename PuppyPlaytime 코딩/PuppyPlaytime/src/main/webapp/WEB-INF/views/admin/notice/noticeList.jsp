@@ -69,7 +69,7 @@ src="/resources/include/assets/js/common.js"></script>
 		<tr>
 			<th class="order">글번호</th>
 			<th data-value="n_regdate" class="order">작성일</th>
-			<th>글제목</th>
+			<th >글제목</th>
 			<th class="borcle">작성자</th>
 			<th>수정/삭제</th>
 		</tr>
@@ -83,7 +83,7 @@ src="/resources/include/assets/js/common.js"></script>
 			<tr class="tac" data-num="${notice.n_no}">
 				<td>${notice.n_no}</td>
 				<td>${notice.n_regdate}</td>
-				<td>${notice.n_title}</td>
+				<td class="goDetail tal">${notice.n_title}</td>
 				<td class="name">
 				${notice.n_registrant}</td>
 				<td>수정/삭제버튼</td>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config${org.apache.tiles-version}">
+
+<tiles-definitions>
+	<definition name="basic" template="/WEB-INF/view/admin/template/adminContentLayout.jsp">
+		<put-attribute name ="title" value ="관리자 페이지"/>
+		<put-attribute name ="adminHeader" value ="/WEB-INF/views/admin/template/adminHeader.jsp" />
+		<put-attribute name ="sub" value ="/WEB-INF/views/admin/template/sub.jsp" />
+		<put-attribute name ="adminAside" value ="/WEB-INF/views/admin/template/adminAside.jsp" />
+		<put-attribute name ="main" value =""/>
+	</definition>
+	
+	<definition name="admin/main/*" extends="basic">
+		<put-attribute name ="sub" value =""/>
+		<put-attribute name ="main" value ="/WEB-INF/views/admin/main/{1}.jsp"/>
+	</definition>
+
+	<definition name="admin/member/*" extends="basic">
+		<put-attribute name ="sub" value ="/WEB-INF/views/admin/member/adminMemberList.jsp"/>
+		<put-attribute name ="main" value ="/WEB-INF/views/admin/member/{1}.jsp"/>
+	</definition>
+	
+</tiles-definitions>

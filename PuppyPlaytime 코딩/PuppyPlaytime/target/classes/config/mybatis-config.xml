@@ -2,7 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.puppy.client.member.vo.MemberVO"
-			alias="member" />
+		<typeAlias type="com.puppy.client.member.vo.MemberVO" alias="member" />
+		<typeAlias type="com.puppy.client.notice.vo.NoticeVO" alias="notice" />
 	</typeAliases>
 </configuration>
