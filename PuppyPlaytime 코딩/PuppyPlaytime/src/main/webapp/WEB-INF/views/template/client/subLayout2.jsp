@@ -14,7 +14,6 @@
 
 <!-- Custom styles for this template -->
 <link href="/resources/include/dist/css/sticky-footer-navbar.css" rel="stylesheet"> 
-<link href="/resources/css/main/main.css" rel="stylesheet">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
