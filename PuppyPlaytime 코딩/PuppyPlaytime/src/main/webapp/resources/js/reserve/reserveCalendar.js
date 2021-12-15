@@ -6,6 +6,13 @@ $(function() {
 	// 예약하러가기 버튼 클릭
 	$("#reservation").click(function() {
 		// 시작 날짜 보내기
+		if(first > 32){
+			first -= 32;
+		}
+		if(last > 32){
+			last -= 32;
+		}
+		
 		var start = $("#startDate").val() + first + "일";
 		$("#startDate").val(start);
 
@@ -21,14 +28,28 @@ $(function() {
 	});
 });
 
+// 이전 달 눌렀을 때
 function monthPrevious(year, month) {
 	$("#table1").css("display", "inline-block");
 	$("#table2").css("display", "none");
+
+	// input 값 맞추기
+	$("#startDate").val(year + "년" + month + "월");
+	$("#endDate").val(year + "년" + month + "월");
 }
 
+// 다음 달 눌렀을 때
 function monthNext(year, month){
 	$("#table1").css("display", "none");
 	$("#table2").css("display", "inline-block");
+	
+	// input 값 맞추기
+	if(firstCheck == true){
+		$("#endDate").val(year + "년" + month + "월");
+	}else{
+		$("#startDate").val(year + "년" + month + "월");
+		$("#endDate").val(year + "년" + month + "월");
+	}
 }
 
 function dateClick(i, inityear, initmonth) {

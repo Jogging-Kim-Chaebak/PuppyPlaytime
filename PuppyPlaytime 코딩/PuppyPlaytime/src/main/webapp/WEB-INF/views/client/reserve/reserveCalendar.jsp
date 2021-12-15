@@ -110,10 +110,12 @@
 			</c:forEach>
 		</tr>
 	</table>
+	<br/>
+	<br/>
 	<form id="dateSend" name="dateSend">
 		<button type="button" class="btn btn-lg btn-outline-success" id="reservation" disabled>예약하러 가기</button>
-		<input type="text" id="startDate" name="startDate" value="${year}년${month}월" />
-		<input type="text" id="endDate" name="endDate" value="${year}년${month}월" />
+		<input type="hidden" id="startDate" name="startDate" value="${year}년${month}월" />
+		<input type="hidden" id="endDate" name="endDate" value="${year}년${month}월" />
 	</form>
 </body>
 </html>

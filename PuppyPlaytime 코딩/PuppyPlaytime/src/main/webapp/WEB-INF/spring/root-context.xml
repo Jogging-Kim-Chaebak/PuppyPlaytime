@@ -20,8 +20,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation"
 			value="classPath:config/mybatis-config.xml" />
-		<property name="mapperLocations"
-			value="classpath:query/*.xml" />
+		<property name="mapperLocations" value="classpath:query/*.xml" />
 	</bean>
 
 	<bean id="sqlSession"
@@ -38,10 +37,11 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+	<!-- 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage">
 			<value>com.puppy.**.**.dao</value>
 		</property>
-	</bean>
+	</bean> -->
 	
 </beans>
