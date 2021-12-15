@@ -21,45 +21,43 @@ public class ReservationController {
 	//@Autowired
 	//private ReservationService reservationService;
 	
+	
 	@RequestMapping(value="/reserveCalendar")
-	public String reserveCalendar(@RequestParam(value="year", defaultValue="0") int year, @RequestParam(value="month", defaultValue="0") int month, Model model) {
+	public String reserveCalendar(Model model) {
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate;
 		YearMonth yearMonth;
-		int monthEnd, monthFirst;
+		int monthEndFirst, monthStartFirst, monthEndSecond, monthStartSecond;
+		int year, month, yearNext, monthNext;
 		
-		if(year != 0) {
-			// 해당 12월달 다음은 내년 1월, 해당 1월 전은 작년 12월
-			if(month > 12) {
-				System.out.println(year);
-				System.out.println(month);
-				year+=1;
-				month = 1;
-			}
-			if(month < 1) {
-				year-=1;
-				month = 12;
-			}
+		localDate = LocalDate.now();
+		yearMonth = YearMonth.now();
+		year = localDate.getYear();
+		month = localDate.getMonth().getValue();
+		monthEndFirst = yearMonth.atEndOfMonth().getDayOfMonth();
+		monthStartFirst = yearMonth.atDay(1).getDayOfWeek().getValue();
+		
+		yearNext = year;
+		monthNext = month+1;
+		
+		// 해당 12월달 다음은 내년 1월
+		if(monthNext > 12) {
+			yearNext+=1;
+			monthNext = 1;
 		}
-
-		// year, month 기본값 -1 설정, -1 이면 지금 날짜 출력
-		if(year == 0) {
-			localDate = LocalDate.now();
-			yearMonth = YearMonth.now();
-			year = localDate.getYear();
-			month = localDate.getMonth().getValue();
-			monthEnd = yearMonth.atEndOfMonth().getDayOfMonth();
-			monthFirst = yearMonth.atDay(1).getDayOfWeek().getValue();
-		}else {
-			yearMonth = YearMonth.of(year, month);
-			monthEnd = yearMonth.atEndOfMonth().getDayOfMonth();
-			monthFirst = yearMonth.atDay(1).getDayOfWeek().getValue();
-		}
+		
+		yearMonth = YearMonth.of(yearNext, monthNext);
+		monthEndSecond = yearMonth.atEndOfMonth().getDayOfMonth();
+		monthStartSecond = yearMonth.atDay(1).getDayOfWeek().getValue();
 		
 		model.addAttribute("year", year);
 		model.addAttribute("month", month);
-		model.addAttribute("monthEnd", monthEnd);
-		model.addAttribute("monthFirst", monthFirst);
+		model.addAttribute("monthEndFirst", monthEndFirst);
+		model.addAttribute("monthStartFirst", monthStartFirst);
+		model.addAttribute("yearNext", yearNext);
+		model.addAttribute("monthNext", monthNext);
+		model.addAttribute("monthEndSecond", monthEndSecond);
+		model.addAttribute("monthStartSecond", monthStartSecond);
 		
 		return "client/reserve/reserveCalendar";
 	}

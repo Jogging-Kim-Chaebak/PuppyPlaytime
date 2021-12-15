@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* 기본스타일  */
+table {
+	background-color: #F2F2F2;
+}
+
+#table2 {
+	 display : none;
+}
+
+table td, table th {
+	border: 1px solid black;
+}
+
+tr {
+	height: 60px;
+}
+
+th {
+	text-align: center;
+}
+
+td {
+	width: 100px;
+	text-align: right;
+	font-size: 15pt;
+	font-family: D2coding;
+}
+/* 타이틀 스타일 */
+th#title {
+	font-size: 20pt;
+	font-weight: bold;
+	color: #FFBF00;
+	font-family: D2coding;
+}
+
+/* 요일 스타일 */
+td.sunday {
+	text-align: center;
+	font-weight: bold;
+	color: red;
+	font-family: D2coding;
+}
+
+td.saturday {
+	text-align: center;
+	font-weight: bold;
+	color: blue;
+	font-family: D2coding;
+}
+
+td.etcday {
+	text-align: center;
+	font-weight: bold;
+	color: black;
+	font-family: D2coding;
+}
+
+/* 날짜 스타일 */
+td.sun {
+	text-align: right;
+	font-size: 15pt;
+	color: red;
+	font-family: D2coding;
+	vertical-align: top;
+}
+
+td.sat {
+	text-align: right;
+	font-size: 15pt;
+	color: blue;
+	font-family: D2coding;
+	vertical-align: top;
+}
+
+td.etc {
+	text-align: right;
+	font-size: 15pt;
+	color: black;
+	font-family: D2coding;
+	vertical-align: top;
+}
+
+td.redbefore {
+	text-align: right;
+	font-size: 12pt;
+	color: red;
+	font-family: D2coding;
+	vertical-align: top;
+}
+
+td.before {
+	text-align: right;
+	font-size: 12pt;
+	color: gray;
+	font-family: D2coding;
+	vertical-align: top;
+}
+
+table td:hover {
+	background-color: rgba(0, 0, 0, .075);
+}
