@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-"http://tiles.apache.org/dtds/tiles-config${org.apache.tiles-version}">
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 	<definition name="basic" template="/WEB-INF/view/admin/template/adminContentLayout.jsp">
@@ -19,6 +19,11 @@
 	<definition name="admin/member/*" extends="basic">
 		<put-attribute name ="sub" value ="/WEB-INF/views/admin/member/adminMemberList.jsp"/>
 		<put-attribute name ="main" value ="/WEB-INF/views/admin/member/{1}.jsp"/>
+	</definition>
+	
+	<definition name="admin/main/*" extends="basic">
+		<put-attribute name ="sub" value =""/>
+		<put-attribute name ="main" value ="/WEB-INF/views/admin/notice/{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>
