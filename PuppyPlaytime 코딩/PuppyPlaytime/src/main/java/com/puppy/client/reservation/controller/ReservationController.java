@@ -1,14 +1,15 @@
 package com.puppy.client.reservation.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.puppy.admin.room.vo.CageRoomVO;
@@ -18,9 +19,8 @@ import com.puppy.client.reservation.service.ReservationService;
 @RequestMapping(value="/client/reserve")
 public class ReservationController {
 	
-	//@Autowired
-	//private ReservationService reservationService;
-	
+	@Autowired
+	private ReservationService reservationService;
 	
 	@RequestMapping(value="/reserveCalendar")
 	public String reserveCalendar(Model model) {
@@ -29,6 +29,7 @@ public class ReservationController {
 		YearMonth yearMonth;
 		int monthEndFirst, monthStartFirst, monthEndSecond, monthStartSecond;
 		int year, month, yearNext, monthNext;
+		int today;
 		
 		localDate = LocalDate.now();
 		yearMonth = YearMonth.now();
@@ -36,6 +37,7 @@ public class ReservationController {
 		month = localDate.getMonth().getValue();
 		monthEndFirst = yearMonth.atEndOfMonth().getDayOfMonth();
 		monthStartFirst = yearMonth.atDay(1).getDayOfWeek().getValue();
+		today = localDate.getDayOfMonth();
 		
 		yearNext = year;
 		monthNext = month+1;
@@ -54,6 +56,8 @@ public class ReservationController {
 		model.addAttribute("month", month);
 		model.addAttribute("monthEndFirst", monthEndFirst);
 		model.addAttribute("monthStartFirst", monthStartFirst);
+		model.addAttribute("today", today);
+		
 		model.addAttribute("yearNext", yearNext);
 		model.addAttribute("monthNext", monthNext);
 		model.addAttribute("monthEndSecond", monthEndSecond);
@@ -63,9 +67,18 @@ public class ReservationController {
 	}
 	
 	@RequestMapping(value="/reserveRoom")
-	public String reserveRoom(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate, Model model){
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
+	public String reserveRoom(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate, Model model) throws Exception{
+		startDate += " 09:00:00";
+		endDate += " 17:00:00";
+		
+		Date startReservation = new SimpleDateFormat("d/m/yyyy HH:mm:ss").parse(startDate);
+		Date endReservation = new SimpleDateFormat("d/m/yyyy HH:mm:ss").parse(endDate);
+		
+		List<CageRoomVO> roomList = reservationService.listRoom();
+		
+		model.addAttribute("startDate", startReservation);
+		model.addAttribute("endDate", endReservation);
+		model.addAttribute("roomList", roomList);
 		
 		return "client/reserve/reserveRoom";
 	}

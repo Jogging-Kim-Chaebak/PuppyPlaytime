@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppy.client.reservation.dao.ReservationDAO">
+	
+	<!-- 케이지룸 조회 -->
+	<select id = "listRoom" resultType="cageroom">
+		SELECT 	c_no,
+   				c_kind,
+   				c_type,
+   				c_price,
+    			c_explain,
+    			c_picture,
+    			c_status,
+    			c_usestatus
+    	FROM cageroom_tbl
+    	WHERE c_usestatus = 'unusing'
+    	ORDER BY c_no desc
+	</select>
+	
+	<!-- 
+	<select id="noticeDetail" parameterType="int" resultType="notice">
+		SELECT 
+					n_no,
+   				    to_char(n_regdate,'YYYY-MM-DD HH24:MI:SS') as n_regdate,
+   				    n_content,
+   				    n_title,
+    				n_registrant
+    				FROM notice_tbl
+    				WHERE n_no = #{n_no}
+	
+	</select>
+
+	<insert id="noticeAdd" parameterType="notice">
+		<selectKey keyProperty="n_no" resultType="int" order="BEFORE">
+			select notice_tbl_seq.nextval from dual
+		</selectKey>
+			INSERT INTO notice_tbl(
+					n_no,
+   				    n_content,
+   				    n_title,
+    				n_registrant
+			)
+		VALUES(
+					#{n_no},
+   				    #{n_content},
+   				    #{n_title},
+    				#{n_registrant}
+			)
+	</insert>
+	
+	<delete id="noticeDelete" parameterType="notice">
+	
+		DELETE FROM notice_tbl
+		WHERE n_no = #{n_no}
+		
+	</delete>  -->
+
+</mapper>

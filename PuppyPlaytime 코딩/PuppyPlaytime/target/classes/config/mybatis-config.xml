@@ -4,5 +4,6 @@
 	<typeAliases>
 		<typeAlias type="com.puppy.client.member.vo.MemberVO" alias="member" />
 		<typeAlias type="com.puppy.client.notice.vo.NoticeVO" alias="notice" />
+		<typeAlias type="com.puppy.admin.room.vo.CageRoomVO" alias="cageroom" />
 	</typeAliases>
 </configuration>

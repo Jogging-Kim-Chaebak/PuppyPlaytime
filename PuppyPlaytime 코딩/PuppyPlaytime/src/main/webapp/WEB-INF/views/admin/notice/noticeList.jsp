@@ -13,6 +13,8 @@ h2{ text-align: center; }
 
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
+<!-- Bootstrap core CSS -->
+<link href="/resources/include/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
@@ -86,7 +88,8 @@ src="/resources/include/assets/js/common.js"></script>
 				<td class="goDetail tal">${notice.n_title}</td>
 				<td class="name">
 				${notice.n_registrant}</td>
-				<td>수정/삭제버튼</td>
+				<td><input type="button" value="수정버튼">
+				<button type="button" class="btn btn-secondary">삭제버튼</button></td>
 			</tr>
 			</c:forEach>
 		</c:when>

@@ -13,11 +13,11 @@ $(function() {
 			last -= 32;
 		}
 		
-		var start = $("#startDate").val() + first + "일";
+		var start = first + $("#startDate").val();
 		$("#startDate").val(start);
 
 		// 종료 날짜 보내기
-		var end = $("#endDate").val() + last + "일";
+		var end = last + $("#endDate").val();
 		$("#endDate").val(end);
 
 		$("#dateSend").attr({
@@ -34,8 +34,8 @@ function monthPrevious(year, month) {
 	$("#table2").css("display", "none");
 
 	// input 값 맞추기
-	$("#startDate").val(year + "년" + month + "월");
-	$("#endDate").val(year + "년" + month + "월");
+	$("#startDate").val("/" + month + "/" + year);
+	$("#endDate").val("/" + month + "/" + year);
 }
 
 // 다음 달 눌렀을 때
@@ -45,21 +45,22 @@ function monthNext(year, month){
 	
 	// input 값 맞추기
 	if(firstCheck == true){
-		$("#endDate").val(year + "년" + month + "월");
+		$("#endDate").val("/" + month + "/" + year);
 	}else{
-		$("#startDate").val(year + "년" + month + "월");
-		$("#endDate").val(year + "년" + month + "월");
+		$("#startDate").val("/" + month + "/" + year);
+		$("#endDate").val("/" + month + "/" + year);
 	}
 }
 
-function dateClick(i, inityear, initmonth) {
+function dateClick(i, year, month) {
 	if (reCheck == true) {
 		// td 색깔 초기화
 		$("td").css("background-color", "#F2F2F2");
 		reCheck = false;
 
-		$("#startDate").val(inityear + "년" + initmonth + "월");
-		$("#endDate").val(inityear + "년" + initmonth + "월");
+		// 다시 클릭시 초기화
+		$("#startDate").val("/" + month + "/" + year);
+		$("#endDate").val("/" + month + "/" + year);
 
 		first = i;
 		firstCheck = true;
