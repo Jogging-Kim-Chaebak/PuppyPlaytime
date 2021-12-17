@@ -16,7 +16,6 @@
 <link href="/resources/include/dist/css/sticky-footer-navbar.css" rel="stylesheet"> 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-
 </head>
 <body>
 	<div class="wrapper">
@@ -33,7 +32,6 @@
 			</div>
 			<tiles:insertAttribute name="body" />
 		</div>
-	
 		<footer class="footer">
 			<tiles:insertAttribute name="footer" />
 		</footer>

@@ -1,9 +1,6 @@
 @charset "UTF-8";
 
 /* 기본스타일  */
-table {
-	background-color: #F2F2F2;
-}
 
 #table2 {
 	 display : none;
@@ -11,6 +8,7 @@ table {
 
 table td, table th {
 	border: 1px solid black;
+	background-color: #F2F2F2;
 }
 
 tr {
@@ -19,6 +17,16 @@ tr {
 
 th {
 	text-align: center;
+}
+
+.lastDays {
+	font-weight: normal;
+	text-align: right;
+	font-size: 15pt;
+	color: black;
+	font-family: D2coding;
+	vertical-align: top;
+	opacity: 0.5;
 }
 
 td {
@@ -31,7 +39,7 @@ td {
 th#title {
 	font-size: 20pt;
 	font-weight: bold;
-	color: #FFBF00;
+	color: black;
 	font-family: D2coding;
 }
 
