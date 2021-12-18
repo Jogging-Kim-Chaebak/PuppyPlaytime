@@ -50,7 +50,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 				"method":"POST",
 				"action":"/admin/room/roomAdd.do"
 			});
-			$("#")
+
 			$("#roomForm").submit();
 		});
 		
