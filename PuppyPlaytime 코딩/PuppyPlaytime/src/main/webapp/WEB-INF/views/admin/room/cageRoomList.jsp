@@ -52,7 +52,7 @@
 	</form>
 	<div>
 		<table border = "1">
-			<caption><h3>룸 리스트</h3></caption>
+			<caption>룸 리스트</caption>
 			<colgroup>
 				<col width="100px" />
 				<col width="100px" />

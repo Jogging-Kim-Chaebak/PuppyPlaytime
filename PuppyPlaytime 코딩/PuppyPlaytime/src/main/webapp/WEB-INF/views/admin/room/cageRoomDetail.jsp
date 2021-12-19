@@ -82,7 +82,7 @@ $(function(){
 						<c:if test="${empty cageRoomVO.c_picture}">
 									<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
 							</c:if>
-									<td colspan="3"><img src="/resources/images/puppy1.jpg"/></td>
+									<td colspan="3"><img src="/image/roomImages/${cageRoomVO.c_picture}"/></td>
 						
 					</tr>
 					
