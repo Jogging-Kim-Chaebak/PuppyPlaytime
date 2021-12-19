@@ -48,7 +48,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 			
 			$("#roomForm").attr({
 				"method":"POST",
-				"action":"/admin/room/roomAdd.do"
+				"action":"/admin/room/roomList.do"
 			});
 
 			$("#roomForm").submit();
