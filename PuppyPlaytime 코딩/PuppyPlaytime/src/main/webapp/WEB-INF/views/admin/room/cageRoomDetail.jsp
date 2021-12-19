@@ -19,9 +19,9 @@ textarea { margin:0; padding:0;border:0;display:inline}
 <script type="text/javascript">
 	
 $(function(){
-	var file = "<c:out value='${AdminRoomVO.c_picture}'/>";
+	var file = "<c:out value='${cageRoomVO.c_picture}'/>";
 	$("#fileImage").attr({
-		src:"/roomPicture/${AdminRoomVO.c_picture}",width:"450px",height:"200px"
+		src:"/roomPicture/${cageRoomVO.c_picture}",width:"450px",height:"200px"
 	});
 	
 	/* if(file!=""){
@@ -55,34 +55,34 @@ $(function(){
 				<tbody>
 					<tr>
 						<th><span class ="required"></span>케이지 종류</th>
-						<td><input type="text" id="c_kind" name="c_kind" value="${AdminRoomVO.c_kind}" readonly="readonly"/></td>
+						<td><input type="text" id="c_kind" name="c_kind" value="${cageRoomVO.c_kind}" readonly="readonly"/></td>
 						<th><span class ="required"></span>케이지 유형</th>
-						<td><input type="text" id="c_type" name="c_type" value="${AdminRoomVO.c_type}" readonly="readonly"/></td>
+						<td><input type="text" id="c_type" name="c_type" value="${cageRoomVO.c_type}" readonly="readonly"/></td>
 					</tr>
 
 					<tr>
 						<th><span class ="required"></span>케이지 번호</th>
-						<td colspan ="3"><input type="text" id="c_no" name="c_no" value="${AdminRoomVO.c_no}" readonly="readonly"/></td>
+						<td colspan ="3"><input type="text" id="c_no" name="c_no" value="${cageRoomVO.c_no}" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required"></span>가격</th>
-						<td colspan ="3"><input type="text" id="c_price" name="c_price" value="${AdminRoomVO.c_price}" readonly="readonly"/></td>
+						<td colspan ="3"><input type="text" id="c_price" name="c_price" value="${cageRoomVO.c_price}" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required"></span>사용현황</th>
-						<td colspan ="3"><input type="text" id="c_usestatus" name="c_usestatus" value="${AdminRoomVO.c_usestatus}" readonly="readonly"/></td>
+						<td colspan ="3"><input type="text" id="c_usestatus" name="c_usestatus" value="${cageRoomVO.c_usestatus}" readonly="readonly"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required"></span>케이지 설명</th>
-						<td colspan ="3"><textarea cols="60" rows="10" id="c_explain" name="c_explain" readonly="readonly"><c:out value="${AdminRoomVO.c_explain}"/></textarea></td>
+						<td colspan ="3"><textarea cols="60" rows="10" id="c_explain" name="c_explain" readonly="readonly"><c:out value="${cageRoomVO.c_explain}"/></textarea></td>
 					</tr>
 					<tr>
 						<th><span class ="required"></span>케이지 사진</th>
 						
-						<c:if test="${empty AdminRoomVO.c_picture}">
+						<c:if test="${empty cageRoomVO.c_picture}">
 									<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
 							</c:if>
-									<td colspan="3"><img src="/resources/images/room1.jpg"/></td>
+									<td colspan="3"><img src="/resources/images/puppy1.jpg"/></td>
 						
 					</tr>
 					
