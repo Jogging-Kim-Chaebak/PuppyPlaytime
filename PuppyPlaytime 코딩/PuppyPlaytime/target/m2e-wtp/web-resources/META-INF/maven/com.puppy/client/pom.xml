@@ -46,6 +46,28 @@
 			<version>3.5.2</version>
 		</dependency>
 		
+		<!-- 파일 업로드 관련 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		
+		<!-- 이미지 업로드 -->
+		<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib-->		
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
+		<!-- 파일 업로드 다운로드 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
 		<!-- MyBatis Spring -->
 		<dependency>
 			<groupId>org.mybatis</groupId>

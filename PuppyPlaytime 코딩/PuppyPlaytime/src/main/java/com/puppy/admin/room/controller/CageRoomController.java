@@ -115,7 +115,7 @@ public class CageRoomController {
 		}
 		mav.addObject("file", cvo.getC_picture());
 		mav.addObject("result", resultStr);
-		mav.setViewName("/result");
+		mav.setViewName("/admin/room/cageRoomList");
 
 		return mav;
 	}

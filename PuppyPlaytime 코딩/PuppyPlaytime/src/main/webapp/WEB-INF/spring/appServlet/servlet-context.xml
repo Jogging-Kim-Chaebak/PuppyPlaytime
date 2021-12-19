@@ -17,6 +17,7 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/graph/**" location="/graph/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -42,6 +43,11 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<beans:property name="defaultEncoding" value="UTF-8"/>
+		<beans:property name="maxUploadSize" value="5242880"/>
 	</beans:bean>
 	
 	<context:component-scan base-package="com.puppy.**.**.**" />
