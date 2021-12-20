@@ -141,9 +141,8 @@
 	<form id="dateSend" name="dateSend">
 		<button type="button" class="btn btn-lg btn-success" id="reservation"
 			disabled>예약하러 가기</button>
-		<input type="hidden" id="startDate" name="startDate"
-			value="/${month}/${year}" /> <input type="hidden" id="endDate"
-			name="endDate" value="/${month}/${year}" />
+		<input type="hidden" id="startDate" name="startDate" value="${year}-${month}-" /> 
+		<input type="hidden" id="endDate" name="endDate" value="${year}-${month}-" />
 	</form>
 
 </body>
