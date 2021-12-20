@@ -24,83 +24,86 @@ import com.puppy.common.file.FileUploadUtil;
 @Controller
 @RequestMapping(value = "/admin/room")
 public class CageRoomController {
-	private static final String CONTEXT_PATH = "admin/room";
+   private static final String CONTEXT_PATH = "admin/room";
 
-	private static final Logger logger = LoggerFactory.getLogger(CageRoomController.class);
+   private static final Logger logger = LoggerFactory.getLogger(CageRoomController.class);
 
-	//private static final String UPLOAD_PATH = "\\resources\\images";
+   //private static final String UPLOAD_PATH = "\\resources\\images";
 
-	@Autowired
-	private CageRoomService cageRoomService;
+   @Autowired
+   private CageRoomService cageRoomService;
 
-	@RequestMapping("/roomList") // 케이지 리스트
-	public ModelAndView roomList(@ModelAttribute CageRoomVO param) {
+   @RequestMapping("/roomList") // 케이지 리스트
+   public ModelAndView roomList(@ModelAttribute CageRoomVO param) {
 
-		List<CageRoomVO> list = cageRoomService.roomList(param);
+      List<CageRoomVO> list = cageRoomService.roomList(param);
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("roomList", list);
-		mav.setViewName(CONTEXT_PATH + "/cageRoomList");
+      ModelAndView mav = new ModelAndView();
+      mav.addObject("roomList", list);
+      mav.setViewName(CONTEXT_PATH + "/cageRoomList");
 
-		return mav;
-	}
+      return mav;
+   }
 
-	@RequestMapping("/roomDetail") // 케이지 상세 정보
-	public ModelAndView roomDetail(@RequestParam("c_no") String no) {
+   @RequestMapping("/roomDetail") // 케이지 상세 정보
+   public ModelAndView roomDetail(@RequestParam("c_no") String no) {
 
-		ModelAndView mav = new ModelAndView();
-		CageRoomVO rvo = cageRoomService.roomDetail(Integer.parseInt(no));
-		mav.addObject("cageRoomVO", rvo);
-		logger.info(rvo.getC_picture());
-		mav.setViewName(CONTEXT_PATH + "/cageRoomDetail");
-		return mav;
-	}
+      ModelAndView mav = new ModelAndView();
+      CageRoomVO rvo = cageRoomService.roomDetail(Integer.parseInt(no));
+      mav.addObject("cageRoomVO", rvo);
+      logger.info(rvo.getC_picture());
+      mav.setViewName(CONTEXT_PATH + "/cageRoomDetail");
+      return mav;
+   }
 
-	@RequestMapping(value = "/roomAdd", method = RequestMethod.POST) // 케이지 등록
-	public ModelAndView roomAdd(CageRoomVO cvo, @RequestPart(value = "file") MultipartFile file,
-			HttpServletRequest request) throws IllegalStateException, IOException {
-		String resultStr = "";
+   @RequestMapping(value = "/roomAdd", method = RequestMethod.POST) // 케이지 등록
+   public String roomAdd(CageRoomVO cvo, @RequestPart(value = "file") MultipartFile file,
+         HttpServletRequest request) throws IllegalStateException, IOException {
+      String resultStr = "";
 
-		String c_file = FileUploadUtil.fileUpload(file, request);
-		cvo.setC_picture(c_file);
-		logger.info(cvo.getC_picture());
+      String c_file = FileUploadUtil.fileUpload(file, request, "roomImages");
+      cvo.setC_picture(c_file);
+      logger.info(cvo.getC_picture());
+      logger.info(cvo.getC_kind());
+      logger.info(cvo.getC_type());
+      logger.info(cvo.getC_explain());
+      
+      int result = cageRoomService.roomAdd(cvo);
 
-		int result = cageRoomService.roomAdd(cvo);
+      ModelAndView mav = new ModelAndView();
 
-		ModelAndView mav = new ModelAndView();
+      if (result > 0) {
+         resultStr = "케이지 등록이 완료되었습니다.";
+      } else {
+         resultStr = "케이지 등록이 문제가 있어 완료하지 못하였습니다.";
+      }
+      mav.addObject("file", cvo.getC_picture());
+      mav.addObject("result", resultStr);
+      mav.setViewName(CONTEXT_PATH + "/cageRoomList");
+      
+      return "redirect:/admin/room/roomList";
+   }
 
-		if (result > 0) {
-			resultStr = "케이지 등록이 완료되었습니다.";
-		} else {
-			resultStr = "케이지 등록이 문제가 있어 완료하지 못하였습니다.";
-		}
-		mav.addObject("file", cvo.getC_picture());
-		mav.addObject("result", resultStr);
-		mav.setViewName("/admin/room/cageRoomList");
-		
-		return mav;
-	}
+   @RequestMapping("/roomDisabled") // 케이지 비활성화
+   public String roomDisabled(@ModelAttribute CageRoomVO param) {
+      String resultStr = "";
+      int result = cageRoomService.roomDisabled(param);
 
-	@RequestMapping("/roomDisabled") // 케이지 비활성화
-	public ModelAndView roomDisabled(@ModelAttribute CageRoomVO param) {
-		String resultStr = "";
-		int result = cageRoomService.roomDisabled(param);
+      if (result > 0) {
+         resultStr = "케이지 비활성화가 완료되었습니다.";
+      } else {
+         resultStr = "케이지 비활성화가 문제가 있어 완료하지 못하였습니다.";
+      }
 
-		if (result > 0) {
-			resultStr = "케이지 비활성화가 완료되었습니다.";
-		} else {
-			resultStr = "케이지 비활성화가 문제가 있어 완료하지 못하였습니다.";
-		}
+      ModelAndView mav = new ModelAndView();
+      mav.addObject("result", resultStr);
+      mav.setViewName(CONTEXT_PATH + "/cageRoomList");
 
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("result", resultStr);
-		mav.setViewName("/result");
+      return "redirect:/admin/room/roomList";
+   }
 
-		return mav;
-	}
-
-	@RequestMapping(value = "/writeForm")
-	public String writeForm() {
-		return "admin/room/cageRoomAdd";
-	}
+   @RequestMapping(value = "/writeForm")
+   public String writeForm() {
+      return "admin/room/cageRoomAdd";
+   }
 }

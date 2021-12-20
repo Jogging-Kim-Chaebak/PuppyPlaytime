@@ -17,6 +17,10 @@
 	
 	<!--  <div class="container mt-3">-->
   	<h2>예약 가능 룸 리스트</h2>
+  	<form id="dateForm"> 
+  		<input type="hidden" value="${startDate }"/>
+  		<input type="hidden" value="${endDate }"/>
+  	</form>
   	<div class="row">
 	<c:forEach items="${roomList }" var="room">
 		<div class="col-sm">
@@ -26,6 +30,7 @@
 			     	<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
 			      	<p class="card-text">${room.c_explain }</p>
 			     	<p class="card-text">가격 : ${room.c_price }</p>
+			     	<img src="/image/roomImages/${room.c_picture}"/>
 			     	<a href="#" class="btn btn-primary">예약하기</a>
 			    </div>
 		  	</div>

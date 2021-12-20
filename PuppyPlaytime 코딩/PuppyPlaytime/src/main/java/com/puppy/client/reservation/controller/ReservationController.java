@@ -71,8 +71,11 @@ public class ReservationController {
 		startDate += " 09:00:00";
 		endDate += " 17:00:00";
 		
-		Date startReservation = new SimpleDateFormat("d/m/yyyy HH:mm:ss").parse(startDate);
-		Date endReservation = new SimpleDateFormat("d/m/yyyy HH:mm:ss").parse(endDate);
+		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
+		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+		
+		System.out.println(startReservation);
+		System.out.println(endReservation);
 		
 		List<CageRoomVO> roomList = reservationService.listRoom();
 		
@@ -81,5 +84,11 @@ public class ReservationController {
 		model.addAttribute("roomList", roomList);
 		
 		return "client/reserve/reserveRoom";
+	}
+	
+	@RequestMapping(value="/reserveDetail")
+	public String reserveDetail() {
+		
+		return "client/reserve/reserveDetail";
 	}
 }

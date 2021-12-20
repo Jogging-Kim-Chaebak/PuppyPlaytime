@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class FileUploadUtil {
 	private static Logger log = LoggerFactory.getLogger(FileUploadUtil.class);
-	private static final String UPLOAD_PATH = "C:\\PuppyPlaytimeRepository\\roomImages";
+	private static final String UPLOAD_PATH = "C:\\PuppyPlaytimeRepository\\";
 	
 	private static void makeDir(String docRoot) {
 		File fileDir = new File(docRoot);
@@ -21,7 +21,7 @@ public class FileUploadUtil {
 		fileDir.mkdirs();
 	}
 	
-	public static String fileUpload(MultipartFile file, HttpServletRequest request) throws IOException{
+	public static String fileUpload(MultipartFile file, HttpServletRequest request, String path) throws IOException{
 //		String fileName = file.getOriginalFilename(); 
 //		File target = new File(UPLOAD_PATH, fileName);
 //		  
@@ -72,7 +72,7 @@ public class FileUploadUtil {
 			makeDir(docRoot);
 			
 			/* File fileAdd = new File(docRoot+img_path+real_name); */
-			File fileAdd = new File(UPLOAD_PATH,real_name);
+			File fileAdd = new File(UPLOAD_PATH+path,real_name);
 			log.info("업로드할 파일(fileAdd):"+fileAdd);
 			
 			file.transferTo(fileAdd);	
