@@ -73,10 +73,7 @@ public class ReservationController {
 		
 		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
 		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
-		
-		System.out.println(startReservation);
-		System.out.println(endReservation);
-		
+
 		List<CageRoomVO> roomList = reservationService.listRoom();
 		
 		model.addAttribute("startDate", startReservation);
