@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="/resources/js/reserve/reserveRoom.js"></script>
 </head>
 <body>
 	<ol class="breadcrumb">
@@ -18,8 +19,9 @@
 	<!--  <div class="container mt-3">-->
   	<h2>예약 가능 룸 리스트</h2>
   	<form id="dateForm"> 
-  		<input type="hidden" value="${startDate }"/>
-  		<input type="hidden" value="${endDate }"/>
+  		<input type="hidden" name="startDate" value="${startDate }"/>
+  		<input type="hidden" name="endDate" value="${endDate }"/>
+  		<input type="hidden" id="c_no" name="c_no">
   	</form>
   	<div class="row">
 	<c:forEach items="${roomList }" var="room">
@@ -30,8 +32,8 @@
 			     	<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
 			      	<p class="card-text">${room.c_explain }</p>
 			     	<p class="card-text">가격 : ${room.c_price }</p>
-			     	<img src="/image/roomImages/${room.c_picture}"/>
-			     	<a href="#" class="btn btn-primary">예약하기</a>
+			     	<img src="/image/roomImages/${room.c_picture}" class="mx-auto d-block"/>
+			     	<a onclick="lik(${room.c_no})" class="btn btn-primary">예약하기</a>
 			    </div>
 		  	</div>
 		  	<br>

@@ -12,7 +12,7 @@
 		<result property="c_usestatus" column="c_usestatus"></result>
 	</resultMap>
 	
-	<resultMap type="com.puppy.client.common.vo.ExtraServiceVO" id="extraServiceVO">
+	<resultMap type="com.puppy.common.vo.ExtraServiceVO" id="extraServiceVO">
 		<result property="c_no" column="c_no"></result>
 		<result property="s_no" column="s_no"></result>
 		<result property="s_name" column="s_name"></result>
