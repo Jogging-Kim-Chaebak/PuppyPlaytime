@@ -5,8 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/reserve/reserveCalendar.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/reserve/reserveCalendar.css">
 <script src="/resources/js/reserve/reserveCalendar.js"></script>
 <title>예약하기</title>
 </head>

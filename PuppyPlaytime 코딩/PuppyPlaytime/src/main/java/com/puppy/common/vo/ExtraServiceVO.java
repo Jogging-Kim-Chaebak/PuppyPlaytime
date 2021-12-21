@@ -1,4 +1,4 @@
-package com.puppy.client.common.vo;
+package com.puppy.common.vo;
 
 public class ExtraServiceVO {
 	private int s_no; // 서비스번호

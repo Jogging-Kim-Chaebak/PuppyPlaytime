@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.client.reservation.service.ReservationService;
+import com.puppy.client.reservation.vo.ReservationVO;
 
 @Controller
 @RequestMapping(value="/client/reserve")
@@ -73,18 +74,27 @@ public class ReservationController {
 		
 		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
 		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
-
+		
 		List<CageRoomVO> roomList = reservationService.listRoom();
 		
-		model.addAttribute("startDate", startReservation);
-		model.addAttribute("endDate", endReservation);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		model.addAttribute("roomList", roomList);
 		
 		return "client/reserve/reserveRoom";
 	}
 	
 	@RequestMapping(value="/reserveDetail")
-	public String reserveDetail() {
+	public String reserveDetail(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate, 
+			ReservationVO rvo, Model model) throws Exception {
+		
+		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
+		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+		
+		rvo.setR_startDate(startReservation);
+		rvo.setR_endDate(endReservation);
+		
+		model.addAttribute("reservationVO", rvo);
 		
 		return "client/reserve/reserveDetail";
 	}
