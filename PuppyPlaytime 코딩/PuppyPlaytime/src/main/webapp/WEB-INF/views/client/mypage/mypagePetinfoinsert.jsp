@@ -24,7 +24,7 @@
 			
  	/* 취소 버튼 클릭 시 처리 이벤트 */
 	$("#petListBtn").click(function(){
-		location.href="/mypage/petList";
+		location.href="/client/mypage/petList";
 	
 	}); 
 });

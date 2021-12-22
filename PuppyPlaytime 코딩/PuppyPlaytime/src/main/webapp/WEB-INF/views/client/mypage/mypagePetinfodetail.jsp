@@ -16,13 +16,13 @@
 		/* 목록 버튼 클릭 시 처리 이벤트 */
 		$("#petListBtn").click(function(){
 			alert("목록");
-			location.href="/mypage/petList.do";
+			location.href="/client/mypage/petList";
 		});
 		
 		/* 수정 버튼 클릭 시 처리 이벤트 */
 		$("#updateFormBtn").click(function(){
 			alert("수정");
-			goUrl="/mypage/updateForm.do";
+			goUrl="/client/mypage/updateForm";
 			$("#f_data").attr("action",goUrl);
 			$("#f_data").submit();
 			
@@ -31,7 +31,7 @@
 		/* 삭제 버튼 클릭 시 처리 이벤트 */
 		$("#petDeleteBtn").click(function(){
 			alert("삭제");
-			goUrl="/mypage/petDelete.do";
+			goUrl="/client/mypage/petDelete";
 			$("#f_data").attr("action",goUrl);
 			$("#f_data").submit();
 		});

@@ -7,7 +7,7 @@ create table Pet_tbl(
 	p_weight varchar2(15) not null,
 	p_picture varchar2(50),
 	m_id varchar2(20) not null,
-	constraint Pet_tbl_pk primary key(p_num),
+	constraint Pet_tbl_pk primary key(p_no),
 	constraint Pet_tbl_fk foreign key(m_id) references Member_tbl(m_id)
 );
 
