@@ -111,46 +111,7 @@
 		</div>
 		
 		<div class="col p-3" id="reservationContent">
-			<h3>예약내용</h3>
-			<div class="form-group row">
-				<label class="col-sm-3 col-form-label" for="inputDefault">룸 종류</label> 
-				<div class="col-sm-7">
-					<input type="text" class="form-control-plaintext" value="이름을 입력해주세요." id="inputDefault" readonly>
-				</div>
-			</div>
-			
-			<br>
-			
-			<div class="form-group row">
-				<label class="col-sm-3 col-form-label" for="inputDefault">룸 유형</label> 
-				<div class="col-sm-7">
-					<input type="text" class="form-control-plaintext" value="이름을 입력해주세요." id="inputDefault" readonly>
-				</div>
-			</div>
-			
-			<br>
-			
-			<div class="form-group row">
-      			<label class="col-sm-2 col-form-label" for="inputDefault">부가서비스</label> 
-				<div class="col-sm-10">
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" name="extraService" id="optionsRadios2" value="option1" checked>
-					목욕서비스
-					</label>
-					&nbsp;&nbsp;	
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" name="extraService" id="optionsRadios2" value="option2"> 
-					매너벨트
-					</label>
-					&nbsp;&nbsp;
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" name="extraService" id="optionsRadios2" value="option2"> 
-					간식, 사료 추가
-					</label>
-				</div>
-  		  	</div>
-  		  	
-  		  	<br>
+
 		</div>
 	</div>
 	

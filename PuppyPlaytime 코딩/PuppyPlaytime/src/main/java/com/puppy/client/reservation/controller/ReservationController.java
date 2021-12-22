@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.client.reservation.service.ReservationService;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.vo.PetVO;
 
 @Controller
 @RequestMapping(value="/client/reserve")
@@ -95,6 +97,16 @@ public class ReservationController {
 		rvo.setR_endDate(endReservation);
 		
 		model.addAttribute("reservationVO", rvo);
+		
+		return "client/reserve/reserveDetail";
+	}
+	
+	// 상세 예약 창에서 펫 등록
+	@RequestMapping(value="/petRegister", method=RequestMethod.POST)
+	public String petRegister(PetVO petVO, Model model) throws Exception{
+		reservationService.petRegister(petVO);
+		
+		model.addAttribute(petVO);
 		
 		return "client/reserve/reserveDetail";
 	}

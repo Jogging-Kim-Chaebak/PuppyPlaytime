@@ -33,7 +33,7 @@
 			      	<p class="card-text">${room.c_explain }</p>
 			     	<p class="card-text">가격 : ${room.c_price }</p>
 			     	<img src="/image/roomImages/${room.c_picture}" class="mx-auto d-block"/>
-			     	<a onclick="lik(${room.c_no})" class="btn btn-primary">예약하기</a>
+			     	<a onclick="reserveRoomDetail(${room.c_no})" class="btn btn-primary">예약하기</a>
 			    </div>
 		  	</div>
 		  	<br>
