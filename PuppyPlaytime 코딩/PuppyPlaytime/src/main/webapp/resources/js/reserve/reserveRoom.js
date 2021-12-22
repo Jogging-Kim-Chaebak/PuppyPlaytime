@@ -1,4 +1,4 @@
-function lik(c_no){
+function reserveRoomDetail(c_no){
 	$("#c_no").val(c_no);
 	
 	$("#dateForm").attr({
