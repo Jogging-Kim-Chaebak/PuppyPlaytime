@@ -15,3 +15,10 @@ CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
 create sequence member_tbl_seq
 start with 1
 increment by 1;
+
+insert into member_tbl
+values('ghld12345', '1234', '김주영', '1997-01-01', 
+'asdf@naver.com', '010xxxxxxxx', '사랑시 후해동', 
+'Y', 'Y','Y');
+
+commit;
