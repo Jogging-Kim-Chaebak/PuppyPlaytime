@@ -1,9 +1,9 @@
-function reserveRoomDetail(c_no){
+function reservationDetail(c_no){
 	$("#c_no").val(c_no);
-	
-	$("#dateForm").attr({
-		"action" : "/client/reserve/reserveDetail",
-		"method" : "get"
+
+	$("#dateCageForm").attr({
+		"action" : "/client/reserve/reserveDetailForm",
+		"method" : "post"
 	});
-	$("#dateForm").submit();
+	$("#dateCageForm").submit();
 }
