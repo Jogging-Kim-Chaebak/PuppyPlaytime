@@ -77,9 +77,9 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 						<th><span class ="required">*</span>케이지 종류</th>
 						<td>
 							<select name="c_kind">
-								<option id="c_kind" value="소형">소형</option>
-								<option id="c_kind" value="중형">중형</option>
-								<option id="c_kind" value="대형">대형</option>
+								<option id="c_kind" value="small">소형</option>
+								<option id="c_kind" value="middle">중형</option>
+								<option id="c_kind" value="big">대형</option>
 							</select>
 						</td>
 						<th><span class ="required">*</span>케이지 유형</th>

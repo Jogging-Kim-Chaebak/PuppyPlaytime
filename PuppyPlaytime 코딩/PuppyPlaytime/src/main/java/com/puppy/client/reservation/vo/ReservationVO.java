@@ -9,9 +9,37 @@ public class ReservationVO {
 	private Date r_requestDate; // 신청날짜
 	private Date r_startDate; 	// 실제 예약 시작날짜
 	private Date r_endDate;		// 실제 예약 종료날짜
+	private int extraservice1;	// 부가서비스1
+	private int extraservice2;	// 부가서비스2
+	private int extraservice3;	// 부가서비스3
+	private int extraservice4;	// 부가서비스4
 	private String m_id;		// 아이디
 	private int c_no;			// 케이지 번호
 	
+	public int getExtraservice1() {
+		return extraservice1;
+	}
+	public void setExtraservice1(int extraservice1) {
+		this.extraservice1 = extraservice1;
+	}
+	public int getExtraservice2() {
+		return extraservice2;
+	}
+	public void setExtraservice2(int extraservice2) {
+		this.extraservice2 = extraservice2;
+	}
+	public int getExtraservice3() {
+		return extraservice3;
+	}
+	public void setExtraservice3(int extraservice3) {
+		this.extraservice3 = extraservice3;
+	}
+	public int getExtraservice4() {
+		return extraservice4;
+	}
+	public void setExtraservice4(int extraservice4) {
+		this.extraservice4 = extraservice4;
+	}
 	public int getR_no() {
 		return r_no;
 	}

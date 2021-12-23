@@ -32,8 +32,8 @@ $(function() {
 		$("#endDate").val(end);
 
 		$("#dateSend").attr({
-			"method": "GET",
-			"action": "/client/reserve/reserveRoom"
+			"method": "POST",
+			"action": "/client/reserve/reservePetRegisterForm"
 		});
 		$("#dateSend").submit();
 	});
