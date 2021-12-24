@@ -142,6 +142,7 @@
 			disabled>예약하러 가기</button>
 		<input type="hidden" id="startDate" name="startDate" value="${year}-${month}-" /> 
 		<input type="hidden" id="endDate" name="endDate" value="${year}-${month}-" />
+		<input type="hidden" value="ghld12345" name="m_id" id="m_id"/>
 	</form>
 
 </body>

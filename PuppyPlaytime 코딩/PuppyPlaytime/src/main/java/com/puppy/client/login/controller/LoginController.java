@@ -97,12 +97,15 @@ public class LoginController {
 	 */
 	
 	@RequestMapping(value="adminCheck")
-	public String adminCheck(MemberVO mvo) {
+	public String adminCheck(HttpServletRequest request, MemberVO mvo) {
+		// 세션 설정
+		HttpSession session = request.getSession();
 		
 		if(mvo.getM_id().equals("admin")) {
 			return "adminIntro";
 			//return "redirect:/admin/main/mainPage";
 		}else {
+			session.setAttribute("user_id", mvo.getM_id());
 			return "intro";
 		}
 	}
