@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.puppy.client.member.vo.MemberVO;
+import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.vo.PetVO;
 
 @Repository
@@ -45,6 +47,24 @@ private static final String namespace="com.puppy.client.mypage.dao.MypageDAO";
 		return (PetVO)session.selectOne("petDetail",pvo);
 		
 		
+	}
+
+	//예약리스트 구현
+	@Override
+	public List<ReservationVO> reservationList() {
+		return session.selectList("reservationList");
+	}
+
+	//내정보 구현
+	@Override
+	public MemberVO myDetail(MemberVO mvo) {
+			return (MemberVO)session.selectOne("myDetail",mvo);
+	}
+
+	//내정보 수정 구현
+	@Override
+	public int myUpdate(MemberVO mvo) {
+		return session.update("myUpdate",mvo);
 	}
 
 	

@@ -17,14 +17,16 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.service.MypageService;
+import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.file.FileUploadUtil;
 import com.puppy.common.vo.PetVO;
 
 @Controller
 @RequestMapping(value = "/client/mypage")
 public class MypageController {
-	 private static final String CONTEXT_PATH = "client/mypage";
+	 
 	private Logger log = LoggerFactory.getLogger(MypageController.class);
 	
 	
@@ -54,6 +56,7 @@ public class MypageController {
 	@RequestMapping(value = "/petInsert", method = RequestMethod.POST)
 	public ModelAndView petInsert(PetVO pvo, @RequestPart(value = "file") MultipartFile file,
 			HttpServletRequest request) throws IllegalStateException, IOException {
+		log.info("petInsert 호출 성공");
 		String resultStr = "";
 
 		String c_file = FileUploadUtil.fileUpload(file, request, "petImages");
@@ -71,7 +74,7 @@ public class MypageController {
 		}
 		mav.addObject("file", pvo.getP_picture());
 		mav.addObject("result", resultStr);
-		mav.setViewName("redirect:/mypage/petList");
+		mav.setViewName("redirect:/client/mypage/petList");
 		
 		return mav;
 	}
@@ -112,7 +115,7 @@ public class MypageController {
 		
 		mypageService.petUpdate(pvo);
 		
-		return "redirect:/mypage/petList";
+		return "redirect:/client/mypage/petList";
 	}
 	
 	
@@ -128,10 +131,66 @@ public class MypageController {
         result=mypageService.petDelete(pvo.getP_no());
         
         if(result==1) {
-        	url="/mypage/petList";
+        	url="/client/mypage/petList";
         }else {
-        	url="/mypage/petDetale?p_no="+pvo.getP_no();
+        	url="/client/mypage/petDetale?p_no="+pvo.getP_no();
         }
         return "redirect:"+url;
     }
+    
+  //예약리스트 구현하기
+  	@RequestMapping(value="/reservationList", method=RequestMethod.GET)
+  	public String reservationList(Model model) {
+  		log.info("reservationList 호출 성공");
+  		
+  		List<ReservationVO> reservationList = mypageService.reservationList();
+  		model.addAttribute("reservationList", reservationList);
+  		model.addAttribute("data");
+  		
+  		return "client/mypage/mypageMyinfo";
+  	}
+  	
+  	//내정보 구현하기
+  	@RequestMapping(value="myDetail", method = RequestMethod.GET)
+  	public String myDetail(@ModelAttribute MemberVO mvo, Model model ){
+  		log.info("myDetail 호출 성공");
+  		String id="ghld12345";
+  		mvo.setM_id(id);
+  		log.info("m_id = " + mvo.getM_id());
+  		
+  		MemberVO detail = new MemberVO();
+  		
+  		detail = mypageService.myDetail(mvo);
+  			
+  		model.addAttribute("detail", detail);
+  		return "client/mypage/mypageMyinfo";
+  			 
+  	}
+  	
+  //내정보 수정 폼 출력하기
+  	@RequestMapping(value="/myUpdateForm")		
+  	public String myUpdateForm(@ModelAttribute MemberVO mvo, Model model) {
+  		log.info("myUpdateForm 호출 성공");
+  		String id="ghld12345";
+  		mvo.setM_id(id);
+  		log.info("m_id = " + mvo.getM_id());
+  		
+  		MemberVO updateData=new MemberVO();
+  		updateData=mypageService.myDetail(mvo);
+  			
+  		model.addAttribute("updateData", updateData);
+  		return "client/mypage/mypageMyinfoupdate";
+  	}
+  	
+  	//내정보 수정 구현하기
+  	@RequestMapping(value="/myUpdate", method=RequestMethod.POST)
+  	public String myUpdate(@ModelAttribute MemberVO mvo) {
+  		log.info("myUpdate 호출 성공");
+  		
+  		
+  		mypageService.myUpdate(mvo);
+  		
+  		return "redirect:/client/mypage/myDetail";
+  	}
+  	
 }

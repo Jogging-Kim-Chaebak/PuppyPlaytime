@@ -28,17 +28,9 @@
 				"action":"/client/mypage/petDetail"
 			});
 			$("#detailForm").submit();
-			})
+			});
 			
-			// 첨부파일 이미지 보여주기 위한 속성 추가
-			var file="<c:out value='${pet.p_picture}'/>";
-			if(file!=""){
-				$("#fileImage").attr({
-					src:"/petImages/${pet.p_picture}",
-				width:"450px",
-				height:"200px"
-				});
-			}
+			
 			
 		});	
 			
@@ -95,7 +87,7 @@
 						<c:if test="${empty pet.p_picture}">
 									<td>등록된 사진 정보가 존재하지 않습니다.</td>
 							</c:if>
-									<td><img id="fileImage"/></td>
+									<td><img src="/image/petImages/${pet.p_picture}"/></td>
 									
 						<td>${pet.p_name}</td>
 						<td>${pet.p_dogbreed}</td>
