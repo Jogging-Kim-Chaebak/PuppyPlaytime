@@ -1,6 +1,7 @@
 package com.puppy.client.mypage.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -171,8 +172,7 @@ public class MypageController {
   	@RequestMapping(value="/myUpdateForm")		
   	public String myUpdateForm(@ModelAttribute MemberVO mvo, Model model) {
   		log.info("myUpdateForm 호출 성공");
-  		String id="ghld12345";
-  		mvo.setM_id(id);
+  		
   		log.info("m_id = " + mvo.getM_id());
   		
   		MemberVO updateData=new MemberVO();
