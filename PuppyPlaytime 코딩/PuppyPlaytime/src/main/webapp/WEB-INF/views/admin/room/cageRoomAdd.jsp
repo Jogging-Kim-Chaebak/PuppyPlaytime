@@ -22,6 +22,22 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 				$("#c_no").val(0);
 			}
 			
+			if($("#s_no").val()==""){
+				$("#s_no").val(0);
+			}	
+			if($("#s_name").val()==""){
+				$("#s_name").val(0);
+			}	
+			if($("#s_price").val()==""){
+				$("#s_price").val(0);
+			}	
+			if($("#s_status").val()==""){
+				$("#s_status").val(0);
+			}	
+			if($("#s_explain").val()==""){
+				$("#s_explain").val(0);
+			}	
+			
 			if($("#c_status").val()==""){
 				$("#c_status").val("use");
 			}
@@ -46,11 +62,11 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 				return false;
 			}
 			
+			
 			$("#roomForm").attr({
 				"method":"POST",
 				"action":"/admin/room/roomAdd"
 			});
-			
 			$("#roomForm").submit();
 		});
 		
@@ -93,28 +109,43 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 
 					<tr>
 						<th><span class ="required">*</span>케이지 번호</th>
-						<td><input type="text" id="c_no" name="c_no" disabled="disabled"/></td>
+						<td colspan ="3"><input type="text" id="c_no" name="c_no" disabled="disabled"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>가격</th>
-						<td><input type="text" id="c_price" name="c_price"/></td>
+						<td colspan ="3"><input type="text" id="c_price" name="c_price"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>사용현황</th>
-						<td><input type="text" id="c_usestatus" name="c_usestatus" value ="unusing" readonly/></td>
+						<td colspan ="3"><input type="text" id="c_usestatus" name="c_usestatus" value ="unusing" readonly/></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>케이지 설명</th>
-						<td><textarea id="c_explain" name="c_explain"></textarea></td>
+						<td colspan ="3"><textarea cols="60" rows="10" id="c_explain" name="c_explain"></textarea></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>케이지 사진</th>
-						<td><input type="file" id="file" name="file"/></td>
+						<td colspan ="3"><input type="file" id="file" name="file"/></td>
+					</tr>
+					<tr>
+						<th><span class ="required">*</span>부가서비스</th>
+						<c:if test="${empty extraServiceList}">
+						
+						<td colspan="3" align="center">등록된 서비스 정보가 존재하지 않습니다.</td>
+							
+						</c:if>
+								<td colspan="3" align ="center"><c:forEach items="${extraServiceList}" var="service"><input id="sno"  name="sno" type ="checkbox" value ="${service.s_no}"/>${service.s_no}.${service.s_name}&nbsp;&nbsp;</c:forEach></td>
 					</tr>
 				</tbody>
 			</table>
 			<input type="hidden" id="c_status" name="c_status" />
 			<input type="hidden" id="c_picture" name="c_picture" value="${file}" />
+			
+			<input type="hidden" id="s_no" name="s_no"/>
+			<input type="hidden" id="s_name" name="s_name" />
+			<input type="hidden" id="s_explain" name="s_explain" />
+			<input type="hidden" id="s_status" name="s_status" />
+			<input type="hidden" id="s_price" name="s_price" />
 		</form>
 	</div>
 	<div>

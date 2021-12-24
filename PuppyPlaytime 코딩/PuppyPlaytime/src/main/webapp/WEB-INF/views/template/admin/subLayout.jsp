@@ -14,7 +14,6 @@
 
 <!-- Custom styles for this template -->
 <link href="/resources/include/dist/css/sticky-footer-navbar.css" rel="stylesheet"> 
-<link href="/resources/css/main.css" rel="stylesheet">
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -41,6 +40,9 @@
 			<tiles:insertAttribute name="body" />
 		</div>
 		
+		<footer class="footer">
+			<tiles:insertAttribute name="footer" />
+		</footer>
 		
 	</div>
 	<script src="/resources/include/dist/js/bootstrap.min.js"></script>

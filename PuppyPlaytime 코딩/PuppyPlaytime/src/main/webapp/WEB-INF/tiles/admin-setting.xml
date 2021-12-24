@@ -3,27 +3,48 @@
 "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-	<definition name="basic" template="/WEB-INF/view/admin/template/adminContentLayout.jsp">
-		<put-attribute name ="title" value ="관리자 페이지"/>
-		<put-attribute name ="adminHeader" value ="/WEB-INF/views/admin/template/adminHeader.jsp" />
-		<put-attribute name ="sub" value ="/WEB-INF/views/admin/template/sub.jsp" />
-		<put-attribute name ="adminAside" value ="/WEB-INF/views/admin/template/adminAside.jsp" />
-		<put-attribute name ="main" value =""/>
+
+	<definition name="adminIntro" template="/WEB-INF/views/template/admin/mainLayout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/admin/main/mainPage.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/admin/footer.jsp" />
 	</definition>
 	
-	<definition name="admin/main/*" extends="basic">
-		<put-attribute name ="sub" value =""/>
-		<put-attribute name ="main" value ="/WEB-INF/views/admin/main/{1}.jsp"/>
+
+	<definition name="adminContent1" template="/WEB-INF/views/template/admin/subLayout.jsp">
+		<put-attribute name="title" value="관리자 사이트" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/template/admin/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/admin/footer.jsp" />
+	</definition>
+	
+	<definition name="adminContent2" template="/WEB-INF/views/template/admin/subLayout2.jsp">
+		<put-attribute name="title" value="관리자 사이트" />
+		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/admin/footer.jsp" />
 	</definition>
 
-	<definition name="admin/member/*" extends="basic">
-		<put-attribute name ="sub" value ="/WEB-INF/views/admin/member/adminMemberList.jsp"/>
-		<put-attribute name ="main" value ="/WEB-INF/views/admin/member/{1}.jsp"/>
+	<definition name="admin/room/*" extends="adminContent2">
+		<put-attribute name ="title" value ="룸 관리"/>
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/room/{1}.jsp"/>
 	</definition>
 	
-	<definition name="admin/main/*" extends="basic">
-		<put-attribute name ="sub" value =""/>
-		<put-attribute name ="main" value ="/WEB-INF/views/admin/notice/{1}.jsp"/>
+	<definition name="admin/extraService/*" extends="adminContent2">
+		<put-attribute name ="title" value ="부가서비스 관리"/>
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/extraService/{1}.jsp"/>
+	</definition>
+
+	<definition name="admin/member/*" extends="adminContent2">
+		<put-attribute name ="title" value ="회원 관리"/>
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/member/{1}.jsp"/>
+	</definition>
+	
+	<definition name="admin/notice/*" extends="adminContent2">
+		<put-attribute name ="title" value ="공지사항 관리"/>
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/notice/{1}.jsp"/>
 	</definition>
 	
 </tiles-definitions>

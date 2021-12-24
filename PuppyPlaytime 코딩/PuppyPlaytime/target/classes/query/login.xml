@@ -2,15 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.puppy.client.login.dao.LoginDao">
+<mapper namespace="query.login">
 
+	<!-- 회원정보를 저장할 resultMap정의 -->
+	<resultMap type="com.puppy.client.member.vo.MemberVO"
+		id="MemberVO">
+		<result property="m_id" column="m_id" />
+		<result property="m_pw" column="m_pw" />
+		<result property="m_name" column="m_name" />
+		<result property="m_birth" column="m_birth" />
+		<result property="m_email" column="m_email" />
+		<result property="m_phone" column="m_phone" />
+		<result property="m_address" column="m_address" />
+		<result property="m_optional" column="m_optional" />
+		<result property="m_required1" column="m_required1" />
+		<result property="m_required2" column="m_required2" />
+	</resultMap>
+
+	<!-- 사용자아이디로 회원정보 조회 -->
 	<select id="m_idSelect" parameterType="String"
-		resultType="member">
-		SELECT
-		m_id,
-		m_pw
+		resultMap="MemberVO">
+
+		SELECT m_id, m_pw
 		FROM member_tbl
 		WHERE m_id = #{m_id}
+
 	</select>
+
+	<!-- 로그인 처리 -->
+	<select id="loginSelect" parameterType="String"
+		resultMap="MemberVO">
+		<!-- 로그인 처리 -->
+		SELECT m_id, m_pw
+		FROM member_tbl
+		WHERE m_id = #{m_id} AND m_pw =
+		#{m_pw}
+	</select>
+	
+	
+
+
+
+
 
 </mapper>

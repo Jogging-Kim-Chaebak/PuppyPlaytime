@@ -10,11 +10,7 @@
 <script type="text/javascript">
 
 	function writeForm(){
-		$("#detailForm").attr({
-			"method":"GET",
-			"action":"/admin/room/writeForm.do"
-		});
-		$("#detailForm").submit();
+		 window.location.href ="/admin/room/writeForm"
 	}
 	
 	function detailRoom(c_no){
@@ -23,7 +19,7 @@
 		$("#c_no").val(c_no);
 		$("#detailForm").attr({
 			"method":"GET",
-			"action":"/admin/room/roomDetail.do"
+			"action":"/admin/room/roomDetail"
 		});
 		$("#detailForm").submit();
 	}

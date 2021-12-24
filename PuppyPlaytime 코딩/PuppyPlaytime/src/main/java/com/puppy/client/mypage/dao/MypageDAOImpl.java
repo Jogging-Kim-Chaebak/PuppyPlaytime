@@ -12,7 +12,7 @@ import com.puppy.common.vo.PetVO;
 
 @Repository
 public class MypageDAOImpl implements MypageDAO{
-private static final String namespace="com.puppy.client.mypage.dao.MypageDAO";
+private static final String namespace="query.mypage";
 	
 	@Autowired
 	private SqlSession session;
