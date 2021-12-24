@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.dao.MypageDAO;
+import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.vo.PetVO;
 
 @Service
@@ -65,6 +67,35 @@ public class MypageServiceImpl implements MypageService{
 		detail = mypageDAO.petDetail(pvo);
 		return detail;
 		
+	}
+
+	//예약 리스트 구현
+	@Override
+	public List<ReservationVO> reservationList() {
+		List<ReservationVO> list=null;
+		list=mypageDAO.reservationList();
+		return list;
+	}
+
+	//내정보 구현
+	@Override
+	public MemberVO myDetail(MemberVO mvo) {
+		MemberVO detail = null;
+		detail = mypageDAO.myDetail(mvo);
+		return detail;
+	}
+
+	//내정보 수정 구현
+	@Override
+	public int myUpdate(MemberVO mvo) {
+		int result=0;
+		try {
+			result=mypageDAO.myUpdate(mvo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result=0;
+		}
+		return result;
 	}
 
 }

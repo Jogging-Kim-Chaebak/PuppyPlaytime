@@ -17,14 +17,14 @@
 			var checked_radio=$('input:radio[name=p_weight]:checked').val();
 			$("#f_writeForm").attr({
 				"method":"POST",
-				"action":"/mypage/petUpdate.do"
+				"action":"/client/mypage/petUpdate"
 			});
 			$("#f_writeForm").submit();
 		});
 		
 		/* 목록 버튼 클릭 시 처리 이벤트 */
 		$("#petListBtn").click(function(){
-			location.href="/mypage/petList.do";
+			location.href="/client/mypage/petList";
 		});
 	});
 </script>
@@ -43,7 +43,7 @@
 					<tr>
 						<td>이름</td>
 						<td><input type="text" name="p_name" id="p_name" value="${updateData.p_name}"></td>
-						<td rowspan="3"></td>
+						<td rowspan="3"><td><img src="/image/petImages/${updateData.p_picture}"/></td></td>
 					</tr>
 					<tr>
 						<td>견종</td>
@@ -60,7 +60,8 @@
 							<input type="radio" name="p_weight" id="p_weight" value="M">중형(5kg이상 20kg미만)
 							<input type="radio" name="p_weight" id="p_weight" value="L">대형(20kg이상)
 						</td>
-						<td><input type="file" name="p_picture" id="p_picture">
+						
+						<td><input type="file" name="p_picture" id="p_picture"></td>
 					</tr>
 					<tr>
 						<td>특이사항</td>
