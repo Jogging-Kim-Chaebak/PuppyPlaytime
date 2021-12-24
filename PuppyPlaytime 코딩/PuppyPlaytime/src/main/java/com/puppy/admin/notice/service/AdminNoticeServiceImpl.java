@@ -19,7 +19,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
 	//글입력 구현
 	@Override
-	public int noticeAdd(NoticeVO nvo) {
+	public int noticeAdd(NoticeVO nvo) throws Exception{
 		int result = 0;
 		try {
 			result = noticeDao.noticeAdd(nvo);
@@ -32,7 +32,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
 	//글 목록 구현
 	@Override
-	public List<NoticeVO> noticeList() {
+	public List<NoticeVO> noticeList() throws Exception{
 		List<NoticeVO> myList = null;
 		myList = noticeDao.noticeList();
 		return myList;
@@ -40,7 +40,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 
 	//글상세 구현
 	@Override
-	public NoticeVO noticeDetail(NoticeVO nvo) {
+	public NoticeVO noticeDetail(NoticeVO nvo) throws Exception{
 		NoticeVO detail = null;
 		detail = noticeDao.noticeDetail(nvo);
 	
@@ -49,7 +49,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 	
 	//글삭제 구현
 	@Override
-	public int noticeDelete(int n_no) {
+	public int noticeDelete(int n_no) throws Exception{
 	
 		int result = 0;
 		try {
@@ -62,4 +62,25 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return result;
 	}
 
+
+	//수정목록조회 구현
+	@Override
+	public List<NoticeVO> getNoticeList() throws Exception {
+		
+		return noticeDao.getNoticeList();
+	}
+	
+	//수정 처리
+	@Override
+	public int noticeModify(NoticeVO nvo) throws Exception {
+		int result = 0;
+		try {
+			result = noticeDao.update(nvo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		return result;
+			
+	}
 }

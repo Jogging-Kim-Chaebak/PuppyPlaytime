@@ -32,7 +32,7 @@ $(function(){
 	
 	$("#updateData").click(function(){
 		if(confirm('케이지 비활성화를 진행할까요?')){
-			$("#roomForm").attr("action","/admin/room/roomDisabled.do");
+			$("#roomForm").attr("action","/admin/room/roomDisabled");
 			$("#roomForm").submit();
 		}
 	});
@@ -88,16 +88,16 @@ $(function(){
 					
 					<tr>
 						<th><span class ="required"></span>부가서비스</th>
-						<td colspan ="3">
-						<%-- 	<c:if test="${empty AdminRoomVO.s_name}">
-								<tr>
+							<c:if test="${empty extraServiceList}">
 									<td colspan="3" align="center">등록된 부가서비스 정보가 존재하지 않습니다.</td>
-								</tr>
 							</c:if>
-							<c:forEach items="${AdminRoomVO}" var="ser">
-									<td><input type="text" id="c_picture" name="c_picture" value="${ser.s_name} " readonly="readonly"/></td>
-							</c:forEach> --%>
-						</td>
+							<c:if test="${!empty extraServiceList}">
+							<td>
+								<c:forEach items="${extraServiceList}" var="ex">
+									<input type="text" id="s_name" name="s_name" value="${ex.s_name} " readonly="readonly"/>
+								</c:forEach>
+							</td> 
+							</c:if>
 					</tr>
 					
 				</tbody>

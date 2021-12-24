@@ -1,12 +1,13 @@
 package com.puppy.client.notice.vo;
 
 public class NoticeVO {
+
 	
-	private int n_no = 0;
-	private String n_regdate ="";
-	private String n_content ="";
-	private String n_title ="";
-	private String n_registrant ="";
+	   private int n_no = 0;
+	   private String n_regdate ="";
+	   private String n_content ="";
+	   private String n_title ="";
+	   private String n_registrant ="";
 	   
 	public int getN_no() {
 		return n_no;

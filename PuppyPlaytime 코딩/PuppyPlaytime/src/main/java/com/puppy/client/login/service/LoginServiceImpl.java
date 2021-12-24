@@ -14,23 +14,22 @@ public class LoginServiceImpl implements LoginService{
 	@Autowired
 	private LoginDao loginDao;
 	
-	/*@Autowired
-	private MemberDao memberDao*/
-
+	//아이디 처리
 	@Override
-	public MemberVO m_idSelect(String m_id) {
-		
+	public MemberVO m_idSelect(String m_id) throws Exception {
 		return loginDao.m_idSelect(m_id);
 	}
 
+	//로그인 처리 메서드
 	@Override
-	public MemberVO loginSelect(String m_id, String m_pw) {
-		MemberVO vo=null;
-		MemberVO mvo=new MemberVO();
-		vo=loginDao.loginSelect(mvo);
-		return vo;
+	public MemberVO userLogin(MemberVO mvo) throws Exception {
+		MemberVO lvo=null;
+		mvo=loginDao.loginSelect(mvo);
+		return mvo;
 	}
+
 	
+
 	
 	
 	

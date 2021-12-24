@@ -2,6 +2,8 @@ package com.puppy.admin.notice.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.puppy.admin.notice.service.AdminNoticeService;
 import com.puppy.client.notice.vo.NoticeVO;
@@ -31,7 +36,13 @@ public class AdminNoticeController {
 	public String noticeList(Model model) {
 		log.info("noticeList 호출 성공");
 		
-		List<NoticeVO> noticeList = noticeService.noticeList();
+		List<NoticeVO> noticeList = null;
+		try {
+			noticeList = noticeService.noticeList();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		model.addAttribute("noticeList",noticeList);
 		model.addAttribute("data");
 		
@@ -59,7 +70,12 @@ public class AdminNoticeController {
 		int result = 0;
 		String url = "";
 		
-		result=noticeService.noticeAdd(nvo);
+		try {
+			result=noticeService.noticeAdd(nvo);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		if(result==1) {
 			url = "/admin/notice/noticeList";
 		}else {
@@ -80,15 +96,59 @@ public class AdminNoticeController {
 		log.info("n_no = " + nvo.getN_no());
 		
 		NoticeVO detail = new NoticeVO();
-		detail = noticeService.noticeDetail(nvo);
+		try {
+			detail = noticeService.noticeDetail(nvo);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		if(detail != null) {
 			detail.setN_content(detail.getN_content().toString().replaceAll("\n","<br>"));
 		}
+		
 		model.addAttribute("detail",detail);
 		
 		return "admin/notice/noticeDetail";
 	}
+	
+	
+	/************************************************************
+	 * 글 수정 페이지
+	 * *********************************************************/
+	@RequestMapping(value="/modify", method = RequestMethod.GET)
+	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model) throws Exception{
+		log.info(nvo.getN_no()+"번째 글의 updateForm 호출 성공");
+		model.addAttribute("updateData",noticeService.noticeDetail(nvo));
+		return "/admin/notice/noticeUpdateForm";
+	
+	}
+	
+	/************************************************************
+	 * 글 수정처리
+	 * *********************************************************/
+	@RequestMapping(value="/modify", method = RequestMethod.POST)
+	public String noticeModify(@ModelAttribute NoticeVO nvo, Model model) throws Exception{
+		log.info("noticeModify 호출 성공");
+		
+		int result=0;
+		String url="";
+		
+		result = noticeService.noticeModify(nvo);
+		
+		if(result == 1) {
+			
+			url="/admin/notice/noticeDetail?n_no="+nvo.getN_no();
+		}else {
+			
+			model.addAttribute("code",1);
+			url="/admin/notice/modify?n_no="+nvo.getN_no();
+		}
+		System.out.println(nvo);
+		return "redirect:"+url;
+	}
+	
+	
 	
 	/************************************************************
 	 * 글삭제 구현하기
@@ -102,7 +162,12 @@ public class AdminNoticeController {
 		int result = 0;
 		String url = "";
 		
-		result = noticeService.noticeDelete(nvo.getN_no());
+		try {
+			result = noticeService.noticeDelete(nvo.getN_no());
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		if(result==1) {
 			url="/admin/notice/noticeList";

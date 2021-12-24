@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppy.admin.notice.dao.AdminNoticeDAO">
+<mapper namespace="query.adminNotice">
 
 	<!-- 게시물 기본 조회 -->
 	<select id = "noticeList" resultType="notice">
@@ -53,5 +53,14 @@
 		
 	</delete>
 	
+	<!-- 수정 처리 -->
+	<update id="noticeUpdate" parameterType="notice">
+		UPDATE notice_tbl
+		   SET 
+		   	   n_registrant = #{n_registrant}
+   			   ,n_content = #{n_content}
+   			   ,n_title = #{n_title}
+	   	 WHERE n_no = #{n_no}
+	</update>
 	
 </mapper>

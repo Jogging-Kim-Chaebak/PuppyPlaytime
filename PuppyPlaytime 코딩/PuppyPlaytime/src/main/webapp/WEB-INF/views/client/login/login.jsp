@@ -12,26 +12,30 @@
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="/resources/include/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="/resources/include/dist/css/sticky-footer-navbar.css"
+	rel="stylesheet">
+
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript" src="/resources/include/js/login.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
-	//아이디와 패스워드 정규식
-	  function login(){
+   //로그인 버튼 클릭시
+     function login(){
         var form = document.form1;
         var special = "~!@#$%^&*( )_=+|\\{}[];:\‘\“<>,?/"; // 특수문자 일람
-       	var str = prompt("ID를 입력 하세요", "language"); // 사용자가 입력한 ID
-       	var bool = false; // Boolean 초기값
+        var bool = false; // Boolean 초기값
 
-       	for (i = 0; i < str.length; i++) {
-       		var c = str.charAt(i); // c는 ID중에서 index가 i인 문자
-       		if (special.search(c) >= 0) { // 특수문자 중에 c가 있으면 true
-       			bool = true;
-       			break;
-       		}
-       	}
-       	if (bool) {
-       		alert("특수문자는 ID에 사용할 수 없습니다");
-       	} 
+          /*
+          if (bool) {
+             alert("특수문자는 ID에 사용할 수 없습니다");
+          } 
         //아이디에서 입력 필수 조건문
         if (form.m_id.value == ""){
              alert("아이디를 입력해야 합니다.");
@@ -41,7 +45,7 @@
 
          //아이디 입력 문자수를 8~15자로 제한하는 조건문
          if (form.m_id.value.length < 8 || form.m_id.value.length > 15){
-              alert("아이디는 8~15자 이내로 입력 가능합니다!");
+              alert("아이디는 8~15자 이내로 입력 가능합니다.");
               form.m_id.select();//입력한 문자를 선택 상태로 만듬.
               return;
            }
@@ -55,46 +59,38 @@
             }
             if (form.m_pw.value.length < 8 || form.m_pw.value.length > 15)
             {
-                 alert("비밀번호는 8~15 이내로 입력 가능 합니다!");
+                 alert("비밀번호는 8~15 이내로 입력 가능 합니다.");
 
                  form.m_pw.select();
                  return;
             }
-
+		*/
    form.submit();
    }
 </script>
 </head>
 <body>
-	<!--  
-	<form name="form1" action="#" method="post">
-		<div>로그인</div>
-		<br /> <label> 아이디 </label><br /> <input type="text" name="m_id"
-			id="m_id" /><br /> 
-			<label> 패스워드 </label><br /> 
-			<input type="password" name="m_pw" id="m_pw" /><br />
-			 <br /> <input type="button" value="로그인 " name="m_login" id="m_login"  onclick="login()" />
-	</form>-->
-	
-	<form name="form1" action="#" method="post">
+	<form name="form1" action="/client/login/adminCheck" method="post">
 		<div class="form-group">
-		  <label class="form-label mt-4">로그인</label>
-		  <div class="form-floating mb-3">
-		    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-		    <label for="floatingInput">아이디</label>
-		  </div>
-		  <div class="form-floating">
-		    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-		    <label for="floatingPassword">패스워드</label>
-		  </div>
+			<label class="form-label mt-4">로그인</label>
+			<div class="form-floating mb-3">
+				<input type="text" class="form-control" id="m_id" name="m_id"
+					placeholder="아이디"> <label for="m_id">아이디</label>
+			</div>
+			<div class="form-floating">
+				<input type="password" class="form-control" id="m_pw" name="m_pw"
+					placeholder="Password"> <label for="m_pw">패스워드</label><br>
+				<button type="button" class="btn btn-primary" onclick="login()">로그인</button>
+			</div>
 		</div>
 	</form>
-    <br>
-    <br>
-    
+	<br>
+
 	<div class="form-group">
-		<button type="button" class="btn btn-primary">회원가입</button>
-			<button type="button" class="btn btn-primary">비밀번호 찾기</button>
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='http://localhost:8080/client/member/joinForm' ">회원가입</button>
+		<button type="button" class="btn btn-primary"onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디 찾기</button>
+		<button type="button" class="btn btn-primary">비밀번호 찾기</button>
 	</div>
 
 </body>

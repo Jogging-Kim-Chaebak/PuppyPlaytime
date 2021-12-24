@@ -29,6 +29,7 @@
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
+				<beans:value>/WEB-INF/tiles/admin-setting.xml</beans:value>
 				<beans:value>/WEB-INF/tiles/tiles-setting.xml</beans:value>
 			</beans:list>
 		</beans:property>

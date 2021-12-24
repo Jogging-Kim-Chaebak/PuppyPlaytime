@@ -2,26 +2,31 @@ package com.puppy.client.member.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class MemberVO {
 
-	private String m_id;// 아이디
-	private String m_pw;// 비밀번호
-	private String m_name;// 이름
+	private String m_id="";// 아이디
+	private String m_pw="";// 비밀번호
+	private String m_name="";// 이름
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date m_birth;// 생년월일
-	private String m_email;// 이메일 주소
-	private String m_phone;// 전화번호
-	private String m_address;// 주소
-	private String m_optional;// 선택약관
-	private String m_required1;// 필수약관1
-	private String m_required2;// 필수약관2
+	private String m_email="";// 이메일 주소
+	private String m_phone="";// 전화번호
+	private String m_address="";// 주소
+	private String m_optional="";// 선택약관
+	private String m_required1="";// 필수약관1
+	private String m_required2="";// 필수약관2
+
+	
 
 	public MemberVO() {
 		super();
 	}
 
 	public MemberVO(String m_id, String m_pw, String m_name, Date m_birth, String m_email, String m_phone,
-			String m_address) {
+			String m_address, String m_optional, String m_required1, String m_required2) {
 		super();
 		this.m_id = m_id;
 		this.m_pw = m_pw;
@@ -30,6 +35,9 @@ public class MemberVO {
 		this.m_email = m_email;
 		this.m_phone = m_phone;
 		this.m_address = m_address;
+		this.m_optional = m_optional;
+		this.m_required1 = m_required1;
+		this.m_required2 = m_required2;
 	}
 
 	public String getM_id() {

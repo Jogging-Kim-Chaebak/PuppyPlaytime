@@ -12,16 +12,20 @@ public class LoginDaoImpl implements LoginDao{
 	@Autowired
 	private SqlSession session;
 
+	//아이디처리
 	@Override
-	public MemberVO m_idSelect(String m_id) {
+	public MemberVO m_idSelect(String m_id) throws Exception{
 		
 		return (MemberVO) session.selectOne("m_idSelect",m_id);
 	}
 
+	//로그인 처리 메서드
 	@Override
-	public MemberVO loginSelect(MemberVO mvo) {
+	public MemberVO loginSelect(MemberVO mvo) throws Exception {
 		
 		return (MemberVO) session.selectOne("loginSelect",mvo);
 	}
+
+	
 
 }

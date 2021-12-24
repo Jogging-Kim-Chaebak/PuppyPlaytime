@@ -9,8 +9,34 @@ a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
 .tar{text-align:right}
 .required{color:red;}
 
+
+
 /*본문 영역*/
-.contentContainer{width:100%;}
+.contentContainer{width:80%;}
+
+
+/*제목 영역*/
+.contentContainer.contentTit{
+	width:96%; text-align:center;
+	margin-top:10px; font-weight:bold;
+}
+
+/* 본문 내용 출력 영역 */
+.contentContainer .contentTB table{
+	width:96%; padding:0px; border:1px solid #000066;
+	border-bottom:0px; border-left:0px; margin-top:10px;
+}
+
+.contentContainer .contentTB td{
+	padding:8px; border-bottom:1px solid #000066;
+	border-left:1px solid #000066;
+}
+
+.contentContainer .contentTB .ctr{height:150px; vertical-align:top}
+.contentContainer .contentTB .ac{
+	text-align:center; background-color:#ebebeb; font-weight:bold;
+}
+
 
 /*버튼 영역*/
 .contentContainer.contentBtn{width:96%; margin-top:10px; text-align:right;}

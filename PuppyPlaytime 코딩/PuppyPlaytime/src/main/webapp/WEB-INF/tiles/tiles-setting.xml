@@ -35,8 +35,18 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/login/{1}.jsp" />
 	</definition>
 	
+	<definition name="client/member/*" extends="content2">
+		<put-attribute name="title" value="회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp" />
+	</definition>
+	
 	<definition name="client/reserve/*" extends="content2">
 		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
+	</definition>
+	
+	<definition name="client/notice/*" extends="content1">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="body" value="/WEB-INF/views/client/notice/{1}.jsp" />
 	</definition>
 </tiles-definitions>

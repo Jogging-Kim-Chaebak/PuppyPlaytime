@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3/0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.puppy.client.mypage.dao.MypageDAO">
+<mapper namespace="query.mypage">
 
 <!-- 펫리스트 조회 -->
 <select id="petList" resultType="pet">
@@ -46,15 +46,38 @@
 	
 </insert>
 
-<!-- 펫 수정 -->
-<update id="petUpdate" parameterType="pet">
-	update Pet_tbl
-		set p_name=#{p_name}, p_dogbreed=#{p_dogbreed}, p_gender=#{p_gender}, p_weight=#{p_weight}, p_unique=#{p_unique}, p_picture=#{p_picture}
-		where p_no=#{p_no}
-</update>
+	<!-- 펫 수정 -->
+	<update id="petUpdate" parameterType="pet">
+		update Pet_tbl
+			set p_name=#{p_name}, p_dogbreed=#{p_dogbreed}, p_gender=#{p_gender}, p_weight=#{p_weight}, p_unique=#{p_unique}, p_picture=#{p_picture}
+			where p_no=#{p_no}
+	</update>
 
 	<!-- 펫 삭제 -->
 	<delete id="petDelete" parameterType="pet">
 		delete from pet_tbl where p_no=#{p_no}
 	</delete>
+	
+	<!-- 예약 리스트 -->
+<select id="reservationList" resultType="com.puppy.client.reservation.vo.ReservationVO">
+	select r_no, r_startDate, r_endDate, c_no
+	from reservation_tbl
+	order by r_no desc
+</select>
+
+	<!-- 내정보 상세 -->
+	<select id="myDetail" parameterType="String" resultType="com.puppy.client.member.vo.MemberVO">
+	SELECT
+		m_id, m_pw, m_name, m_birth, m_phone, m_address, m_email
+	FROM member_tbl
+	WHERE m_id=#{m_id}
+</select>
+
+	<!-- 내정보 수정 -->
+	<update id="myUpdate" parameterType="com.puppy.client.member.vo.MemberVO">
+		update member_tbl
+			set m_id=#{m_id}, m_pw=#{m_pw}, m_name=#{m_name}, m_birth=#{m_birth}, m_phone=#{m_phone}, m_address=#{m_address}, m_email=#{m_email}
+			where m_id=#{m_id}
+	</update>
+	
 </mapper>
