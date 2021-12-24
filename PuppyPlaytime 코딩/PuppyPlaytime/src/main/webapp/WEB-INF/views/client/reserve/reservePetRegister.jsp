@@ -9,6 +9,28 @@
 <title>상세 예약</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/reserve/reserveDetail.css">
 <script>
+	$(function(){
+		$("#petSelectList").change(function() {
+			$.ajax({
+				url : "/client/reserve/importPetDetail",
+				type : "post",
+				data : $("#petSelectList").val(),
+				dataType : "text",
+				error : function(){
+					alert("시스템 오류입니다. 관리자에게 문의하세요.");
+				},
+				success : function(result){
+					$("#p_name").val(result.p_name);
+					$("#p_dogbreed").val(result.p_dogbreed);
+					$("#p_name").val(result.p_name);
+					$("#p_unique").val(result.p_unique);
+					
+					$("#InputReserveBtn").val("예약하러가기");
+				}
+			});
+		});
+	});
+
 	function petInput(){
 		$.ajax({
 			url : "/client/reserve/reservePetRegister",
@@ -17,27 +39,6 @@
 			dataType : "text",
 			error : function(){
 				alert("시스템 오류입니다. 관리자에게 문의하세요.");
-			}
-		});
-	}
-	
-	function petClick(p_no){
-		alert(p_no);
-		$.ajax({
-			url : "/client/reserve/importPetDetail",
-			type : "post",
-			data : p_no,
-			dataType : "text",
-			error : function(){
-				alert("시스템 오류입니다. 관리자에게 문의하세요.");
-			},
-			success : function(result){
-				$("#p_name").val(result.p_name);
-				$("#p_dogbreed").val(result.p_dogbreed);
-				$("#p_name").val(result.p_name);
-				$("#p_unique").val(result.p_unique);
-				
-				$("#InputReserveBtn").val("예약하러가기");
 			}
 		});
 	}
@@ -66,7 +67,7 @@
 						<c:choose>
 							<c:when test="${not empty petList}">
 								<c:forEach var="pet" items="${petList }">
-									<option onclick="why()">${pet.p_name }</option>
+									<option value="${pet.p_no }">${pet.p_name }</option>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>

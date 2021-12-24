@@ -6,6 +6,9 @@ import java.time.YearMonth;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +31,14 @@ public class ReservationController {
 	
 	// 예약 날짜 선택
 	@RequestMapping(value="/reserveCalendar")
-	public String reserveCalendar(Model model) throws Exception {
+	public String reserveCalendar(HttpServletRequest request, Model model) throws Exception {
+		HttpSession session = request.getSession();
+		String sessionok = (String) session.getAttribute("user_id");
+
+		if(sessionok == null){
+			return "/common/error";
+		}
+		
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate;
 		YearMonth yearMonth;
@@ -75,6 +85,8 @@ public class ReservationController {
 	@RequestMapping(value="/reservePetRegisterForm", method=RequestMethod.POST)
 	public String petRegisterForm(String m_id, ReserveDate rDate, Model model) throws Exception{
 		// 펫 불러오기
+		
+		System.out.println("m_id : " + m_id);
 		List<PetVO> petList = reservationService.importPetList(m_id);
 		
 		model.addAttribute("rDate", rDate);
