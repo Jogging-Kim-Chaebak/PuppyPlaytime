@@ -12,6 +12,7 @@ create table Reservation_tbl(
     	r_extraservice4 number(5),
 	m_id varchar2(20) not null,
 	c_no number(6) not null,
+	r_pet number(6) not null,
 	constraint Reservation_tbl_pk primary key(r_no),
 	constraint Reservation_tbl_fk1 foreign key(m_id) references Member_tbl(m_id),
 	constraint Reservation_tbl_fk2 foreign key(c_no) references CageRoom_tbl(c_no)
@@ -20,3 +21,15 @@ create table Reservation_tbl(
 create sequence reservation_tbl_seq
 start with 1
 increment by 1;
+
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'N', 123, 'valid', 
+'2021-12-24', '2021-12-27', 'ghld12345', '94', 122);
+
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'N', 35000, 'valid', 
+'2021-12-28', '2021-12-29', 'ghld12345', '94', 124);
+
+commit;

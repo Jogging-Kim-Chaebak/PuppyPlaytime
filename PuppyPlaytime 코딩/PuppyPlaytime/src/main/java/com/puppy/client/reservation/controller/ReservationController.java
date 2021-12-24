@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.client.reservation.service.ReservationService;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.client.reservation.vo.ReserveDate;
 import com.puppy.common.vo.PetVO;
 
 @Controller
@@ -25,8 +26,9 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
+	// 예약 날짜 선택
 	@RequestMapping(value="/reserveCalendar")
-	public String reserveCalendar(Model model) {
+	public String reserveCalendar(Model model) throws Exception {
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate;
 		YearMonth yearMonth;
@@ -69,45 +71,73 @@ public class ReservationController {
 		return "client/reserve/reserveCalendar";
 	}
 	
-	@RequestMapping(value="/reserveRoom")
-	public String reserveRoom(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate, Model model) throws Exception{
-		startDate += " 09:00:00";
-		endDate += " 17:00:00";
+	// 예약날짜 받고, 펫 등록창 띄워주기
+	@RequestMapping(value="/reservePetRegisterForm", method=RequestMethod.POST)
+	public String petRegisterForm(String m_id, ReserveDate rDate, Model model) throws Exception{
+		// 펫 불러오기
+		List<PetVO> petList = reservationService.importPetList(m_id);
 		
-		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
-		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+		model.addAttribute("rDate", rDate);
+		model.addAttribute("petList", petList);
+		
+		return "client/reserve/reservePetRegister";
+	}
+	
+	// 펫 등록하기
+	@RequestMapping(value="/reservePetRegister", method=RequestMethod.POST )
+	public String petRegister(PetVO petVO, Model model) throws Exception {
+		reservationService.petRegister(petVO);
+		
+		return "client/reserve/reserveRoom";
+	}
+	
+	// 펫 상세 불러오기
+	@RequestMapping(value="/importPetDetail", method=RequestMethod.POST)
+	public PetVO importPetDetail(String p_no) throws Exception {
+		PetVO petVO = reservationService.importPetDetail(p_no);
+		
+		return petVO;
+	}
+
+	// 날짜와 펫 정보에 따라 룸 띄워주기
+	@RequestMapping(value="/reserveRoom")
+	public String reserveRoom(PetVO petVO, ReserveDate rDate, Model model) throws Exception{
+		rDate.setStartDate(rDate.getStartDate() + " 09:00:00");
+		rDate.setEndDate(rDate.getEndDate() + " 17:00:00");
+		
+		//Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
+		//Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+		//petVO, rDate
 		
 		List<CageRoomVO> roomList = reservationService.listRoom();
 		
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
+		model.addAttribute("rDate", rDate);
 		model.addAttribute("roomList", roomList);
 		
 		return "client/reserve/reserveRoom";
 	}
 	
-	@RequestMapping(value="/reserveDetail")
-	public String reserveDetail(@RequestParam(value="startDate") String startDate, @RequestParam(value="endDate") String endDate, 
-			ReservationVO rvo, Model model) throws Exception {
+	// 상세예약창 띄워주기
+	@RequestMapping(value="/reserveDetailForm", method=RequestMethod.POST)
+	public String petDetailForm(ReserveDate rDate, @RequestParam("c_no") int c_no, Model model) throws Exception{
+		CageRoomVO cageRoomVO = reservationService.cageDetail(c_no);
 		
-		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
-		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
+		model.addAttribute("rDate", rDate);
+		model.addAttribute("cageRoomVO", cageRoomVO);
+		return "client/reserve/reserveDetail";
+	}
+	
+	// 상세 예약 및 가격 확인 후 예약
+	@RequestMapping(value="/reserveDetail", method=RequestMethod.POST)
+	public String reserveDetail(ReserveDate rDate, ReservationVO rvo) throws Exception {
+		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getStartDate());
+		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getEndDate());
 		
 		rvo.setR_startDate(startReservation);
 		rvo.setR_endDate(endReservation);
 		
-		model.addAttribute("reservationVO", rvo);
+		reservationService.requestReservation(rvo);
 		
-		return "client/reserve/reserveDetail";
-	}
-	
-	// 상세 예약 창에서 펫 등록
-	@RequestMapping(value="/petRegister", method=RequestMethod.POST)
-	public String petRegister(PetVO petVO, Model model) throws Exception{
-		reservationService.petRegister(petVO);
-		
-		model.addAttribute(petVO);
-		
-		return "client/reserve/reserveDetail";
+		return "intro";
 	}
 }

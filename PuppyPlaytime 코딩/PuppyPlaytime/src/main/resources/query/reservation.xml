@@ -44,4 +44,82 @@
 		   )
 	</insert>
 
+	<!-- cage 상세 불러오기 -->
+	<select id = "cageDetail" resultType="cageroom">
+		SELECT 	c_no,
+   				c_kind,
+   				c_type,
+   				c_price,
+    			c_explain,
+    			c_picture,
+    			c_status,
+    			c_usestatus
+    	FROM cageroom_tbl
+    	WHERE c_no = #{c_no}
+	</select>
+	
+	<!-- 실제 예약 완료 -->
+	<insert id="requestReservation" parameterType="reservation">
+		<selectKey keyProperty="r_no" resultType="int" order="BEFORE">
+		   select Reservation_tbl_seq.nextval from dual
+		</selectKey>
+		   insert into Reservation_tbl(
+		   	  r_no,
+		      r_approval,
+		      r_payprice,
+		      r_status,
+		      r_startdate,
+		      r_enddate,
+		      <if test="r_extraservice1 != null and r_extraservice1 !=''">r_extraservice1,</if>
+		      <if test="r_extraservice2 != null and r_extraservice2 !=''">r_extraservice2,</if>
+		      <if test="r_extraservice3 != null and r_extraservice3 !=''">r_extraservice3,</if>
+		      <if test="r_extraservice4 != null and r_extraservice4 !=''">r_extraservice4,</if>
+		      m_id,
+		      c_no,
+		      r_pet
+		   )
+		   values(
+		   	  #{r_no},
+		      #{r_approval},
+		      #{r_payprice},
+		      #{r_status},
+		      #{r_startdate},
+		      #{r_enddate},
+		      <if test="r_extraservice1 != null and r_extraservice1 !=''">#{r_extraservice1},</if>
+		      <if test="r_extraservice2 != null and r_extraservice2 !=''">#{r_extraservice2},</if>
+		      <if test="r_extraservice3 != null and r_extraservice3 !=''">#{r_extraservice3},</if>
+		      <if test="r_extraservice4 != null and r_extraservice4 !=''">#{r_extraservice4},</if>
+		      #{m_id},
+		      #{c_no},
+		      #{r_pet}
+		   )
+	</insert>
+	
+	<!-- 해당 m_id 에 맞는 펫 리스트 불러오기 -->
+	<select id="importPetList" parameterType="String" resultType="pet">
+		select p_no,
+			p_name,
+			p_dogbreed,
+			p_unique,
+			p_gender,
+			p_weight,
+			m_id
+			<if test="p_picture != null and p_picture!=''">,p_picture</if>
+		from pet_tbl
+	</select>
+	
+	<!-- 펫 상세 불러오기 -->
+	<select id="importPetDetail" parameterType="String" resultType="pet">
+		select p_no,
+			p_name,
+			p_dogbreed,
+			p_unique,
+			p_gender,
+			p_weight,
+			m_id
+			<if test="p_picture != null and p_picture!=''">,p_picture</if>
+		from pet_tbl
+		where p_no = #{p_no}
+	</select>
+	
 </mapper>
