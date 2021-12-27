@@ -1,5 +1,6 @@
 package com.puppy.client.reservation.controller;
 
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,15 +31,24 @@ public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
 	
+	private HttpSession session;
+	private String userId;
+	
 	// 예약 날짜 선택
 	@RequestMapping(value="/reserveCalendar")
-	public String reserveCalendar(HttpServletRequest request, Model model) throws Exception {
-		HttpSession session = request.getSession();
-		String sessionok = (String) session.getAttribute("user_id");
+	public String reserveCalendar(HttpServletRequest request, Model model, HttpServletResponse response) throws Exception {
+		session = request.getSession();
+	    userId = (String) session.getAttribute("user_id");
 
-		if(sessionok == null){
-			return "/common/error";
-		}
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('로그인 후 예약 가능합니다.');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }
 		
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate;
@@ -85,9 +96,8 @@ public class ReservationController {
 	@RequestMapping(value="/reservePetRegisterForm", method=RequestMethod.POST)
 	public String petRegisterForm(String m_id, ReserveDate rDate, Model model) throws Exception{
 		// 펫 불러오기
-		
-		System.out.println("m_id : " + m_id);
-		List<PetVO> petList = reservationService.importPetList(m_id);
+		System.out.println("userId : " + userId);
+		List<PetVO> petList = reservationService.importPetList(userId);
 		
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("petList", petList);
@@ -98,6 +108,8 @@ public class ReservationController {
 	// 펫 등록하기
 	@RequestMapping(value="/reservePetRegister", method=RequestMethod.POST )
 	public String petRegister(PetVO petVO, Model model) throws Exception {
+		petVO.setM_id(userId);
+		
 		reservationService.petRegister(petVO);
 		
 		return "client/reserve/reserveRoom";
@@ -116,6 +128,8 @@ public class ReservationController {
 	public String reserveRoom(PetVO petVO, ReserveDate rDate, Model model) throws Exception{
 		rDate.setStartDate(rDate.getStartDate() + " 09:00:00");
 		rDate.setEndDate(rDate.getEndDate() + " 17:00:00");
+		
+		petVO.setM_id(userId);
 		
 		//Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
 		//Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
@@ -145,6 +159,7 @@ public class ReservationController {
 		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getStartDate());
 		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getEndDate());
 		
+		rvo.setM_id(userId);
 		rvo.setR_startDate(startReservation);
 		rvo.setR_endDate(endReservation);
 		

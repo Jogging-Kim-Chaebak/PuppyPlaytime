@@ -29,6 +29,8 @@ public class LoginController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	private HttpSession session;
 
 	// 로그인 화면 보여주기 위한 메소드
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -99,14 +101,27 @@ public class LoginController {
 	@RequestMapping(value="adminCheck")
 	public String adminCheck(HttpServletRequest request, MemberVO mvo) {
 		// 세션 설정
-		HttpSession session = request.getSession();
+		session = request.getSession();
 		
 		if(mvo.getM_id().equals("admin")) {
 			return "adminIntro";
 			//return "redirect:/admin/main/mainPage";
 		}else {
 			session.setAttribute("user_id", mvo.getM_id());
-			return "intro";
+			return "intro_login";
 		}
+	}
+	
+	@RequestMapping(value="intro_login")
+	public String intro_login() {
+		return "intro_login";
+	}	
+	
+	@RequestMapping(value="logout")
+	public String logout() {
+		session.removeAttribute("user_id"); 
+	    session.invalidate();
+	    
+		return "intro";
 	}
 }
