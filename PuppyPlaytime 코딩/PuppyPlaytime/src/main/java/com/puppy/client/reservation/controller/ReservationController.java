@@ -37,18 +37,7 @@ public class ReservationController {
 	// 예약 날짜 선택
 	@RequestMapping(value="/reserveCalendar")
 	public String reserveCalendar(HttpServletRequest request, Model model, HttpServletResponse response) throws Exception {
-		session = request.getSession();
-	    userId = (String) session.getAttribute("user_id");
-
-	    if(userId == null){
-	    	response.setContentType("text/html; charset=euc-kr");
-	    	PrintWriter out = response.getWriter();
-	    	out.println("<script type='text/javascript'>");
-	    	out.println("alert('로그인 후 예약 가능합니다.');");
-	    	out.println("location.href='/client/login/login'");
-	    	out.println("</script>");
-	    	out.flush();
-	    }
+		sessionCheck(request, response, "로그인 후 예약 가능합니다.");
 		
 		// JAVA 8 이후 나온 달력 쓰는 클래스
 		LocalDate localDate;
@@ -94,7 +83,9 @@ public class ReservationController {
 	
 	// 예약날짜 받고, 펫 등록창 띄워주기
 	@RequestMapping(value="/reservePetRegisterForm", method=RequestMethod.POST)
-	public String petRegisterForm(String m_id, ReserveDate rDate, Model model) throws Exception{
+	public String petRegisterForm(String m_id, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		// 펫 불러오기
 		System.out.println("userId : " + userId);
 		List<PetVO> petList = reservationService.importPetList(userId);
@@ -107,7 +98,9 @@ public class ReservationController {
 	
 	// 펫 등록하기
 	@RequestMapping(value="/reservePetRegister", method=RequestMethod.POST )
-	public String petRegister(PetVO petVO, Model model) throws Exception {
+	public String petRegister(PetVO petVO, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		petVO.setM_id(userId);
 		
 		reservationService.petRegister(petVO);
@@ -117,7 +110,9 @@ public class ReservationController {
 	
 	// 펫 상세 불러오기
 	@RequestMapping(value="/importPetDetail", method=RequestMethod.POST)
-	public PetVO importPetDetail(String p_no) throws Exception {
+	public PetVO importPetDetail(String p_no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		PetVO petVO = reservationService.importPetDetail(p_no);
 		
 		return petVO;
@@ -125,7 +120,9 @@ public class ReservationController {
 
 	// 날짜와 펫 정보에 따라 룸 띄워주기
 	@RequestMapping(value="/reserveRoom")
-	public String reserveRoom(PetVO petVO, ReserveDate rDate, Model model) throws Exception{
+	public String reserveRoom(PetVO petVO, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		rDate.setStartDate(rDate.getStartDate() + " 09:00:00");
 		rDate.setEndDate(rDate.getEndDate() + " 17:00:00");
 		
@@ -145,7 +142,9 @@ public class ReservationController {
 	
 	// 상세예약창 띄워주기
 	@RequestMapping(value="/reserveDetailForm", method=RequestMethod.POST)
-	public String petDetailForm(ReserveDate rDate, @RequestParam("c_no") int c_no, Model model) throws Exception{
+	public String petDetailForm(ReserveDate rDate, @RequestParam("c_no") int c_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		CageRoomVO cageRoomVO = reservationService.cageDetail(c_no);
 		
 		model.addAttribute("rDate", rDate);
@@ -155,7 +154,9 @@ public class ReservationController {
 	
 	// 상세 예약 및 가격 확인 후 예약
 	@RequestMapping(value="/reserveDetail", method=RequestMethod.POST)
-	public String reserveDetail(ReserveDate rDate, ReservationVO rvo) throws Exception {
+	public String reserveDetail(ReserveDate rDate, ReservationVO rvo, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getStartDate());
 		Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getEndDate());
 		
@@ -167,4 +168,20 @@ public class ReservationController {
 		
 		return "intro";
 	}
+	
+	
+	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message) throws Exception {
+  		session = request.getSession();
+	    userId = (String) session.getAttribute("user_id");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }
+  	}
 }
