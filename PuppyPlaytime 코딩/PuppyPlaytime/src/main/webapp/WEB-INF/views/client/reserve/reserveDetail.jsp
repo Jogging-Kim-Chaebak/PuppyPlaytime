@@ -72,7 +72,6 @@
   		  	<input type="text" value="${cageRoomVO.c_price }" name="r_payprice" />
   		  	<input type="hidden" value="valid" name="r_status" id="r_status"/>
   		  	<input type="hidden" value="N" name="r_approval" id="r_approval"/>
-  		  	<input type="hidden" value="ghld12345" name="m_id" id="m_id"/>
   		  	<input type="hidden" value="${cageRoomVO.c_no }" name="c_no" id="c_no"/>
 			
 			<input type="text" name="startDate" value="${rDate.startDate }"/>

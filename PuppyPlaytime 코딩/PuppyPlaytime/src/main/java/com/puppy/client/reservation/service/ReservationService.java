@@ -11,9 +11,6 @@ public interface ReservationService {
 	// 룸 정보에서 룸리스트 띄워주기
 	public List<CageRoomVO> listRoom() throws Exception;
 
-	// 상세 예약 창에서 펫 등록
-	public void petRegister(PetVO petVO) throws Exception;
-
 	// C_no 를 기반으로 cage 정보 얻어오기
 	public CageRoomVO cageDetail(int c_no) throws Exception;
 	

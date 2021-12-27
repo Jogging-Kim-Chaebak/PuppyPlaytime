@@ -32,4 +32,9 @@ r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
 values(reservation_tbl_seq.nextval, 'N', 35000, 'valid', 
 '2021-12-28', '2021-12-29', 'ghld12345', '94', 124);
 
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'W', 35000, 'valid', 
+'2021-12-30', '2021-12-31', 'helix1234', '94', 124);
+
 commit;

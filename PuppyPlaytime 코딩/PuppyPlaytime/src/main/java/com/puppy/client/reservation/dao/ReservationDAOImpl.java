@@ -21,13 +21,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 	public List<CageRoomVO> listRoom() throws Exception {
 		return session.selectList("listRoom");
 	}
-
-	// 상세 예약 창에서 펫 등록
-	@Override
-	public void petRegister(PetVO pvo) throws Exception {
-		session.insert("petRegister", pvo);
-	}
-
+	
 	// cage 상세정보 가져오기
 	@Override
 	public CageRoomVO cageDetail(int c_no) throws Exception {
