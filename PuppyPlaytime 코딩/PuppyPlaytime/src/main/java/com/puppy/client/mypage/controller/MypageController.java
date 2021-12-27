@@ -1,6 +1,5 @@
 package com.puppy.client.mypage.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class MypageController {
 	//펫리스트 구현하기
 	@RequestMapping(value="/petList", method=RequestMethod.GET)
 	public String petList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		sessionCheck(request, response, "로그인 후 예약이 가능합니다.");
+		sessionCheck(request, response, "로그인 후 마이페이지 접속이 가능합니다.");
 		
 		log.info("petList 호출 성공");
 		

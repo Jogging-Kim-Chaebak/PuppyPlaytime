@@ -1,10 +1,5 @@
 package com.puppy.client.member.vo;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-
 public class MemberVO {
 
 	private String m_id;// 아이디
