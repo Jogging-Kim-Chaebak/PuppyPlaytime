@@ -23,12 +23,6 @@ public class ReservationServiceImpl implements ReservationService{
 	public List<CageRoomVO> listRoom() throws Exception {
 		return reservationDAO.listRoom();
 	}
-	
-	// 상세 예약 창에서 펫 등록
-	@Override
-	public void petRegister(PetVO petVO) throws Exception{
-		reservationDAO.petRegister(petVO);
-	}
 
 	// cage 정보 불러오기
 	@Override

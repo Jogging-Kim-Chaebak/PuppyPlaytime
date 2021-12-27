@@ -16,33 +16,6 @@
     	WHERE c_usestatus = 'unusing'
     	ORDER BY c_no desc
 	</select>
-	
-	<!-- 펫 등록 -->
-	<insert id="petRegister" parameterType="pet">
-		<selectKey keyProperty="p_no" resultType="int" order="BEFORE">
-		   select Pet_tbl_seq.nextval from dual
-		</selectKey>
-		   insert into Pet_tbl(
-		   	  p_no,
-		      p_name,
-		      p_dogbreed,
-		      p_gender,
-		      p_weight,
-		      p_unique,
-		      m_id
-		      <if test="p_picture != null and p_picture!=''">,p_picture</if>
-		   )
-		   values(
-		   	  #{p_no},
-		      #{p_name},
-		      #{p_dogbreed},
-		      #{p_gender},
-		      #{p_weight},
-		      #{p_unique},
-		      #{m_id}
-		      <if test="p_picture != null and p_picture !=''">,#{p_picture}</if>
-		   )
-	</insert>
 
 	<!-- cage 상세 불러오기 -->
 	<select id = "cageDetail" resultType="cageroom">

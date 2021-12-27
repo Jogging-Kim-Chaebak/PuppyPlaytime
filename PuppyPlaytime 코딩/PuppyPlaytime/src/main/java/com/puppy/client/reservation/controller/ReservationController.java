@@ -81,9 +81,9 @@ public class ReservationController {
 		return "client/reserve/reserveCalendar";
 	}
 	
-	// 예약날짜 받고, 펫 등록창 띄워주기
-	@RequestMapping(value="/reservePetRegisterForm", method=RequestMethod.POST)
-	public String petRegisterForm(String m_id, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	// 예약날짜 받고, 펫 선택창 띄워주기
+	@RequestMapping(value="/reservePetSelectForm", method=RequestMethod.POST)
+	public String reservePetSelectForm(String m_id, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.");
 		
 		// 펫 불러오기
@@ -93,29 +93,47 @@ public class ReservationController {
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("petList", petList);
 		
-		return "client/reserve/reservePetRegister";
-	}
-	
-	// 펫 등록하기
-	@RequestMapping(value="/reservePetRegister", method=RequestMethod.POST )
-	public String petRegister(PetVO petVO, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		sessionCheck(request, response, "잘못된 접근입니다.");
-		
-		petVO.setM_id(userId);
-		
-		reservationService.petRegister(petVO);
-		
-		return "client/reserve/reserveRoom";
+		return "client/reserve/reservePetSelectForm";
 	}
 	
 	// 펫 상세 불러오기
-	@RequestMapping(value="/importPetDetail", method=RequestMethod.POST)
-	public PetVO importPetDetail(String p_no, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value="/reservePetSelect", method=RequestMethod.POST)
+	public String reservePetSelect(String p_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.");
+			
+		// 성별 한국어로 바꾸기
+		String p_gender_korean = "";
+		// 체급 한국어로 바꾸기
+		String p_weight_korean = "";
 		
-		PetVO petVO = reservationService.importPetDetail(p_no);
+		PetVO pet = reservationService.importPetDetail(p_no);
 		
-		return petVO;
+		switch(pet.getP_gender()) {
+		case "M" :
+			p_gender_korean = "수컷";
+			break;
+		case "F" :
+			p_gender_korean = "암컷";
+			break;
+		}
+		
+		switch(pet.getP_weight()) {
+		case "small" :
+			p_weight_korean = "소형";
+			break;
+		case "middle" :
+			p_weight_korean = "중형";
+			break;
+		case "big" :
+			p_weight_korean = "대형";
+			break;
+		}
+		
+		model.addAttribute("pet", pet);
+		model.addAttribute("p_gender_korean", p_gender_korean);
+		model.addAttribute("p_weight_korean", p_weight_korean);
+		
+		return "client/reserve/reservePetSelect";
 	}
 
 	// 날짜와 펫 정보에 따라 룸 띄워주기

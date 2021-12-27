@@ -33,7 +33,7 @@ $(function() {
 
 		$("#dateSend").attr({
 			"method": "POST",
-			"action": "/client/reserve/reservePetRegisterForm"
+			"action": "/client/reserve/reservePetSelectForm"
 		});
 		$("#dateSend").submit();
 	});
