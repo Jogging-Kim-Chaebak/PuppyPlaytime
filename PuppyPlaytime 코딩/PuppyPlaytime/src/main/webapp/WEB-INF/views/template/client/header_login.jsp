@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/template/header.css">
 
 <div class="container">
-	<a class="navbar-brand" href="/"> <img
+	<a class="navbar-brand" href="/client/login/intro_login"> <img
 		src="/resources/images/logo.png" width=100px height=55px>
 	</a>
 	<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -19,7 +19,7 @@
 		class="collapse navbar-collapse justify-content-end align-self-end"
 		id="navbarColor03">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/client/login/login">로그인&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/login/logout">로그아웃&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/client/mypage/petList">마이페이지&nbsp;&nbsp;</a>
 			</li>

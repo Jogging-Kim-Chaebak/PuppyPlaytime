@@ -1,10 +1,12 @@
 package com.puppy.client.mypage.controller;
 
 import java.io.IOException;
-import java.sql.Date;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,14 @@ public class MypageController {
 	@Autowired
 	private MypageService mypageService;
 	
+	private HttpSession session;
+	private String userId;
+	
 	//펫리스트 구현하기
 	@RequestMapping(value="/petList", method=RequestMethod.GET)
-	public String petList(Model model) {
+	public String petList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		sessionCheck(request, response, "로그인 후 예약이 가능합니다.");
+		
 		log.info("petList 호출 성공");
 		
 		List<PetVO> petList = mypageService.petList();
@@ -48,16 +55,20 @@ public class MypageController {
 	
 	//펫등록 폼 출력하기
 	@RequestMapping(value="/insertForm")
-	public String insertForm() {
+	public String insertForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		log.info("insertForm 호출 성공");
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		return "client/mypage/mypagePetinfoinsert";
 	}
 	
 	//펫등록 구현하기
 	@RequestMapping(value = "/petInsert", method = RequestMethod.POST)
 	public ModelAndView petInsert(PetVO pvo, @RequestPart(value = "file") MultipartFile file,
-			HttpServletRequest request) throws IllegalStateException, IOException {
+			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		log.info("petInsert 호출 성공");
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		String resultStr = "";
 
 		String c_file = FileUploadUtil.fileUpload(file, request, "petImages");
@@ -82,8 +93,10 @@ public class MypageController {
 	
 	//펫 상세보기 구현
 	@RequestMapping(value="petDetail", method = RequestMethod.POST)
-	public String petDetail(@ModelAttribute PetVO pvo, Model model ){
+	public String petDetail(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		log.info("PetDetail 호출 성공");
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
 		log.info("p_no = " + pvo.getP_no());
 			
 		PetVO detail = new PetVO();
@@ -96,8 +109,9 @@ public class MypageController {
 		
 	//펫수정 폼 출력하기
 	@RequestMapping(value="/updateForm")		
-	public String updateForm(@ModelAttribute PetVO pvo, Model model) {
+	public String updateForm(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		log.info("updateForm 호출 성공");
+		sessionCheck(request, response, "잘못된 접근입니다.");
 		
 		log.info("p_no = " + pvo.getP_no());
 		
@@ -110,8 +124,9 @@ public class MypageController {
 	
 	//펫수정 구현하기
 	@RequestMapping(value="/petUpdate", method=RequestMethod.POST)
-	public String petUpdate(@ModelAttribute PetVO pvo) {
+	public String petUpdate(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		log.info("petUpdate 호출 성공");
+		sessionCheck(request, response, "잘못된 접근입니다.");
 		
 		
 		mypageService.petUpdate(pvo);
@@ -122,9 +137,9 @@ public class MypageController {
 	
 	 //펫정보 삭제
     @RequestMapping(value = "/petDelete")
-    public String petDelete(@ModelAttribute PetVO pvo) {
-            
+    public String petDelete(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
         log.info("petDelete 호출 성공");
+        sessionCheck(request, response, "잘못된 접근입니다.");
         
         int result = 0;
         String url = "";
@@ -141,8 +156,9 @@ public class MypageController {
     
   //예약리스트 구현하기
   	@RequestMapping(value="/reservationList", method=RequestMethod.GET)
-  	public String reservationList(Model model) {
+  	public String reservationList(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
   		log.info("reservationList 호출 성공");
+  		sessionCheck(request, response, "잘못된 접근입니다.");
   		
   		List<ReservationVO> reservationList = mypageService.reservationList();
   		model.addAttribute("reservationList", reservationList);
@@ -153,8 +169,10 @@ public class MypageController {
   	
   	//내정보 구현하기
   	@RequestMapping(value="myDetail", method = RequestMethod.GET)
-  	public String myDetail(@ModelAttribute MemberVO mvo, Model model ){
+  	public String myDetail(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
   		log.info("myDetail 호출 성공");
+  		sessionCheck(request, response, "잘못된 접근입니다.");
+  		
   		String id="ghld12345";
   		mvo.setM_id(id);
   		log.info("m_id = " + mvo.getM_id());
@@ -170,8 +188,9 @@ public class MypageController {
   	
   //내정보 수정 폼 출력하기
   	@RequestMapping(value="/myUpdateForm")		
-  	public String myUpdateForm(@ModelAttribute MemberVO mvo, Model model) {
+  	public String myUpdateForm(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
   		log.info("myUpdateForm 호출 성공");
+  		sessionCheck(request, response, "잘못된 접근입니다.");
   		
   		log.info("m_id = " + mvo.getM_id());
   		
@@ -184,13 +203,27 @@ public class MypageController {
   	
   	//내정보 수정 구현하기
   	@RequestMapping(value="/myUpdate", method=RequestMethod.POST)
-  	public String myUpdate(@ModelAttribute MemberVO mvo) {
+  	public String myUpdate(@ModelAttribute MemberVO mvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
   		log.info("myUpdate 호출 성공");
-  		
+  		sessionCheck(request, response, "잘못된 접근입니다.");
   		
   		mypageService.myUpdate(mvo);
   		
   		return "redirect:/client/mypage/myDetail";
   	}
   	
+  	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message) throws Exception {
+  		session = request.getSession();
+	    userId = (String) session.getAttribute("user_id");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }
+  	}
 }
