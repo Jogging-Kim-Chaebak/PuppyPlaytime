@@ -8,18 +8,81 @@
 <meta charset="UTF-8">
 <title>상세 예약</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/reserve/reserveDetail.css">
+
+
+<script>
+$(function(){
+	$("#petSelectList").change(function() {
+		var p_no_data = { "p_no":  $("#petSelectList").val() };
+		
+		$.ajax({
+			url : "/client/reserve/reservePetSelect",
+			type : "post",
+			data : p_no_data,
+			dataType : "json",
+			error : function(){
+				alert("시스템 오류입니다. 관리자에게 문의하세요.");
+			},
+			success : function(result){
+				$("#p_name").val(result.p_name);
+				$("#p_dogbreed").val(result.p_dogbreed);
+				
+				var p_gender_korean;
+				var p_weight_korean;
+				
+				switch(result.p_gender) {
+				case "M" :
+					p_gender_korean = "수컷";
+					break;
+				case "F" :
+					p_gender_korean = "암컷";
+					break;
+				}
+				
+				switch(result.p_weight) {
+				case "small" :
+					p_weight_korean = "소형";
+					break;
+				case "middle" :
+					p_weight_korean = "중형";
+					break;
+				case "big" :
+					p_weight_korean = "대형";
+					break;
+				}
+				
+				$("#p_gender").val(p_gender_korean);
+				$("#p_weight").val(p_weight_korean);
+				$("#p_unique").val(result.p_unique);
+			}
+		});
+	});
+});
+
+function reserveRoom(){
+	$("#mypetForm").attr({
+		"action" : "/client/reserve/reserveRoom",
+		"method" : "post"
+	});
+	
+	alert($("#p_name").val() + "이(로) 예약 진행합니다.");	
+	$("#mypetForm").submit();
+}
+
+</script>
 </head>
 <body>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="javascript:history.back()">예약 날짜</a></li>
-		<li class="breadcrumb-item active">예약 룸 정보</li>
+		<li class="breadcrumb-item active">마이 펫 정보</li>
 	</ol>
 	<div class="row">
 		<div class="col p-6" id="mypetInputForm">
 			<h3>마이펫</h3>
+			<form id="mypetForm">
 			<div class="form-group row">
 				<div class="col-sm-6">
-					<select class="form-select" id="petSelectList">
+					<select class="form-select" id="petSelectList" name="p_no">
 						<c:choose>
 							<c:when test="${not empty petList}">
 								<c:forEach var="pet" items="${petList }">
@@ -34,11 +97,10 @@
 				</div>
 			</div>
 			<br>
-			<form id="mypetForm">
 			<div class="form-group row">
       			<label class="col-sm-2 col-form-label" for="p_name">이름</label> 
 				<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_name" name="p_name" value="${pet.p_name}" readonly>
+					<input type="text" class="form-control-plaintext" id="p_name" name="p_name" value="${petVO.p_name}" readonly>
 				</div>
   		  	</div>
   		  	
@@ -47,7 +109,7 @@
   		  	<div class="form-group row">
       			<label class="col-sm-2 col-form-label" for="p_dogbreed">견종</label> 
 				<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_dogbreed" name="p_dogbreed" value="${pet.p_dogbreed}" readonly>
+					<input type="text" class="form-control-plaintext" id="p_dogbreed" name="p_dogbreed" value="${petVO.p_dogbreed}" readonly>
 				</div>
   		  	</div>
   		  	
@@ -55,7 +117,9 @@
   		  	
   		  	<div class="form-group row" id="petGenderRadio">
       			<label class="col-sm-2 col-form-label">성별</label> 
-				<input type="text" class="form-control-plaintext" id="p_gender" name="p_gender" value="${p_gender_korean }" readonly>
+      			<div class="col-sm-10">
+					<input type="text" class="form-control-plaintext" id="p_gender" name="p_gender" value="${p_gender_korean }" readonly>
+  		  		</div>
   		  	</div>
 
 			<br>
@@ -70,14 +134,14 @@
 			<br>
 			
 			<label class="form-check-label" for="p_unique">특이사항</label>	
-			<textarea class="form-control" id="p_unique" name="p_unique" rows="3"></textarea>
+			<textarea class="form-control" id="p_unique" name="p_unique" rows="3">${petVO.p_unique }</textarea>
 			
 			<br>
 			
 			<input type="hidden" name="startDate" value="${rDate.startDate }" />
 			<input type="hidden" name="endDate" value="${rDate.endDate }" />
 			
-			<button type="button" id="InputReserveBtn" class="btn btn-secondary" onclick="petInput()">예약하러 가기</button>
+			<button type="button" id="InputReserveBtn" class="btn btn-secondary" onclick="reserveRoom()">예약하러 가기</button>
 			</form>
 		</div>
 		
@@ -85,12 +149,6 @@
 
 		</div>
 	</div>
-	
-	
-
-	${reservationVO.c_no }
-	<br> ${reservationVO.r_startDate }
-	<br> ${reservationVO.r_endDate }
 
 </body>
 </html>

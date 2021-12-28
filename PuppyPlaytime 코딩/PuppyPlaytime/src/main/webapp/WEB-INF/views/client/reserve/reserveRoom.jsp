@@ -23,6 +23,7 @@
   		<input type="text" name="startDate" value="${rDate.startDate }"/>
   		<input type="text" name="endDate" value="${rDate.endDate }"/>
   		<input type="hidden" id="c_no" name="c_no">
+  		<input type="hidden" id="p_no" name="p_no" value="${p_no}">
   	</form>
   	<div class="row">
 	<c:forEach items="${roomList }" var="room">
@@ -33,7 +34,7 @@
 			     	<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
 			      	<p class="card-text">${room.c_explain }</p>
 			     	<p class="card-text">가격 : ${room.c_price }</p>
-			     	<img src="/image/roomImages/${room.c_picture}" class="mx-auto d-block"/>
+			     	<img src="/image/roomImages/${room.c_picture}" width="80" height="80"/>
 			     	<a onclick="reservationDetail(${room.c_no})" class="btn btn-primary">예약하기</a>
 			    </div>
 		  	</div>

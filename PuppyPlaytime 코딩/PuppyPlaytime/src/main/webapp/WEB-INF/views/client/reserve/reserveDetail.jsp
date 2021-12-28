@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,31 +50,25 @@
 			</div>
 			
 			<br>
-			
+			-->
 			<div class="form-group row">
       			<label class="col-sm-2 col-form-label" for="inputDefault">부가서비스</label> 
 				<div class="col-sm-10">
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" value="option1" checked>
-					목욕서비스
-					</label>
-					&nbsp;&nbsp;	
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" value="option2"> 
-					매너벨트
-					</label>
-					&nbsp;&nbsp;
-					<label class="form-check-label"> 
-					<input type="radio" class="form-check-input" value="option2"> 
-					간식, 사료 추가
-					</label>
+					<c:forEach items="${extraServiceList}" var="extraservice">
+						<label class="form-check-label"> 
+						<input type="radio" class="form-check-input">
+						${extraservice.s_name }
+						</label>
+						&nbsp;&nbsp;
+					</c:forEach>	
 				</div>
-  		  	</div> -->
+  		  	</div> 
   		  	
   		  	<input type="text" value="${cageRoomVO.c_price }" name="r_payprice" />
   		  	<input type="hidden" value="valid" name="r_status" id="r_status"/>
   		  	<input type="hidden" value="N" name="r_approval" id="r_approval"/>
-  		  	<input type="hidden" value="${cageRoomVO.c_no }" name="c_no" id="c_no"/>
+  		  	<input type="text" value="${cageRoomVO.c_no }" name="c_no" id="c_no"/>
+  		  	<input type="text" value="${p_no}" name="p_no" id="p_no"/>
 			
 			<input type="text" name="startDate" value="${rDate.startDate }"/>
   			<input type="text" name="endDate" value="${rDate.endDate }"/>

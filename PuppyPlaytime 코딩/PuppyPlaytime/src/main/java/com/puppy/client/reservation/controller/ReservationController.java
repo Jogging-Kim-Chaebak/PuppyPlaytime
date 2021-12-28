@@ -16,12 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.client.reservation.service.ReservationService;
 import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.client.reservation.vo.ReserveDate;
+import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PetVO;
 
 @Controller
@@ -86,27 +87,19 @@ public class ReservationController {
 	public String reservePetSelectForm(String m_id, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.");
 		
-		// 펫 불러오기
-		System.out.println("userId : " + userId);
-		List<PetVO> petList = reservationService.importPetList(userId);
-		
-		model.addAttribute("rDate", rDate);
-		model.addAttribute("petList", petList);
-		
-		return "client/reserve/reservePetSelectForm";
-	}
-	
-	// 펫 상세 불러오기
-	@RequestMapping(value="/reservePetSelect", method=RequestMethod.POST)
-	public String reservePetSelect(String p_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		sessionCheck(request, response, "잘못된 접근입니다.");
-			
 		// 성별 한국어로 바꾸기
 		String p_gender_korean = "";
 		// 체급 한국어로 바꾸기
 		String p_weight_korean = "";
 		
-		PetVO pet = reservationService.importPetDetail(p_no);
+		// 펫 불러오기
+		List<PetVO> petList = reservationService.importPetList(userId);
+		
+		PetVO pet = reservationService.importOnePet();
+		
+		model.addAttribute("rDate", rDate);
+		model.addAttribute("petList", petList);
+		model.addAttribute("petVO", pet);
 		
 		switch(pet.getP_gender()) {
 		case "M" :
@@ -129,44 +122,56 @@ public class ReservationController {
 			break;
 		}
 		
-		model.addAttribute("pet", pet);
 		model.addAttribute("p_gender_korean", p_gender_korean);
 		model.addAttribute("p_weight_korean", p_weight_korean);
 		
 		return "client/reserve/reservePetSelect";
 	}
+	
+	// 펫 상세 불러오기
+	@ResponseBody
+	@RequestMapping(value="/reservePetSelect", method=RequestMethod.POST)
+	public PetVO reservePetSelect(int p_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.");
+		
+		PetVO pet = reservationService.importPetDetail(p_no);
+		
+		return pet;
+	}
 
-	// 날짜와 펫 정보에 따라 룸 띄워주기
+	// 날짜에 따라 룸 띄워주기
 	@RequestMapping(value="/reserveRoom")
-	public String reserveRoom(PetVO petVO, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String reserveRoom(int p_no, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.");
 		
 		rDate.setStartDate(rDate.getStartDate() + " 09:00:00");
 		rDate.setEndDate(rDate.getEndDate() + " 17:00:00");
 		
-		petVO.setM_id(userId);
+		rDate.setStartReservation(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getStartDate()));
+		rDate.setEndReservation(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(rDate.getEndDate()));
 		
-		//Date startReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(startDate);
-		//Date endReservation = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(endDate);
-		//petVO, rDate
-		
-		List<CageRoomVO> roomList = reservationService.listRoom();
+		List<CageRoomVO> roomList = reservationService.listRoom(rDate);
 		
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("roomList", roomList);
+		model.addAttribute("p_no", p_no);
 		
 		return "client/reserve/reserveRoom";
 	}
 	
 	// 상세예약창 띄워주기
 	@RequestMapping(value="/reserveDetailForm", method=RequestMethod.POST)
-	public String petDetailForm(ReserveDate rDate, @RequestParam("c_no") int c_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String petDetailForm(ReserveDate rDate, int c_no, int p_no, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.");
 		
 		CageRoomVO cageRoomVO = reservationService.cageDetail(c_no);
+		List<ExtraServiceVO> extraServiceList = reservationService.listExtraService(c_no);
 		
 		model.addAttribute("rDate", rDate);
+		model.addAttribute("p_no", p_no);
 		model.addAttribute("cageRoomVO", cageRoomVO);
+		model.addAttribute("extraServiceList", extraServiceList);
+		
 		return "client/reserve/reserveDetail";
 	}
 	
