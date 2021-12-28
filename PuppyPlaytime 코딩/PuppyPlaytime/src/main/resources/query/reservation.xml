@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="query.reservation">
 	
-	<!-- 케이지룸 조회 -->
+	<!-- 가능한 케이지룸 조회 -->
 	<select id = "listRoom" resultType="cageroom">
+		<![CDATA[
 		SELECT 	c_no,
    				c_kind,
    				c_type,
@@ -13,8 +14,12 @@
     			c_status,
     			c_usestatus
     	FROM cageroom_tbl
-    	WHERE c_usestatus = 'unusing'
-    	ORDER BY c_no desc
+    	WHERE c_usestatus = 'unusing' and
+		not c_no in (select c_no
+						from reservation_tbl
+						where (r_startdate >= #{startReservation}) and
+						(r_enddate <= #{endReservation}))
+		]]>
 	</select>
 
 	<!-- cage 상세 불러오기 -->
@@ -54,14 +59,14 @@
 		   values(
 		   	  #{r_no},
 		      #{r_approval},
-		      #{r_payprice},
+		      #{r_payPrice},
 		      #{r_status},
-		      #{r_startdate},
-		      #{r_enddate},
-		      <if test="r_extraservice1 != null and r_extraservice1 !=''">#{r_extraservice1},</if>
-		      <if test="r_extraservice2 != null and r_extraservice2 !=''">#{r_extraservice2},</if>
-		      <if test="r_extraservice3 != null and r_extraservice3 !=''">#{r_extraservice3},</if>
-		      <if test="r_extraservice4 != null and r_extraservice4 !=''">#{r_extraservice4},</if>
+		      #{r_startDate},
+		      #{r_endDate},
+		      <if test="r_extraservice1 != null and r_extraservice1 !=''">#{r_extraService1},</if>
+		      <if test="r_extraservice2 != null and r_extraservice2 !=''">#{r_extraService2},</if>
+		      <if test="r_extraservice3 != null and r_extraservice3 !=''">#{r_extraService3},</if>
+		      <if test="r_extraservice4 != null and r_extraservice4 !=''">#{r_extraService4},</if>
 		      #{m_id},
 		      #{c_no},
 		      #{r_pet}
@@ -69,7 +74,7 @@
 	</insert>
 	
 	<!-- 해당 m_id 에 맞는 펫 리스트 불러오기 -->
-	<select id="importPetList" parameterType="java.lang.String" resultType="pet">
+	<select id="importPetList" resultType="pet">
 		select p_no,
 			p_name,
 			p_dogbreed,
@@ -83,7 +88,7 @@
 	</select>
 	
 	<!-- 펫 상세 불러오기 -->
-	<select id="importPetDetail" parameterType="java.lang.String" resultType="pet">
+	<select id="importPetDetail" resultType="pet">
 		select p_no,
 			p_name,
 			p_dogbreed,
@@ -94,6 +99,30 @@
 			<if test="p_picture != null and p_picture!=''">,p_picture</if>
 		from pet_tbl
 		where p_no = #{p_no}
+	</select>
+	
+	<!-- 아무 펫 한 마리 불러오기 -->
+	<select id="importOnePet" resultType="pet">
+		select p_no,
+			p_name,
+			p_dogbreed,
+			p_unique,
+			p_gender,
+			p_weight,
+			m_id
+			<if test="p_picture != null and p_picture!=''">,p_picture</if>
+		from pet_tbl
+		where rownum = 1
+	</select>
+	
+	<select id="listExtraService" resultType="extraservice">
+		select s_no,
+			s_name,
+			s_explain,
+			s_price,
+			c_no
+		from extraservice_tbl
+		where c_no = #{c_no}
 	</select>
 	
 </mapper>
