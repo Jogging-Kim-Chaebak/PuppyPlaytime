@@ -1,23 +1,18 @@
 package com.puppy.client.member.vo;
 
-import java.util.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-
 public class MemberVO {
 
-	private String m_id="";// 아이디
-	private String m_pw="";// 비밀번호
-	private String m_name="";// 이름
+	private String m_id;// 아이디
+	private String m_pw;// 비밀번호
+	private String m_name;// 이름
 	private String m_birth;// 생년월일
-	private String m_email="";// 이메일 주소
-	private String m_phone="";// 전화번호
-	private String m_address="";// 주소
-	private String m_optional="";// 선택약관
-	private String m_required1="";// 필수약관1
-	private String m_required2="";// 필수약관2
-	private String m_status="";// 회원상태
+	private String m_email;// 이메일 주소
+	private String m_phone;// 전화번호
+	private String m_address;// 주소
+	private String m_optional;// 선택약관
+	private String m_required1;// 필수약관1
+	private String m_required2;// 필수약관2
+	private String m_status;// 회원상태
 
 	
 
