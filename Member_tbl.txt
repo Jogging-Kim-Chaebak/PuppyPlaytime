@@ -1,0 +1,21 @@
+CREATE table Member_tbl(
+m_id VARCHAR2(20) not null,
+m_pw VARCHAR2(20) not null,
+m_name VARCHAR2(10)not null,
+m_birth DATE not null,
+m_email VARCHAR2(30) not null,
+m_phone VARCHAR2(20) not null,
+m_address VARCHAR2(50) not null,
+m_optional VARCHAR2(2) not null,
+m_required1 VARCHAR2(2) not null,
+m_required2 VARCHAR2(2) not null,
+m_status VARCHAR2(15) not null check(m_status in('member','secession')),
+CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
+);
+
+insert into member_tbl
+values('ghld12345', '1234', '김주영', '1997-01-01', 
+'asdf@naver.com', '010xxxxxxxx', '사랑시 후해동', 
+'Y', 'Y','Y','member');
+
+commit;
