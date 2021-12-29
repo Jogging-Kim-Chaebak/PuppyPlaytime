@@ -3,19 +3,33 @@ package com.puppy.client.reservation.vo;
 import java.util.Date;
 
 public class ReservationVO {
-	private int r_no;			// 예약번호
-	private String r_approval; 	// 승인여부
-	private int r_payPrice;		// 결제가격
-	private Date r_requestDate; // 신청날짜
-	private Date r_startDate; 	// 실제 예약 시작날짜
-	private Date r_endDate;		// 실제 예약 종료날짜
+	private int r_no;				// 예약번호
+	private String r_approval; 		// 승인여부
+	private int r_payPrice;			// 결제가격
+	private String r_status;		// 결제
+	private Date r_requestDate; 	// 신청날짜
+	private Date r_startDate; 		// 실제 예약 시작날짜
+	private Date r_endDate;			// 실제 예약 종료날짜
 	private int r_extraService1;	// 부가서비스1
 	private int r_extraService2;	// 부가서비스2
 	private int r_extraService3;	// 부가서비스3
 	private int r_extraService4;	// 부가서비스4
-	private String m_id;		// 아이디
-	private int c_no;			// 케이지 번호
-
+	private String m_id;			// 아이디
+	private int c_no;				// 케이지 번호
+	private int r_pet; 				// 예약 펫 번호
+	
+	public String getR_status() {
+		return r_status;
+	}
+	public void setR_status(String r_status) {
+		this.r_status = r_status;
+	}
+	public int getR_pet() {
+		return r_pet;
+	}
+	public void setR_pet(int r_pet) {
+		this.r_pet = r_pet;
+	}
 	public int getR_extraService1() {
 		return r_extraService1;
 	}

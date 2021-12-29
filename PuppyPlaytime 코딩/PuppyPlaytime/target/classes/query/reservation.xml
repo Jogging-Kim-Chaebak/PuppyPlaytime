@@ -48,10 +48,10 @@
 		      r_status,
 		      r_startdate,
 		      r_enddate,
-		      <if test="r_extraservice1 != null and r_extraservice1 !=''">r_extraservice1,</if>
-		      <if test="r_extraservice2 != null and r_extraservice2 !=''">r_extraservice2,</if>
-		      <if test="r_extraservice3 != null and r_extraservice3 !=''">r_extraservice3,</if>
-		      <if test="r_extraservice4 != null and r_extraservice4 !=''">r_extraservice4,</if>
+		      <if test="r_extraService1 != null and r_extraService1 !=''">r_extraservice1,</if>
+		      <if test="r_extraService2 != null and r_extraService2 !=''">r_extraservice2,</if>
+		      <if test="r_extraService3 != null and r_extraService3 !=''">r_extraservice3,</if>
+		      <if test="r_extraService4 != null and r_extraService4 !=''">r_extraservice4,</if>
 		      m_id,
 		      c_no,
 		      r_pet
@@ -63,10 +63,10 @@
 		      #{r_status},
 		      #{r_startDate},
 		      #{r_endDate},
-		      <if test="r_extraservice1 != null and r_extraservice1 !=''">#{r_extraService1},</if>
-		      <if test="r_extraservice2 != null and r_extraservice2 !=''">#{r_extraService2},</if>
-		      <if test="r_extraservice3 != null and r_extraservice3 !=''">#{r_extraService3},</if>
-		      <if test="r_extraservice4 != null and r_extraservice4 !=''">#{r_extraService4},</if>
+		      <if test="r_extraService1 != null and r_extraService1 !=''">#{r_extraService1},</if>
+		      <if test="r_extraService2 != null and r_extraService2 !=''">#{r_extraService2},</if>
+		      <if test="r_extraService3 != null and r_extraService3 !=''">#{r_extraService3},</if>
+		      <if test="r_extraService4 != null and r_extraService4 !=''">#{r_extraService4},</if>
 		      #{m_id},
 		      #{c_no},
 		      #{r_pet}
