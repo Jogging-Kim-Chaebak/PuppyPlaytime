@@ -72,13 +72,13 @@ function reserveRoom(){
 </script>
 </head>
 <body>
+	<h2>마이펫</h2>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="javascript:history.back()">예약 날짜</a></li>
 		<li class="breadcrumb-item active">마이 펫 정보</li>
 	</ol>
 	<div class="row">
 		<div class="col p-6" id="mypetInputForm">
-			<h3>마이펫</h3>
 			<form id="mypetForm">
 			<div class="form-group row">
 				<div class="col-sm-6">

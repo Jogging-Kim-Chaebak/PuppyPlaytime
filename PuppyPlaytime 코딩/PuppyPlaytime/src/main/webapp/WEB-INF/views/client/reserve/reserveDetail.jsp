@@ -9,6 +9,23 @@
 <title>상세 예약</title>
 <link rel="stylesheet" type="text/css" href="/resources/css/reserve/reserveDetail.css">
 <script>
+	$(function(){
+		var services = $('input[type=checkbox]');
+		var r_price;
+		$(services).each(function(index, item){
+			// 체크박스 클릭시 실행
+			$(item).click(function(){
+				r_price = parseInt($("#r_payPrice").val());
+				if($(item).is(':checked')){
+					$("#r_payPrice").val(r_price + parseInt($("#servicePrice"+index).val()));
+				}else if(!$(item).is(':checked')){
+					$("#r_payPrice").val(r_price - parseInt($("#servicePrice"+index).val()));
+				}
+			});
+		});
+	});
+	
+	
 	function requestReservation(){
 		$("#reserveDetailForm").attr({
 			"action" : "/client/reserve/reserveDetail",
@@ -29,63 +46,43 @@
 	</ol>
 	
 	<div class="row">
-		<div class="col p-3" id="mypetInputForm">
+		<div class="container">
 			<h3>예약내용</h3>
 			<form id="reserveDetailForm">
-			<!-- 
 			<div class="form-group row">
-				<label class="col-sm-3 col-form-label" for="inputDefault">룸 종류</label> 
-				<div class="col-sm-7">
-					<input type="text" class="form-control-plaintext" value="이름을 입력해주세요." readonly>
-				</div>
-			</div>
-			
-			<br>
-			
-			<div class="form-group row">
-				<label class="col-sm-3 col-form-label" for="inputDefault">룸 유형</label> 
-				<div class="col-sm-7">
-					<input type="text" class="form-control-plaintext" value="이름을 입력해주세요." readonly>
-				</div>
-			</div>
-			
-			<br>
-			-->
-			<div class="form-group row">
-      			<label class="col-sm-2 col-form-label" for="inputDefault">부가서비스</label> 
-				<div class="col-sm-10">
-					<c:forEach items="${extraServiceList}" var="extraservice">
-						<label class="form-check-label"> 
-						<input type="radio" class="form-check-input">
-						${extraservice.s_name }
-						</label>
-						&nbsp;&nbsp;
-					</c:forEach>	
+      			<label class="col-sm-5 col-form-label" for="inputDefault">부가서비스</label> 
+				<div class="col-sm-5">
+				<c:choose>
+					<c:when test="${empty extraServiceList}">
+						<label>부가서비스가 존재하지 않습니다.</label>
+					</c:when>
+					<c:otherwise>
+						<c:set var="serviceIndex" value="${0}"/>
+						<c:forEach items="${extraServiceList}" var="extraservice">
+							<label class="form-check-label"> 
+							<input type="checkbox" class="form-check-input" name="services" value="${extraservice.s_no }">
+							${extraservice.s_name }
+							<input type="hidden" id="servicePrice${serviceIndex}" value="${extraservice.s_price}"/>
+							<c:set var="serviceIndex" value="${serviceIndex + 1}" />
+							</label>
+							&nbsp;&nbsp;
+						</c:forEach>
+					</c:otherwise>	
+				</c:choose>
 				</div>
   		  	</div> 
   		  	
-  		  	<input type="text" value="${cageRoomVO.c_price }" name="r_payprice" />
+  		  	<input type="text" value="${cageRoomVO.c_price }" name="r_payPrice" id="r_payPrice" />
   		  	<input type="hidden" value="valid" name="r_status" id="r_status"/>
-  		  	<input type="hidden" value="N" name="r_approval" id="r_approval"/>
+  		  	<input type="hidden" value="W" name="r_approval" id="r_approval"/>
   		  	<input type="text" value="${cageRoomVO.c_no }" name="c_no" id="c_no"/>
-  		  	<input type="text" value="${p_no}" name="p_no" id="p_no"/>
+  		  	<input type="text" value="${p_no}" name="r_pet" id="r_pet"/>
 			
 			<input type="text" name="startDate" value="${rDate.startDate }"/>
   			<input type="text" name="endDate" value="${rDate.endDate }"/>
 			</form>
 		</div>
-		
-		<div class="col p-3" id="reservationContent">
-			<h3>결제 수단</h3>
-		</div>
-		<button type="button" class="btn btn-secondary" onclick="requestReservation()">예약하기</button>
 	</div>
-	
-	
-
-	${reservationVO.c_no }
-	<br> ${reservationVO.r_startDate }
-	<br> ${reservationVO.r_endDate }
 
 </body>
 </html>

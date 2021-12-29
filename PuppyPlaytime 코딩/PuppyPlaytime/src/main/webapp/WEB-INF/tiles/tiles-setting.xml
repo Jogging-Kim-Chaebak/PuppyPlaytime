@@ -49,7 +49,7 @@
 	</definition>
 	
 	<definition name="client/reserve/*" extends="content2">
-		<put-attribute name="title" value="예약페이지" />
+		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header_login.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
