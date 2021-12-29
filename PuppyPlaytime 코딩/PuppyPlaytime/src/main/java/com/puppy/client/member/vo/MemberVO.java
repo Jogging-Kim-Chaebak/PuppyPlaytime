@@ -12,6 +12,15 @@ public class MemberVO {
 	private String m_optional;// 선택약관
 	private String m_required1;// 필수약관1
 	private String m_required2;// 필수약관2
+	private String m_status;// 회원상태
+	
+	public String getM_status() {
+		return m_status;
+	}
+
+	public void setM_status(String m_status) {
+		this.m_status = m_status;
+	}
 
 	public MemberVO() {
 		super();
