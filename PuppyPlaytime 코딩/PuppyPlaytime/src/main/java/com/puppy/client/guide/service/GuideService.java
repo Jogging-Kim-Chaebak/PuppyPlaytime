@@ -11,7 +11,7 @@ public interface GuideService {
 	public List<CageRoomVO> roomList(CageRoomVO param) throws Exception;
 	
 	//부가서비스 리스트 구현 
-	public List<ExtraServiceVO> extraServiceList() throws Exception;
+	public List<ExtraServiceVO> extraServiceList(ExtraServiceVO param) throws Exception;
 	
 	// 룸 상세페이지 구현
 	public CageRoomVO roomDetail(int no) throws Exception;

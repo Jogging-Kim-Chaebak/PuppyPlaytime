@@ -29,13 +29,14 @@ public class GuideServiceImpl implements GuideService {
 
 	
 	 //부가서비스 리스트 구현
-	  @Override 
-	  public List<ExtraServiceVO> extraServiceList() throws Exception {
-		  List<ExtraServiceVO> exList= null; 
-		  exList = guideDao.extraList();
-		  return exList;
 	  
-	}
+	  @Override
+	  public List<ExtraServiceVO> extraServiceList(ExtraServiceVO param) throws Exception {
+			List<ExtraServiceVO> exlist = new ArrayList<ExtraServiceVO>();
+			exlist = guideDao.extraList(param);
+			return exlist;
+		}
+	  
 
 	// 룸 상세페이지 구현
 	@Override
