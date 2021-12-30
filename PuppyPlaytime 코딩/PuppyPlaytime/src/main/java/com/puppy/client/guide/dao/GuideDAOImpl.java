@@ -28,12 +28,11 @@ public class GuideDAOImpl implements GuideDAO {
 	
 	
 	  //부가서비스 리스트 구현
-	  
-	  @Override 
-	  public List<ExtraServiceVO> extraList() throws Exception {
-	  
-	    return session.selectList(namespace+".extraServiceList");
-	 }
+	@Override
+	public List<ExtraServiceVO> extraList(ExtraServiceVO param) throws Exception {
+			
+		return session.selectList(namespace+".extraServiceList",param);
+	}
 
 	 //룸 상세페이지 구현
 	@Override

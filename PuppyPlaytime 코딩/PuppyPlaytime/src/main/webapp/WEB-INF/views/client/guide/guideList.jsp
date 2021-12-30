@@ -77,40 +77,38 @@ h2 {
 					<col width="15%" />
 					<col width="15%" />
 					<col width="15%" />
-					<col width="25%" />
+				
 				</colgroup>
 				
+				<thead>
+					<tr>
+						<th class="tac">룸사진</th>
+						<th class="tac">룸종류</th>
+						<th class="tac">룸유형</th>
+						<th class="order">가격</th>
+						
+					</tr>
+				</thead>
 				<tbody id="list">
-
-					<!-- 데이터 출력 -->
+				<!-- 데이터 출력 -->
 					<p>
 					<c:choose>
 						<c:when test="${not empty roomList}">
-							<c:forEach var="room" items="${roomList}">
-							<c:if test="${empty room.c_picture}">
+							<c:forEach var="room" items="${roomList}" varStatus="status">
 							<tr class="tac" data-num="${room.c_no}">
-									<tr>
-									<td colspan="3" align="center"><a href='/client/guide/roomDetail?c_no=${room.c_no}'>등록된 사진 정보가 존재하지 않습니다.</a></td>
-							</c:if>
-									<td colspan="2" rowspan="6"><a href='/client/guide/roomDetail?c_no=${room.c_no}'><img src="/image/roomImages/${room.c_picture}"/></a></td>
-								</tr>
-								<tr>
-									<th class="tac">룸종류</th>
-									<td class="tac" colspan="3">${room.c_kind}</td>
-								<tr>
-					
-									<th class="tac">룸유형</th>
-									<td class="tac" colspan="3">${room.c_type}</td>
-								</tr>
-								<tr>
-									<th class="order">가격</th>
-									<td align="center" colspan="3">${room.c_price} 원</td>
-								</tr>
-								</tr>
-								<tr>
-									<th class="tac">룸설명</th>
-									<td align="center" colspan="4" rowspan="4">${room.c_explain}</td>
-								</tr>
+							
+								<c:if test="${empty room.c_picture}">
+									<td><a href='/client/guide/roomDetail?c_no=${room.c_no}'>등록된 사진 정보가 존재하지 않습니다.</a></td>
+								</c:if>
+								<c:if test="${not empty room.c_picture}">
+									<td><a href='/client/guide/roomDetail?c_no=${room.c_no}'><img src="/image/roomImages/${room.c_picture}"/></a></td>
+								</c:if>
+									<td>${room.c_kind}</td>
+							
+									<td>${room.c_type}</td>
+							
+									<td>${room.c_price} 원</td>
+								
 								</tr>
 							</c:forEach>
 						</c:when>
@@ -126,10 +124,10 @@ h2 {
 			</p>
 			<%--============== 리스트 종료 =============== --%>
 
-			<%-- <div class="contentTit">
+			<div class="contentTit">
 				<h2>부가서비스 리스트</h2>
 			</div>
-			============== 부가서비스 리스트 시작 ===============
+			<%-- ============== 부가서비스 리스트 시작 =============== --%>
 			<div id="noticeList">
 
 				<table border="1" summary="부가서비스 리스트">
@@ -169,10 +167,10 @@ h2 {
 
 					</tbody>
 				</table>
-				============== 리스트 종료 ===============
+				<%-- ============== 부가서비스 리스트 종료 =============== --%>
 
 
- --%>
+
 			</div>
 		</div>
 		</div>
