@@ -70,7 +70,7 @@
 </script>
 </head>
 <body>
-	<form name="form1" action="/client/login/adminCheck" method="post">
+	<form name="form1" action="/client/login/login" method="post">
 		<div class="form-group">
 			<label class="form-label mt-4">로그인</label>
 			<div class="form-floating mb-3">

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query.guide">
+	<resultMap type="com.puppy.admin.room.vo.CageRoomVO" id="cageRoomVO">
+		<result property="c_no" column="c_no"></result>
+		<result property="c_kind" column="c_kind"></result>
+		<result property="c_type" column="c_type"></result>
+		<result property="c_price" column="c_price"></result>
+		<result property="c_explain" column="c_explain"></result>
+		<result property="c_picture" column="c_picture"></result>
+		<result property="c_status" column="c_status"></result>
+		<result property="c_usestatus" column="c_usestatus"></result>
+	</resultMap>
+<!-- 룸 리스트 구현 -->
+<select id="roomList" resultType="cageroom">
+	SELECT c_no, c_kind,c_type,c_price,c_explain,
+		   c_picture,c_status
+	  FROM cageroom_tbl
+  ORDER BY c_no asc
+</select>
+
+
+<!-- 부가서비스 리스트 구현 -->
+<select id="extraList" resultType="extraservice">
+	SELECT s_no, s_name, s_explain, s_status, s_price
+	  FROM EXTRASERVICE_TBL
+  ORDER BY s_no desc
+
+</select>
+<!-- 룸 상세 페이지를 위한 게시물 조회 -->
+<select id="roomDetail" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
+		
+		SELECT c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus
+		FROM cageroom_tbl c 
+		WHERE c.c_no =#{c_no}
+		
+</select>
+
+</mapper>

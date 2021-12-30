@@ -10,13 +10,6 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
 	</definition>
 	
-	<definition name="intro_login" template="/WEB-INF/views/template/client/mainLayout.jsp">
-		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/views/template/client/header_login.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/client/main/mainPage.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
-	</definition>
-	
 	<definition name="content1" template="/WEB-INF/views/template/client/subLayout.jsp">
 		<put-attribute name="title" value="000 사이트" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
@@ -34,7 +27,7 @@
 	
 	<definition name="client/mypage/*" extends="content1">
 		<put-attribute name="title" value="마이페이지" />
-		<put-attribute name="header" value="/WEB-INF/views/template/client/header_login.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
 	</definition>
 	
@@ -50,7 +43,7 @@
 	
 	<definition name="client/reserve/*" extends="content2">
 		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/views/template/client/header_login.jsp" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
 	

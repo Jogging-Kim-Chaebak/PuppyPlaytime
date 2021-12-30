@@ -7,8 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상세 예약</title>
-<link rel="stylesheet" type="text/css" href="/resources/css/reserve/reserveDetail.css">
-
+<link rel="stylesheet" type="text/css" href="/resources/css/reserve/reservePetSelect.css">
 
 <script>
 $(function(){
@@ -72,13 +71,18 @@ function reserveRoom(){
 </script>
 </head>
 <body>
-	<h2>마이펫</h2>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="javascript:history.back()">예약 날짜</a></li>
-		<li class="breadcrumb-item active">마이 펫 정보</li>
+		<li class="breadcrumb-item active">마이펫 정보</li>
 	</ol>
+	<h2>마이펫 정보</h2>
 	<div class="row">
-		<div class="col p-6" id="mypetInputForm">
+		<div class="container" id="mypetInputForm">
+			<c:if test="${empty petList }">
+				펫이 존재하지 않습니다.<br>
+				마이페이지에서 펫을 추가하고 와주세요.
+			</c:if>
+			<c:if test="${not empty petList }">
 			<form id="mypetForm">
 			<div class="form-group row">
 				<div class="col-sm-6">
@@ -97,58 +101,45 @@ function reserveRoom(){
 				</div>
 			</div>
 			<br>
-			<div class="form-group row">
-      			<label class="col-sm-2 col-form-label" for="p_name">이름</label> 
-				<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_name" name="p_name" value="${petVO.p_name}" readonly>
+			
+			 
+			<div class="card">
+	 			<div class="card-header">
+	    		등록한 펫 정보
+	  			</div>
+ 				<ul class="list-group list-group-flush">
+    				<li class="list-group-item">
+    					<label for="p_name">펫 이름 :</label> 
+						<input type="text" id="p_name" name="p_name" value="${petVO.p_name}" readonly>
+    				</li>
+    				<li class="list-group-item">
+    					<label for="p_name">펫 견종 :</label> 
+						<input type="text" id="p_dogbreed" name="p_dogbreed" value="${petVO.p_dogbreed}" readonly>
+    				</li>  
+    				<li class="list-group-item">
+    					<label for="p_name">펫 성별 :</label> 
+						<input type="text" id="p_gender" name="p_gender" value="${p_gender_korean}" readonly>	
+    				</li>  
+    				<li class="list-group-item">
+    					<label for="p_name">펫 체급 :</label> 
+						<input type="text" id="p_weight" name="p_weight" value="${p_weight_korean}" readonly>
+    				</li>  
+				</ul>
+				<div class="card-body">
+					<label for="p_unique">특이사항</label><br>	
+					<textarea id="p_unique" name="p_unique" rows="3" readonly>${petVO.p_unique }</textarea>
 				</div>
-  		  	</div>
-  		  	
-  		  	<br>
-  		  	
-  		  	<div class="form-group row">
-      			<label class="col-sm-2 col-form-label" for="p_dogbreed">견종</label> 
-				<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_dogbreed" name="p_dogbreed" value="${petVO.p_dogbreed}" readonly>
-				</div>
-  		  	</div>
-  		  	
-  		  	<br>
-  		  	
-  		  	<div class="form-group row" id="petGenderRadio">
-      			<label class="col-sm-2 col-form-label">성별</label> 
-      			<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_gender" name="p_gender" value="${p_gender_korean }" readonly>
-  		  		</div>
-  		  	</div>
-
-			<br>
+			</div>
 			
-			<div class="form-group row" id="petWeightRadio">
-      			<label class="col-sm-2 col-form-label">체급</label> 
-				<div class="col-sm-10">
-					<input type="text" class="form-control-plaintext" id="p_weight" name="p_weight" value="${p_weight_korean }" readonly>
-				</div>
-  		  	</div>
-			
-			<br>
-			
-			<label class="form-check-label" for="p_unique">특이사항</label>	
-			<textarea class="form-control" id="p_unique" name="p_unique" rows="3">${petVO.p_unique }</textarea>
-			
-			<br>
+			<br><br>
 			
 			<input type="hidden" name="startDate" value="${rDate.startDate }" />
 			<input type="hidden" name="endDate" value="${rDate.endDate }" />
 			
 			<button type="button" id="InputReserveBtn" class="btn btn-secondary" onclick="reserveRoom()">예약하러 가기</button>
 			</form>
-		</div>
-		
-		<div class="col p-2" id="reservationContent">
-
+			</c:if>
 		</div>
 	</div>
-
 </body>
 </html>

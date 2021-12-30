@@ -11,11 +11,9 @@
    				c_price,
     			c_explain,
     			c_picture,
-    			c_status,
-    			c_usestatus
+    			c_status
     	FROM cageroom_tbl
-    	WHERE c_usestatus = 'unusing' and
-		not c_no in (select c_no
+    	WHERE not c_no in (select c_no
 						from reservation_tbl
 						where (r_startdate >= #{startReservation}) and
 						(r_enddate <= #{endReservation}))
@@ -30,8 +28,7 @@
    				c_price,
     			c_explain,
     			c_picture,
-    			c_status,
-    			c_usestatus
+    			c_status
     	FROM cageroom_tbl
     	WHERE c_no = #{c_no}
 	</select>

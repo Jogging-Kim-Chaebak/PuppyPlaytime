@@ -10,7 +10,7 @@
 <title>예약하기</title>
 </head>
 <body>
-
+	<h2>예약 날짜</h2>
 	<table id="table1">
 		<tr>
 			<!-- 이전달 버튼 만들기 -->
