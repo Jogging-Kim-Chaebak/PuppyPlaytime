@@ -11,16 +11,16 @@
 <script src="/resources/js/reserve/reserveRoom.js"></script>
 </head>
 <body>
-	<h2>예약 가능 룸 리스트</h2>
+	<h2>예약 룸 정보</h2>
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item"><a href="reserveCalendar">예약 날짜</a></li>
-		<li class="breadcrumb-item"><a href="javascript:history.back()">마이펫</a></li>
+		<li class="breadcrumb-item"><a href="javascript:history.go(-2)">예약 날짜</a></li>
+		<li class="breadcrumb-item"><a href="javascript:history.go(-1)">마이펫</a></li>
 		<li class="breadcrumb-item active">예약 룸 정보</li>
 	</ol>
 	
 	<!--  <div class="container mt-3">-->
   	<form id="dateCageForm"> 
-  		<input type="hidden" name="startDate" value="${rDate.startDate }"/>
+  		<input type="hidden" name="startDate" value="${rDate.startDate}"/>
   		<input type="hidden" name="endDate" value="${rDate.endDate }"/>
   		<input type="hidden" id="c_no" name="c_no">
   		<input type="hidden" id="p_no" name="p_no" value="${p_no}">
@@ -33,7 +33,7 @@
 		<c:otherwise>
 			<c:forEach items="${roomList }" var="room">
 				<div class="col-sm">
-				 	<div class="card" style="width:330px">
+				 	<div class="card text-center" style="width:330px">
 					     <img class="card-img-top" src="/image/roomImages/${room.c_picture}" width="200" height="200"/>
 					     <div class="card-body">
 					     	<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>

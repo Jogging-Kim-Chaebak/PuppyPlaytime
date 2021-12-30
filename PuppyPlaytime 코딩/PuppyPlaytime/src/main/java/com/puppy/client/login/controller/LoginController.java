@@ -1,6 +1,9 @@
 package com.puppy.client.login.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -8,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,8 +45,8 @@ public class LoginController {
 
 	// 로그인 등록 처리 메서드
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String userLogin(@ModelAttribute("MemberVO") MemberVO mvo, HttpSession session, HttpServletRequest request,
-			RedirectAttributes rttr) throws Exception {
+	public String userLogin(@ModelAttribute("MemberVO") MemberVO mvo, HttpServletRequest request,
+			RedirectAttributes rttr, HttpServletResponse response) throws Exception {
 		log.info("login post 호출 성공");
 
 		session = request.getSession();
@@ -51,11 +55,24 @@ public class LoginController {
 		if (lvo == null) { // 일치하지 않은 아이디,비밀번호 입력 경우
 			int result = 0;
 			rttr.addFlashAttribute("result", result);
+			
+			response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('로그인에 실패하였습니다.');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+			
 			return "/client/login/login";
+		}else {
+			session.setAttribute("userId", lvo.getM_id()); // 일치하는 아이디와 비밀번호일 경우
+			if(lvo.getM_id().equals("admin")){
+				return "adminIntro";
+			}else {
+				return "intro";
+			}	
 		}
-		session.setAttribute("mvo", lvo);// 일치하는 아이디와 비밀번호일 경우
-		return "/client/login/loginForm";
-
 	}
 
 	// 아이디 찾기 페이지
@@ -98,28 +115,9 @@ public class LoginController {
 	 * return ;// vo의 pw값을 받아온다. }
 	 */
 	
-	@RequestMapping(value="adminCheck")
-	public String adminCheck(HttpServletRequest request, MemberVO mvo) {
-		// 세션 설정
-		session = request.getSession();
-		
-		if(mvo.getM_id().equals("admin")) {
-			return "adminIntro";
-			//return "redirect:/admin/main/mainPage";
-		}else {
-			session.setAttribute("user_id", mvo.getM_id());
-			return "intro_login";
-		}
-	}
-	
-	@RequestMapping(value="intro_login")
-	public String intro_login() {
-		return "intro_login";
-	}	
-	
 	@RequestMapping(value="logout")
 	public String logout() {
-		session.removeAttribute("user_id"); 
+		session.removeAttribute("userId"); 
 	    session.invalidate();
 	    
 		return "intro";

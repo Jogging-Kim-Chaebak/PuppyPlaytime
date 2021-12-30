@@ -29,8 +29,6 @@ public class GuideController {
 	@Autowired
 	private CageRoomService cageRoomService;
 
-	
-
 		private static final String CONTEXT_PATH = "/client/guide";
 
 		private static final Logger logger = LoggerFactory.getLogger(CageRoomController.class);

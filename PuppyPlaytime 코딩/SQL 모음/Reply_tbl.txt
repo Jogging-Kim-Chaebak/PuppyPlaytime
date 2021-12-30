@@ -2,7 +2,6 @@ create table reply_tbl(
     reply_no number(10) not null,
     reply_regdate date DEFAULT sysdate,
     reply_content varchar2(1000) not null,
-    reply_title varchar2(50) not null,
     reply_registrant varchar2(10) not null,
     q_no number(6) not null,
     CONSTRAINT reply_tbl_pk PRIMARY KEY(reply_no),

@@ -8,7 +8,6 @@ public class CageRoomVO {
 	private String c_explain; // 케이지 설명
 	private String c_picture; // 케이지 사진
 	private String c_status; // 케이지 상태
-	private String c_usestatus; // 케이지 사용현황
 	
 	public CageRoomVO() {
 		super();
@@ -24,7 +23,6 @@ public class CageRoomVO {
 		this.c_explain = c_explain;
 		this.c_picture = c_picture;
 		this.c_status = c_status;
-		this.c_usestatus = c_usestatus;
 	}
 	
 	public int getC_no() {
@@ -69,12 +67,5 @@ public class CageRoomVO {
 	public void setC_status(String c_status) {
 		this.c_status = c_status;
 	}
-	public String getC_usestatus() {
-		return c_usestatus;
-	}
-	public void setC_usestatus(String c_usestatus) {
-		this.c_usestatus = c_usestatus;
-	}
-	
 	
 }
