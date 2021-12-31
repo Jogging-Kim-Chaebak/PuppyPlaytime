@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query.adminNotice">
+
+	<!-- 게시물 기본 조회 -->
+	<select id = "noticeList" resultType="notice">
+		SELECT 		n_no,
+   				    to_char(n_regdate,'YYYY-MM-DD') as n_regdate,
+   				    n_content,
+   				    n_title,
+    				n_registrant
+    				FROM notice_tbl
+    				ORDER BY n_no desc
+	</select>
+
+	<!-- 상세 페이지를 위한 게시물 조회 -->
+	<select id="noticeDetail" parameterType="int" resultType="notice">
+		SELECT 
+					n_no,
+   				    to_char(n_regdate,'YYYY-MM-DD HH24:MI:SS') as n_regdate,
+   				    n_content,
+   				    n_title,
+    				n_registrant
+    				FROM notice_tbl
+    				WHERE n_no = #{n_no}
+	
+	</select>
+
+	<!-- 게시물 등록 -->
+	<insert id="noticeAdd" parameterType="notice">
+		<selectKey keyProperty="n_no" resultType="int" order="BEFORE">
+			select notice_tbl_seq.nextval from dual
+		</selectKey>
+			INSERT INTO notice_tbl(
+					n_no,
+   				    n_content,
+   				    n_title,
+    				n_registrant
+			)
+		VALUES(
+					#{n_no},
+   				    #{n_content},
+   				    #{n_title},
+    				#{n_registrant}
+			)
+	</insert>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="noticeDelete" parameterType="notice">
+	
+		DELETE FROM notice_tbl
+		WHERE n_no = #{n_no}
+		
+	</delete>
+	
+	<!-- 수정 처리 -->
+	<update id="noticeUpdate" parameterType="notice">
+		UPDATE notice_tbl
+		   SET 
+		   	   n_registrant = #{n_registrant}
+   			   ,n_content = #{n_content}
+   			   ,n_title = #{n_title}
+	   	 WHERE n_no = #{n_no}
+	</update>
+	
+</mapper>

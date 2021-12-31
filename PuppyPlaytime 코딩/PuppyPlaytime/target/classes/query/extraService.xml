@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppy.admin.extraservice.dao.ExtraServiceDAO">
+	<resultMap type="com.puppy.common.vo.ExtraServiceVO" id="extraServiceVO">
+		<result property="s_no" column="s_no"></result>
+		<result property="s_name" column="s_name"></result>
+		<result property="s_explain" column="s_explain"></result>
+		<result property="s_status" column="s_status"></result>
+		<result property="s_price" column="s_price"></result>
+		<result property="c_no" column="c_no"></result>
+	</resultMap>
+
+	<select id="extraServiceList" parameterType="com.puppy.common.vo.ExtraServiceVO" resultMap="extraServiceVO">
+		select s_no,s_name,s_price  
+		from EXTRASERVICE_TBL 
+		where c_no is null and s_status = 'use'
+		order by s_no asc
+	</select>
+	
+	<select id="extraServiceDetail" parameterType="com.puppy.common.vo.ExtraServiceVO" resultMap="extraServiceVO">
+		<!-- select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus,e.s_name
+		from cageroom_tbl c, extraservice_tbl e 
+		where c.c_no =#{c_no} -->
+		select s_no,s_name,s_explain,s_price 
+		from EXTRASERVICE_TBL
+		where s_no =#{s_no}
+	</select>
+	
+	<select id="extraServiceDetail2" parameterType="com.puppy.common.vo.ExtraServiceVO" resultMap="extraServiceVO">
+		<!-- select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus,e.s_name
+		from cageroom_tbl c, extraservice_tbl e 
+		where c.c_no =#{c_no} -->
+		select s_name
+		from EXTRASERVICE_TBL
+		where c_no =#{c_no}
+		order by s_no asc
+	</select>
+	
+	<insert id="extraServiceAdd" parameterType="com.puppy.common.vo.ExtraServiceVO">
+		<selectKey keyProperty="s_no" resultType="int" order="BEFORE">
+			select EXTRASERVICE_TBL_SEQ.nextval from dual
+		</selectKey>
+		insert into EXTRASERVICE_TBL 
+		(s_no,s_name,s_explain,s_status,s_price,c_no)
+		values
+		(#{s_no},#{s_name},#{s_explain},#{s_status},#{s_price},null)
+	</insert>
+	
+	<insert id="extraServiceAdd2" parameterType="com.puppy.common.vo.ExtraServiceVO">
+		insert into EXTRASERVICE_TBL
+    	(s_no,s_name,s_explain,s_status,s_price,c_no)
+    	values(EXTRASERVICE_TBL_SEQ.nextval, (select s_name from EXTRASERVICE_TBL where s_no = #{s_no}),
+   	 	(select s_explain from EXTRASERVICE_TBL where s_no = #{s_no}),(select s_status from EXTRASERVICE_TBL where s_no = #{s_no}),
+    	(select s_price from EXTRASERVICE_TBL where s_no = #{s_no}),#{c_no})
+	</insert>
+	
+	<update id="extraServiceDisabled" parameterType="com.puppy.common.vo.ExtraServiceVO">
+		update EXTRASERVICE_TBL 
+		set s_status = 'unuse' 
+		where s_no =#{s_no} 
+	</update>
+
+</mapper>

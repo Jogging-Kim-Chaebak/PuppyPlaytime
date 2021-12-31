@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="query.member">
+	<!-- 회원정보를 저장할 resultMap정의 -->
+	<resultMap type="com.puppy.client.member.vo.MemberVO"
+		id="MemberVO">
+		<result property="m_id" column="m_id" />
+		<result property="m_pw" column="m_pw" />
+		<result property="m_name" column="m_name" />
+		<result property="m_birth" column="m_birth" />
+		<result property="m_email" column="m_email" />
+		<result property="m_phone" column="m_phone" />
+		<result property="m_address" column="m_address" />
+		<result property="m_optional" column="m_optional" />
+		<result property="m_required1" column="m_required1" />
+		<result property="m_required2" column="m_required2" />
+	</resultMap>
+	<!-- <select id="insert" parameterType="String" resultType="member"> SELECT 
+		m_id, m_pw, m_name, m_birth, m_email, m_phone, m_address, m_optional, m_required1, 
+		m_required2 FROM member_tbl WHERE m_id = #{m_id} </select> -->
+	<!-- 아이디 중복 체크 -->
+	<select id="m_idConfirm" parameterType="java.lang.String"
+		resultMap="MemberVO">
+		SELECT m_id
+		FROM member_tbl
+		WHERE m_id = #{id}
+	</select>
+	<!-- 회원 추가 -->
+	<insert id="insert"
+		parameterType="com.puppy.client.member.vo.MemberVO">
+		<!-- Mapper - insert -->
+		insert into member_tbl(m_id, m_pw, m_name, m_birth, m_email, m_phone,
+		m_address,m_optional,m_required1,m_required2)
+		values(#{m_id}, #{m_pw},
+		#{m_name}, #{m_birth}, #{m_email}, #{m_phone}, #{m_address},
+		#{m_optional}, #{m_required1}, #{m_required2})
+	</insert>
+	
+	<!-- 아이디 찾기 -->
+	<select id="find_id" parameterType="java.lang.String"
+		resultMap="MemberVO">
+	SELECT m_id
+	FROM member_tbl
+	WHERE m_email=#{m_email}
+
+	</select>
+
+
+</mapper>

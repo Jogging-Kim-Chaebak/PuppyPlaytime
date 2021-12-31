@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.puppy.admin.room.dao.CageRoomDAO">
+	<resultMap type="com.puppy.admin.room.vo.CageRoomVO" id="cageRoomVO">
+		<result property="c_no" column="c_no"></result>
+		<result property="c_kind" column="c_kind"></result>
+		<result property="c_type" column="c_type"></result>
+		<result property="c_price" column="c_price"></result>
+		<result property="c_explain" column="c_explain"></result>
+		<result property="c_picture" column="c_picture"></result>
+		<result property="c_status" column="c_status"></result>
+		<result property="c_usestatus" column="c_usestatus"></result>
+	</resultMap>
+	
+	<resultMap type="com.puppy.common.vo.ExtraServiceVO" id="extraServiceVO">
+		<result property="s_no" column="s_no"></result>
+		<result property="s_name" column="s_name"></result>
+		<result property="s_explain" column="s_explain"></result>
+		<result property="s_status" column="s_status"></result>
+		<result property="s_price" column="s_price"></result>
+		<result property="c_no" column="c_no"></result>
+	</resultMap>
+	
+	<select id="roomList" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
+		select c_no,c_kind,c_type,c_price,c_usestatus 
+		from cageroom_tbl 
+		where c_status = 'use'
+		order by c_no asc
+	</select>
+	
+	<select id="roomDetail" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
+		<!-- select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus,e.s_name
+		from cageroom_tbl c, extraservice_tbl e 
+		where c.c_no =#{c_no} -->
+		select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus
+		from cageroom_tbl c 
+		where c.c_no =#{c_no}
+	</select>
+	
+	<insert id="roomAdd" parameterType="com.puppy.admin.room.vo.CageRoomVO">
+		<selectKey keyProperty="c_no" resultType="int" order="BEFORE">
+			select cageroom_tbl_seq.nextval from dual
+		</selectKey>
+	<!-- 	<selectKey keyProperty="s_no" resultType="int" order="BEFORE">
+			select EXTRASERVICE_TBL_seq.nextval from dual
+		</selectKey> -->
+		insert into cageroom_tbl 
+		(c_no,c_kind,c_type,c_price,c_explain,c_picture,c_status,c_usestatus)
+		values
+		(#{c_no},#{c_kind},#{c_type},#{c_price},#{c_explain},#{c_picture},#{c_status},#{c_usestatus})
+		
+	</insert>
+	
+	<update id="roomDisabled" parameterType="com.puppy.admin.room.vo.CageRoomVO">
+		update cageroom_tbl 
+		set c_status = 'unuse' 
+		where c_no =#{c_no} 
+	</update>
+</mapper>
