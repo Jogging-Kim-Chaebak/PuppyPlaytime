@@ -30,7 +30,9 @@
 			</c:if>
 			<li class="nav-item"><a class="nav-link" href="/client/mypage/petList">마이페이지&nbsp;&nbsp;</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">이용안내&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/guide/guideList">이용안내&nbsp;&nbsp;</a>
+			</li>
+			<li class="nav-item"><a class="nav-link" href="/client/notice/noticeList">공지사항&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/client/reserve/reserveCalendar">예약하기&nbsp;&nbsp;</a>
 			</li>
