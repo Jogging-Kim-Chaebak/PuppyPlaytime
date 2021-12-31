@@ -26,7 +26,7 @@ public interface ReservationDAO {
 	public PetVO importPetDetail(int p_no) throws Exception;
 
 	// 아무 펫 한마리 불러오기
-	public PetVO importOnePet() throws Exception;
+	public PetVO importOnePet(String m_id) throws Exception;
 
 	// 부가서비스 띄워주기
 	public List<ExtraServiceVO> listExtraService(int c_no) throws Exception;
