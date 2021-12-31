@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="query.member">
+<mapper namespace="com.puppy.client.member.dao.MemberDao">
 	<!-- 회원정보를 저장할 resultMap정의 -->
 	<resultMap type="com.puppy.client.member.vo.MemberVO"
 		id="MemberVO">
@@ -16,10 +16,10 @@
 		<result property="m_optional" column="m_optional" />
 		<result property="m_required1" column="m_required1" />
 		<result property="m_required2" column="m_required2" />
+	<result property="m_status" column="m_status" />
+		<result property="m_regdate" column="m_regdate" />
 	</resultMap>
-	<!-- <select id="insert" parameterType="String" resultType="member"> SELECT 
-		m_id, m_pw, m_name, m_birth, m_email, m_phone, m_address, m_optional, m_required1, 
-		m_required2 FROM member_tbl WHERE m_id = #{m_id} </select> -->
+
 	<!-- 아이디 중복 체크 -->
 	<select id="m_idConfirm" parameterType="java.lang.String"
 		resultMap="MemberVO">
@@ -27,6 +27,7 @@
 		FROM member_tbl
 		WHERE m_id = #{id}
 	</select>
+
 	<!-- 회원 추가 -->
 	<insert id="insert"
 		parameterType="com.puppy.client.member.vo.MemberVO">
@@ -37,15 +38,39 @@
 		#{m_name}, #{m_birth}, #{m_email}, #{m_phone}, #{m_address},
 		#{m_optional}, #{m_required1}, #{m_required2})
 	</insert>
-	
+
 	<!-- 아이디 찾기 -->
 	<select id="find_id" parameterType="java.lang.String"
 		resultMap="MemberVO">
-	SELECT m_id
-	FROM member_tbl
-	WHERE m_email=#{m_email}
-
+		SELECT m_id
+		FROM member_tbl
+		WHERE m_email=#{m_email}
 	</select>
+
+	<!-- 아이디, 이메일 확인 -->
+	<select id="find_pw" parameterType="java.lang.String"
+		resultMap="MemberVO">
+		SELECT m_id, m_email
+		FROM member_tbl
+		WHERE m_email=#{m_email}
+		AND m_id=#{m_id}
+	</select>
+
+	<!-- 비밀번호 수정 페이지 -->
+	<select id="read" resultType="member">
+		SELECT *
+		FROM member_tbl
+		WHERE m_email=#{m_email} AND
+		m_id=#{m_id}
+	</select>
+
+
+	<!-- 비밀번호 수정 처리 -->
+	<update id="update">
+		UPDATE member_tbl
+		SET m_pw = #{m_pw}
+		WHERE m_id = #{m_id}
+	</update>
 
 
 </mapper>
