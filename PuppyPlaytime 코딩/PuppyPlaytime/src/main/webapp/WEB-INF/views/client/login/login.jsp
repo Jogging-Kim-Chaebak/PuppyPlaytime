@@ -12,13 +12,7 @@
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- Bootstrap core CSS -->
-<link href="/resources/include/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="/resources/include/dist/css/sticky-footer-navbar.css"
-	rel="stylesheet">
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
 <script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript" src="/resources/include/js/login.js"></script>
@@ -32,7 +26,7 @@
         var special = "~!@#$%^&*( )_=+|\\{}[];:\‘\“<>,?/"; // 특수문자 일람
         var bool = false; // Boolean 초기값
 
-          /*
+          
           if (bool) {
              alert("특수문자는 ID에 사용할 수 없습니다");
           } 
@@ -60,17 +54,16 @@
             if (form.m_pw.value.length < 8 || form.m_pw.value.length > 15)
             {
                  alert("비밀번호는 8~15 이내로 입력 가능 합니다.");
-
                  form.m_pw.select();
                  return;
             }
-		*/
+
    form.submit();
    }
 </script>
 </head>
 <body>
-	<form name="form1" action="/client/login/login" method="post">
+	<form name="form1" action="#" method="post">
 		<div class="form-group">
 			<label class="form-label mt-4">로그인</label>
 			<div class="form-floating mb-3">
@@ -89,8 +82,8 @@
 	<div class="form-group">
 		<button type="button" class="btn btn-primary"
 			onclick="location.href='http://localhost:8080/client/member/joinForm' ">회원가입</button>
-		<button type="button" class="btn btn-primary"onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디 찾기</button>
-		<button type="button" class="btn btn-primary">비밀번호 찾기</button>
+		<button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디 찾기</button>
+		<button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/client/login/find_pw' ">비밀번호 찾기</button>
 	</div>
 
 </body>

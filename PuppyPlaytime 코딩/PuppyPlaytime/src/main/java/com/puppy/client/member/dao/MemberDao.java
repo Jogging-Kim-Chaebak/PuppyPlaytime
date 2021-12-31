@@ -13,7 +13,16 @@ public interface MemberDao {
 	// 아이디 찾기
 	public MemberVO find_id(String m_email) throws Exception;
 
+	// 아이디와 이메일 확인 메서드
+	public MemberVO find_pw(MemberVO mvo) throws Exception;
 	
+	//비밀번호 수정 페이지
+	public MemberVO read(MemberVO mvo) throws Exception;
+
+
+	// 비밀번호 수정 팝업 페이지
+	public void update(MemberVO mvo) throws Exception;
+
 	
 
 	

@@ -23,7 +23,6 @@ public class LoginServiceImpl implements LoginService{
 	//로그인 처리 메서드
 	@Override
 	public MemberVO userLogin(MemberVO mvo) throws Exception {
-		MemberVO lvo=null;
 		mvo=loginDao.loginSelect(mvo);
 		return mvo;
 	}

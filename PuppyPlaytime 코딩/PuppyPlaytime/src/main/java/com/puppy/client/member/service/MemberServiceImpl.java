@@ -33,8 +33,26 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.find_id(m_email);
 	}
 
+	// 아이디와 이메일 확인 메서드
+	@Override
+	public MemberVO find_pw(MemberVO mvo) throws Exception {
+		return memberDao.find_pw(mvo);
+	}
 	
+	//비밀번호 수정 페이지
+	@Override
+	public MemberVO read(MemberVO mvo) throws Exception {
+		return memberDao.read(mvo);
+	}
 
+	// 비밀번호 수정 팝업 페이지
+	@Override
+	public void update(MemberVO mvo) throws Exception {
+		 memberDao.update(mvo);
+	}
+
+	
+	
 	
 
 	
