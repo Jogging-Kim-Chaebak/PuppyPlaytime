@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query.adminReservation">
+
+	<resultMap type="com.puppy.client.reservation.vo.ReservationVO" id="reservationVO">
+		<result property="r_no" column="r_no"></result>
+		<result property="r_approval" column="r_approval"></result>
+		<result property="r_payPrice" column="r_payprice"></result>
+		<result property="r_requestDate" column="r_requestDate"></result>
+		<result property="r_startDate" column="r_startDate"></result>
+		<result property="r_endDate" column="r_endDate"></result>
+		<result property="r_extraService1" column="r_extraService1"></result>
+		<result property="r_extraService2" column="r_extraService2"></result>
+		<result property="r_extraService3" column="r_extraService3"></result>
+		<result property="r_extraService4" column="r_extraService4"></result>
+		<result property="m_id" column="m_id"></result>
+		<result property="c_no" column="c_no"></result>
+		<result property="r_pet" column="r_pet"></result>
+		<result property="r_status" column="r_status"></result>
+	</resultMap>
+	
+	<select id="reservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
+		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+		from Reservation_tbl 
+		where r_approval = 'Y' or r_approval = 'N'
+		order by r_no asc
+	</select>
+	
+	<select id="newReservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
+		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+		from Reservation_tbl 
+		where r_approval = 'W'
+		order by r_no asc
+	</select>
+	
+	<select id="reservationDetail" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
+		select r_payprice,r_requestDate,r_startDate,r_endDate,m_id,c_no,r_pet,r_no,r_approval
+		from Reservation_tbl 
+		where r_no = #{r_no}
+	</select>
+	
+	<update id="reservationApproval" parameterType="com.puppy.client.reservation.vo.ReservationVO">
+		update Reservation_tbl 
+		set r_approval = 'Y' 
+		where r_no = #{r_no} 
+	</update>
+	
+	<update id="reservationCancel" parameterType="com.puppy.client.reservation.vo.ReservationVO">
+		update Reservation_tbl 
+		set r_approval = 'N' 
+		where r_no = #{r_no}
+	</update>
+	
+	<select id="todayReservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
+		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+		from Reservation_tbl 
+		where r_approval = 'Y' and r_startDate = sysdate
+		order by r_no asc;
+	</select>
+
+</mapper>

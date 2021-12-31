@@ -96,24 +96,6 @@ public class LoginController {
 		return vo.getM_id();// vo의 id값을 받아온다.
 	}
 
-	/*
-	 * // 비밀번호 찾기 페이지
-	 * 
-	 * @RequestMapping(value = "/find_pw", method = RequestMethod.GET) public String
-	 * find_pwForm() { log.info("find_pw GET 호출 성공"); return
-	 * "/client/login/find_pw"; }
-	 * 
-	 * // 비밀번호 수정 팝업 페이지
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/find_pw", method = RequestMethod.POST) public
-	 * String find_pw(, @RequestParam("m_email") String
-	 * m_email,@RequestParam("m_id") String m_id) throws Exception {
-	 * log.info("find_pw POST 호출 성공");
-	 * 
-	 * return ;// vo의 pw값을 받아온다. }
-	 */
 	
 	@RequestMapping(value="logout")
 	public String logout() {

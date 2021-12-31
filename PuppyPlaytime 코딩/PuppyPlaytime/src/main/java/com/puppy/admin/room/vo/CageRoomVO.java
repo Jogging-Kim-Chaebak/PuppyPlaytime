@@ -14,7 +14,7 @@ public class CageRoomVO {
 	}
 
 	public CageRoomVO(int c_no, String c_kind, String c_type, int c_price, String c_explain, String c_picture,
-			String c_status, String c_usestatus) {
+			String c_status) {
 		super();
 		this.c_no = c_no;
 		this.c_kind = c_kind;
@@ -67,5 +67,6 @@ public class CageRoomVO {
 	public void setC_status(String c_status) {
 		this.c_status = c_status;
 	}
+	
 	
 }

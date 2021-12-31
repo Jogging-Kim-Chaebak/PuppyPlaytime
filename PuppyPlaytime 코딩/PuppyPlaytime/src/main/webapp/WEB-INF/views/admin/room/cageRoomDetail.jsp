@@ -69,10 +69,6 @@ $(function(){
 						<td colspan ="3"><input type="text" id="c_price" name="c_price" value="${cageRoomVO.c_price}" readonly="readonly"/></td>
 					</tr>
 					<tr>
-						<th><span class ="required"></span>사용현황</th>
-						<td colspan ="3"><input type="text" id="c_usestatus" name="c_usestatus" value="${cageRoomVO.c_usestatus}" readonly="readonly"/></td>
-					</tr>
-					<tr>
 						<th><span class ="required"></span>케이지 설명</th>
 						<td colspan ="3"><textarea cols="60" rows="10" id="c_explain" name="c_explain" readonly="readonly"><c:out value="${cageRoomVO.c_explain}"/></textarea></td>
 					</tr>

@@ -46,6 +46,18 @@
 			<version>3.5.2</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- 파일 업로드 관련 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

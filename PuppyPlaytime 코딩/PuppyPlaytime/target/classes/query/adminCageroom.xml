@@ -9,7 +9,6 @@
 		<result property="c_explain" column="c_explain"></result>
 		<result property="c_picture" column="c_picture"></result>
 		<result property="c_status" column="c_status"></result>
-		<result property="c_usestatus" column="c_usestatus"></result>
 	</resultMap>
 	
 	<resultMap type="com.puppy.common.vo.ExtraServiceVO" id="extraServiceVO">
@@ -22,7 +21,7 @@
 	</resultMap>
 	
 	<select id="roomList" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
-		select c_no,c_kind,c_type,c_price,c_usestatus 
+		select c_no,c_kind,c_type,c_price
 		from cageroom_tbl 
 		where c_status = 'use'
 		order by c_no asc
@@ -32,7 +31,7 @@
 		<!-- select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus,e.s_name
 		from cageroom_tbl c, extraservice_tbl e 
 		where c.c_no =#{c_no} -->
-		select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture,c.c_usestatus
+		select c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture
 		from cageroom_tbl c 
 		where c.c_no =#{c_no}
 	</select>
@@ -45,9 +44,9 @@
 			select EXTRASERVICE_TBL_seq.nextval from dual
 		</selectKey> -->
 		insert into cageroom_tbl 
-		(c_no,c_kind,c_type,c_price,c_explain,c_picture,c_status,c_usestatus)
+		(c_no,c_kind,c_type,c_price,c_explain,c_picture,c_status)
 		values
-		(#{c_no},#{c_kind},#{c_type},#{c_price},#{c_explain},#{c_picture},#{c_status},#{c_usestatus})
+		(#{c_no},#{c_kind},#{c_type},#{c_price},#{c_explain},#{c_picture},#{c_status})
 		
 	</insert>
 	

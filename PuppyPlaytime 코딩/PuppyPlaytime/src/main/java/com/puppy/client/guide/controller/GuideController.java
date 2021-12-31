@@ -127,17 +127,4 @@ public class GuideController {
 	   return mav;
 	   
    }
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
 }

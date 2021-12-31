@@ -49,10 +49,6 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 				alert('케이지 가격을 입력해주세요.');
 				return false;
 			}
-			if($("#c_usestatus").val().replace(/\s/g,"")==""){
-				alert('케이지 사용현황을 입력해주세요.');
-				return false;
-			}
 			if($("#c_explain").val().replace(/\s/g,"")==""){
 				alert('케이지 설명을 입력해주세요.');
 				return false;
@@ -114,10 +110,6 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 					<tr>
 						<th><span class ="required">*</span>가격</th>
 						<td colspan ="3"><input type="text" id="c_price" name="c_price"/></td>
-					</tr>
-					<tr>
-						<th><span class ="required">*</span>사용현황</th>
-						<td colspan ="3"><input type="text" id="c_usestatus" name="c_usestatus" value ="unusing" readonly/></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>케이지 설명</th>

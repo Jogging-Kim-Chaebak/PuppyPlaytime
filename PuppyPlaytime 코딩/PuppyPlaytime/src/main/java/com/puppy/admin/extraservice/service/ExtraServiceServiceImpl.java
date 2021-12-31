@@ -3,8 +3,6 @@ package com.puppy.admin.extraservice.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +13,6 @@ import com.puppy.common.vo.ExtraServiceVO;
 @Service
 @Transactional
 public class ExtraServiceServiceImpl implements ExtraServiceService {
-
-	private static final Logger logger = LoggerFactory.getLogger(ExtraServiceServiceImpl.class);
 	
 	@Autowired
 	private ExtraServiceDAO extraServiceDAO;
@@ -49,7 +45,6 @@ public class ExtraServiceServiceImpl implements ExtraServiceService {
 	@Override
 	public int extraServiceAdd2(ExtraServiceVO svo) {
 		// TODO Auto-generated method stub
-		System.out.println("서비스임"+svo.getS_no());
 		return extraServiceDAO.extraServiceAdd2(svo);
 	}
 
