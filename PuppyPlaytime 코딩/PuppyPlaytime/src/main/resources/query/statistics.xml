@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="query.statistics">
+
+	<resultMap type="HashMap" id="hashMap">
+		<result property="month" column="month"></result>
+		<result property="reservation" column="reservation"></result>
+	</resultMap>
+	
+	<resultMap type="HashMap" id="hashMap2">
+		<result property="month" column="month"></result>
+		<result property="reservation" column="reservation"></result>
+		<result property="r_payprice" column="r_payprice"></result>
+	</resultMap>
+
+	<select id="adminJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="hashMap">
+		Select TO_CHAR(m_regdate, 'yyyy-mm')as month , count(*) as reservation 
+        From member_tbl
+        where m_status = 'active'
+		group by TO_CHAR(m_regdate, 'yyyy-mm')
+		order by TO_CHAR(m_regdate, 'yyyy-mm') desc
+	</select>
+	
+	<select id="adminReservationStatistics" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="hashMap2">
+		Select TO_CHAR(r_startDate, 'yyyy-mm')as month , count(*) as reservation 
+        From Reservation_tbl
+        where r_approval = 'Y'
+		group by TO_CHAR(r_startDate, 'yyyy-mm')
+		order by TO_CHAR(r_startDate, 'yyyy-mm') desc
+	</select>
+	
+	<select id="adminSalesStatistics" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="hashMap2" >
+		Select TO_CHAR(r_startDate, 'yyyy-mm')as month , sum(r_payPrice)as r_payprice 
+        From Reservation_tbl
+        where r_approval = 'Y'
+		group by TO_CHAR(r_startDate, 'yyyy-mm')
+		order by TO_CHAR(r_startDate, 'yyyy-mm') desc
+	</select>
+	
+	<select id="adminTodayJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="hashMap">
+		Select TO_CHAR(m_regdate, 'yyyy-mm')as month , count(*) as reservation 
+        From member_tbl
+        where m_status = 'active' and m_regdate = sysdate
+		group by TO_CHAR(m_regdate, 'yyyy-mm')
+		order by TO_CHAR(m_regdate, 'yyyy-mm') desc
+	</select>
+
+</mapper>

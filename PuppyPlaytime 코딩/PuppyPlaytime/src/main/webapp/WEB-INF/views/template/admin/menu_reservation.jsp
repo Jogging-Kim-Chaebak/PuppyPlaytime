@@ -6,13 +6,10 @@
 <div class="container">
 	<ul class="nav nav-tabs" role="tablist">
 	  <li class="nav-item">
-	    <a class="nav-link active" data-bs-toggle="tab" href="#home">Home</a>
+	    <a class="nav-link active" data-bs-toggle="tab" href="#newReservationList">새로운 예약리스트</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" data-bs-toggle="tab" href="#profile">Profile</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" data-bs-toggle="tab" href="#home">Disabled</a>
+	    <a class="nav-link" data-bs-toggle="tab" href="#reservationList">승인된 예약리스트</a>
 	  </li>
 	</ul>
 </div>

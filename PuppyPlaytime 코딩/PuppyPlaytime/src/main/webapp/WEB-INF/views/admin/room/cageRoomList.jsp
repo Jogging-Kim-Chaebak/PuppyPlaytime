@@ -54,7 +54,6 @@
 				<col width="100px" />
 				<col width="120px" />
 				<col width="200px" />
-				<col width="120px" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -62,7 +61,6 @@
 					<th>종류</th>
 					<th>유형</th>
 					<th>가격</th>
-					<th>사용현황</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -78,7 +76,6 @@
 						<td align ="center">${room.c_kind}</td>
 						<td align ="center">${room.c_type}</td>
 						<td align ="center">${room.c_price}</td>
-						<td align ="center">${room.c_usestatus}</td>
 					</tr>
 				</c:forEach>
 				<tr>
