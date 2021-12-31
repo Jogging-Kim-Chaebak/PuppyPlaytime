@@ -86,10 +86,10 @@
 						<td class="goDetail tal">${pet.p_no}</td>
 						<c:choose>
 						<c:when test="${empty pet.p_picture}">
-									<td>등록된 사진 정보가 존재하지 않습니다.</td>
+							<td>등록된 사진 정보가 존재하지 않습니다.</td>
 						</c:when>
 						<c:otherwise>
-									<td><img src="/image/petImages/${pet.p_picture}"/></td>
+							<td><img src="/image/petImages/${pet.p_picture}" width="100" height="100"/></td>
 						</c:otherwise>
 						</c:choose>
 						<td>${pet.p_name}</td>

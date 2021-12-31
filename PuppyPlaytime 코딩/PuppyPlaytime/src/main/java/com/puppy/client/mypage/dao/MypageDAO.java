@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.reservation.vo.ReservationVO;
-import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PetVO;
 
 public interface MypageDAO {
