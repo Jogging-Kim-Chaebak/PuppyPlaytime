@@ -8,16 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.reservation.vo.ReservationVO;
-import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PetVO;
 
 @Repository
 public class MypageDAOImpl implements MypageDAO{
-private static final String namespace="query.mypage";
+	private static final String namespace="query.mypage";
 	
 	@Autowired
 	private SqlSession session;
-	//private static String namespace = "com.puppy.client.mypage.dao.MypageDAO";
 	
 	//펫리스트 구현
 	@Override
@@ -54,13 +52,13 @@ private static final String namespace="query.mypage";
 	//예약리스트 구현(리스트 정보)
 	@Override
 	public List<ReservationVO> reservationList(String m_id) {
-		return session.selectList("reservationList",m_id);
+		return session.selectList(namespace + ".reservationList",m_id);
 	}
 	
 	//예약상세정보 구현
 	@Override
 	public ReservationVO reservationDetail(ReservationVO rvo) {
-		return (ReservationVO)session.selectOne("reservationDetail",rvo);
+		return (ReservationVO)session.selectOne(namespace + ".reservationDetail",rvo);
 	}
 	
 	//예약상세정보 구현(부가서비스)
@@ -72,7 +70,7 @@ private static final String namespace="query.mypage";
 	//예약취소 구현
 	@Override
 	public int reservationCancel(ReservationVO rvo) {
-		return session.update("reservationCancel",rvo);
+		return session.update(namespace + ".reservationCancel",rvo);
 	}
 
 	//내정보 구현

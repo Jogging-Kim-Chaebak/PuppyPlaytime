@@ -2,7 +2,9 @@ package com.puppy.client.reservation.vo;
 
 import java.util.Date;
 
-public class ReservationVO {
+import com.puppy.admin.room.vo.CageRoomVO;
+
+public class ReservationVO extends CageRoomVO{
 	private int r_no;				// 예약번호
 	private String r_approval; 		// 승인여부
 	private int r_payPrice;			// 결제가격

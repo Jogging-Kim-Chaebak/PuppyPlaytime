@@ -1,6 +1,6 @@
 package com.puppy.client.mypage.controller;
 
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.FileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.service.MypageService;
@@ -36,24 +31,26 @@ public class MypageController {
 	 
 	private Logger log = LoggerFactory.getLogger(MypageController.class);
 	
-	
 	@Autowired
 	private MypageService mypageService;
 	
+	private HttpSession session;
+	
+	private String userId;
 	
 	//펫리스트 구현하기
 	@RequestMapping(value="/petList", method=RequestMethod.GET)
 	public String petList(PetVO pvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		sessionCheck(request, response, "로그인 후 마이페이지를 이용할 수 있습니다.", model);
+		
 		log.info("petList 호출 성공");
 		
-		HttpSession session = request.getSession();
-  		String m_id = (String)session.getAttribute("userId");
-  		log.info("m_id = " + m_id);	
-  		pvo.setM_id(m_id);
+  		log.info("m_id = " + userId);	
+  		pvo.setM_id(userId);
   		log.info("pvo.m_id = " + pvo.getM_id());
   	
 		
-		List<PetVO> petList = mypageService.petList(m_id);
+		List<PetVO> petList = mypageService.petList(userId);
 		model.addAttribute("petList", petList);
 		model.addAttribute("data");
 		
@@ -62,7 +59,9 @@ public class MypageController {
 	
 	//펫등록 폼 출력하기
 	@RequestMapping(value="/insertForm")
-	public String insertForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String insertForm(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
+		
 		log.info("insertForm 호출 성공");
 		
 		return "client/mypage/mypagePetinfoinsert";
@@ -71,6 +70,8 @@ public class MypageController {
 	//펫등록 구현하기
 	@RequestMapping(value = "/petInsert", method = RequestMethod.POST)
 	public String petInsert(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
+		
 		log.info("petInsert 호출 성공");
 		
 		log.info("fileName : " + pvo.getFile().getOriginalFilename());
@@ -78,6 +79,8 @@ public class MypageController {
 		
 		int result = 0;
 		String url="";
+		
+		pvo.setM_id(userId);
 		
 		if(pvo.getFile()!=null) {
 			String p_picture = FileUploadUtil.fileUpload(pvo.getFile(), request, "petImages");
@@ -98,6 +101,8 @@ public class MypageController {
 	//펫 상세보기 구현
 	@RequestMapping(value="petDetail", method = RequestMethod.POST)
 	public String petDetail(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
+		
 		log.info("PetDetail 호출 성공");
 		
 		log.info("p_no = " + pvo.getP_no());
@@ -113,6 +118,8 @@ public class MypageController {
 	//펫수정 폼 출력하기
 	@RequestMapping(value="/updateForm")		
 	public String updateForm(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
+		
 		log.info("updateForm 호출 성공");
 		
 		log.info("p_no = " + pvo.getP_no());
@@ -126,7 +133,9 @@ public class MypageController {
 	
 	//펫수정 구현하기
 	@RequestMapping(value="/petUpdate", method=RequestMethod.POST)
-	public String petUpdate(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response) throws IllegalStateException, IOException{
+	public String petUpdate(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
+		
 		log.info("petUpdate 호출 성공");
 		
 		int result=0;
@@ -153,8 +162,10 @@ public class MypageController {
 	
 	 //펫정보 삭제
     @RequestMapping(value = "/petDelete")
-    public String petDelete(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
-        log.info("petDelete 호출 성공");
+    public String petDelete(@ModelAttribute PetVO pvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+    	sessionCheck(request, response, "잘못된 접근입니다.", model);
+    	
+    	log.info("petDelete 호출 성공");
         
         int result = 0;
         String url = "";
@@ -170,17 +181,18 @@ public class MypageController {
     }
     
     //예약리스트 구현하기
-    @RequestMapping(value="/reservationList", method=RequestMethod.GET) public
-    String reservationList(Model model, HttpServletRequest request,
+    @RequestMapping(value="/reservationList", method=RequestMethod.GET) 
+    public String reservationList(Model model, HttpServletRequest request,
     HttpServletResponse response) throws Exception {
+    	sessionCheck(request, response, "잘못된 접근입니다.", model);
+    	
     	log.info("reservationList 호출 성공"); 
-    	HttpSession session = request.getSession(); 
-    	String m_id = (String)session.getAttribute("userId");
-    	log.info("m_id = " + m_id); 
+    	
+    	log.info("m_id = " + userId); 
 		ReservationVO rvo = new ReservationVO();
-		rvo.setM_id(m_id);
+		rvo.setM_id(userId);
 	 
-		List<ReservationVO> reservationList = mypageService.reservationList(m_id);
+		List<ReservationVO> reservationList = mypageService.reservationList(userId);
 		model.addAttribute("reservationList", reservationList);
 	 
 		return "client/mypage/mypageReservation";
@@ -189,6 +201,8 @@ public class MypageController {
 	//예약 상세보기 구현
 		@RequestMapping(value="reservationDetail", method = RequestMethod.POST)
 		public String reservationDetail(@ModelAttribute ExtraServiceVO evo, ReservationVO rvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			sessionCheck(request, response, "잘못된 접근입니다.", model);
+			
 			log.info("reservationDetail 호출 성공");
 			
 			log.info("r_no = " + rvo.getR_no());
@@ -246,7 +260,9 @@ public class MypageController {
 	 
 	//예약취소 구현하기
 		@RequestMapping(value="/reservationCancel", method=RequestMethod.POST)
-		public String reservationCancel(@ModelAttribute ReservationVO rvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		public String reservationCancel(@ModelAttribute ReservationVO rvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+			sessionCheck(request, response, "잘못된 접근입니다.", model);
+			
 			log.info("reservationCancel 호출 성공");
 			
 			
@@ -257,7 +273,9 @@ public class MypageController {
   	
   	//내정보 구현하기
   	@RequestMapping(value="/myDetail", method = RequestMethod.GET)
-  	public String myDetail(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request) throws Exception{
+  	public String myDetail(@ModelAttribute MemberVO mvo, HttpServletResponse response, Model model, HttpServletRequest request) throws Exception{
+  		sessionCheck(request, response, "잘못된 접근입니다.", model);
+  		
   		log.info("myDetail 호출 성공");
   		HttpSession session = request.getSession();
   		String m_id = (String)session.getAttribute("userId");
@@ -275,6 +293,8 @@ public class MypageController {
   //내정보 수정 폼 출력하기
   	@RequestMapping(value="/myUpdateForm")		
   	public String myUpdateForm(@ModelAttribute MemberVO mvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+  		sessionCheck(request, response, "잘못된 접근입니다.", model);
+  		
   		log.info("myUpdateForm 호출 성공");
   		HttpSession session = request.getSession();
   		String m_id = (String)session.getAttribute("userId");
@@ -291,7 +311,9 @@ public class MypageController {
   	
   	//내정보 수정 구현하기
   	@RequestMapping(value="/myUpdate", method=RequestMethod.POST)
-  	public String myUpdate(@ModelAttribute MemberVO mvo, HttpServletRequest request, HttpServletResponse response) throws Exception{
+  	public String myUpdate(@ModelAttribute MemberVO mvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+  		sessionCheck(request, response, "잘못된 접근입니다.", model);
+  		
   		log.info("myUpdate 호출 성공");
   		HttpSession session = request.getSession();
   		String m_id = (String)session.getAttribute("userId");
@@ -304,5 +326,20 @@ public class MypageController {
   		return "redirect:/client/mypage/myDetail";
   	}
   	
-  
+  	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
+  		session = request.getSession();
+	    userId = (String) session.getAttribute("userId");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else {
+	    	model.addAttribute("userId", userId);
+	    }
+  	}
 }
