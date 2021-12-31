@@ -13,6 +13,7 @@
 		/* 수정 버튼 클릭 시 처리 이벤트 */
 		$("#petUpdateBtn").click(function(){
 			alert("수정버튼클릭");
+			
 			var checked_radio=$('input:radio[name=p_gender]:checked').val();
 			var checked_radio=$('input:radio[name=p_weight]:checked').val();
 			$("#f_writeForm").attr({
@@ -30,20 +31,22 @@
 </script>
 </head>
 <body>
-<form id="f_writeForm" name="f_writeForm" method="POST">
+<form id="f_writeForm" name="f_writeForm" enctype="multipart/form-data">
 	<div class="contentContainer">
 		<div class="contentTit"><h3>펫정보 수정하기</h3></div>
 		
 		<div class="contentTB">
 			
 				<input type="hidden" id="p_no" name="p_no" value="${updateData.p_no}" />
-			
+				<input type="hidden" id="p_picture" name="p_picture" value="${updateData.file}" />
+				
+				
 			<table border="1">
 					
 					<tr>
 						<td>이름</td>
 						<td><input type="text" name="p_name" id="p_name" value="${updateData.p_name}"></td>
-						<td rowspan="3"><td><img src="/image/petImages/${updateData.p_picture}"/></td></td>
+						<td rowspan="3"><td><img src="/image/petImages/${updateData.p_picture}"/></td>
 					</tr>
 					<tr>
 						<td>견종</td>
@@ -61,7 +64,7 @@
 							<input type="radio" name="p_weight" id="p_weight" value="L">대형(20kg이상)
 						</td>
 						
-						<td><input type="file" name="p_picture" id="p_picture"></td>
+						<td><input type="file" name="file" id="file"></td>
 					</tr>
 					<tr>
 						<td>특이사항</td>
@@ -69,7 +72,7 @@
 					</tr>
 					
 				</table>
-			
+		
 		</div>
 		<div class="contentBtn">
 			<input type="button" value="수정" id="petUpdateBtn">

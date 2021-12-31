@@ -15,13 +15,13 @@
 		
 		/* 목록 버튼 클릭 시 처리 이벤트 */
 		$("#petListBtn").click(function(){
-			alert("목록");
+			
 			location.href="/client/mypage/petList";
 		});
 		
 		/* 수정 버튼 클릭 시 처리 이벤트 */
 		$("#updateFormBtn").click(function(){
-			alert("수정");
+			
 			goUrl="/client/mypage/updateForm";
 			$("#f_data").attr("action",goUrl);
 			$("#f_data").submit();
@@ -30,7 +30,7 @@
 		
 		/* 삭제 버튼 클릭 시 처리 이벤트 */
 		$("#petDeleteBtn").click(function(){
-			alert("삭제");
+			alert("삭제되었습니다.");
 			goUrl="/client/mypage/petDelete";
 			$("#f_data").attr("action",goUrl);
 			$("#f_data").submit();
@@ -56,7 +56,7 @@
 			<input type="hidden" name="p_no" value="${detail.p_no}" />
 		</form>
 		<!-- 버튼추가 시작 -->
-		<input type="button" value="수정" id="updateFormBtn">
+		<input type="button" value="편집" id="updateFormBtn">
 		<input type="button" value="삭제" id="petDeleteBtn">
 		<input type="button" value="목록" id="petListBtn">
 		<!-- 버튼추가 종료 -->
@@ -67,31 +67,31 @@
 					
 					<tr>
 						<td>이름</td>
-						<td><input type="text" name="p_name" id="p_name" value="${detail.p_name}"></td>
+						<td><input type="text" name="p_name" id="p_name" readonly style="background-color: #e2e2e2;" value="${detail.p_name}"></td>
 						<td rowspan="3"><img src="/image/petImages/${detail.p_picture}"/></td>
 					</tr>
 					<tr>
 						<td>견종</td>
-						<td><input type="text" name="p_dogbreed" id="p_dogbreed" value="${detail.p_dogbreed}"></td>
+						<td><input type="text" name="p_dogbreed" id="p_dogbreed" style="background-color: #e2e2e2;" readonly value="${detail.p_dogbreed}"></td>
 					</tr>
 					<tr>
 						<td>성별</td>
-						<td><input type="radio" name="p_gender" id="p_gender" value="M">수컷
-						<input type="radio" name="p_gender" id="p_gender" value="F">암컷</td>
+						<td><input type="radio" name="p_gender" id="p_gender" style="background-color: #e2e2e2;" readonly value="M">수컷
+						<input type="radio" name="p_gender" id="p_gender" style="background-color: #e2e2e2;" readonly value="F">암컷</td>
 					</tr>
 					<tr>
 						<td>체중</td>
-						<td><input type="radio" name="p_weight" id="p_weight" value="S">소형(5kg미만)
-							<input type="radio" name="p_weight" id="p_weight" value="M">중형(5kg이상 20kg미만)
-							<input type="radio" name="p_weight" id="p_weight" value="L">대형(20kg이상)
+						<td><input type="radio" name="p_weight" id="p_weight" style="background-color: #e2e2e2;" readonly value="S">소형(5kg미만)
+							<input type="radio" name="p_weight" id="p_weight" style="background-color: #e2e2e2;" readonly value="M">중형(5kg이상 20kg미만)
+							<input type="radio" name="p_weight" id="p_weight" style="background-color: #e2e2e2;" readonly value="L">대형(20kg이상)
 						</td>
-						<td><input type="file" name="p_picture" id="p_picture">
+						<td><input type="file" name="p_picture" id="p_picture" style="background-color: #e2e2e2;" readonly>
 						
 							
 					</tr>
 					<tr>
 						<td>특이사항</td>
-						<td><input type="text" name="p_unique" id="p_unique"></td>
+						<td><input type="text" name="p_unique" id="p_unique" style="background-color: #e2e2e2;" readonly></td>
 					</tr>
 					
 				</table>

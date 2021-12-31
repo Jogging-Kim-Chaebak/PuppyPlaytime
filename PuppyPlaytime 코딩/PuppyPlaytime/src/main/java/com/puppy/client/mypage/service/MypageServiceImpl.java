@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.dao.MypageDAO;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PetVO;
 
 @Service
@@ -20,9 +21,9 @@ public class MypageServiceImpl implements MypageService{
 	 
 	//펫목록 구현
 	@Override
-	public List<PetVO> petList() {
+	public List<PetVO> petList(String m_id) {
 		List<PetVO> myList=null;
-		myList=mypageDAO.petList();
+		myList=mypageDAO.petList(m_id);
 		return myList;
 	}
 
@@ -69,12 +70,37 @@ public class MypageServiceImpl implements MypageService{
 		
 	}
 
-	//예약 리스트 구현
+	//예약 리스트 구현(예약정보)
 	@Override
-	public List<ReservationVO> reservationList() {
-		List<ReservationVO> list=null;
-		list=mypageDAO.reservationList();
-		return list;
+	public List<ReservationVO> reservationList(String m_id) {
+		return mypageDAO.reservationList(m_id);
+	}
+	
+	//예약 상세보기 구현(예약정보)
+	@Override
+	public ReservationVO reservationDetail(ReservationVO rvo) {
+		ReservationVO detail = null;
+		detail = mypageDAO.reservationDetail(rvo);
+		return detail;
+	}
+	
+	//예약 상세보기 구현(부가서비스)
+	@Override
+	public String reservationExtraservice(int r_extraService) throws Exception {
+		return mypageDAO.reservationExtraservice(r_extraService);
+	}
+	
+	//예약 취소 구현
+	@Override
+	public int reservationCancel(ReservationVO rvo) {
+		int result=0;
+		try {
+			result=mypageDAO.reservationCancel(rvo);
+		}catch(Exception e) {
+			e.printStackTrace();
+			result=0;
+		}
+		return result;
 	}
 
 	//내정보 구현
@@ -98,4 +124,5 @@ public class MypageServiceImpl implements MypageService{
 		return result;
 	}
 
+	
 }

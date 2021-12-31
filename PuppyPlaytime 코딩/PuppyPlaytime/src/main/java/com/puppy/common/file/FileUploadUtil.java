@@ -79,4 +79,18 @@ public class FileUploadUtil {
 		}
 		return real_name;
 	}
+	
+	// 파일 삭제 메서드
+	public static void fileDelete(String fileName, HttpServletRequest request, String path)throws IOException{
+		log.info("fileDelete 호출 성공");
+		boolean result=false;
+		String dirName=fileName.substring(0,fileName.indexOf("_"));
+		String docRoot = request.getSession().getServletContext().getRealPath("UPLOAD_PATH"+path+dirName);
+		File fileDelete = new File(docRoot+"/"+fileName);
+		log.info("삭제할 파일(fileDelete) : " + fileDelete);
+		if(fileDelete.exists()&&fileDelete.isFile()) {
+			result = fileDelete.delete();
+		}
+		log.info("파일 삭제 여부(true/false) : " + result);
+	}
 }
