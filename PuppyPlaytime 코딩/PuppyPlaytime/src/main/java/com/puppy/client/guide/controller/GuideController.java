@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.admin.extraservice.service.ExtraServiceService;
-import com.puppy.admin.room.controller.CageRoomController;
 import com.puppy.admin.room.service.CageRoomService;
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.common.vo.ExtraServiceVO;
@@ -29,17 +28,9 @@ public class GuideController {
 	@Autowired
 	private ExtraServiceService extraServiceService;
 	
-
-	
-
-		private static final String CONTEXT_PATH = "/client/guide";
-
-		private static final Logger logger = LoggerFactory.getLogger(CageRoomController.class);
-
-		//private static final String UPLOAD_PATH = "\\resources\\images";
-
+	private static final String CONTEXT_PATH = "client/guide";
 		
-		
+	//private static final String UPLOAD_PATH = "\\resources\\images"
 		
 		/****************************************************************
 		 * 룸 리스트 구현하기
@@ -75,9 +66,7 @@ public class GuideController {
 		  return mav; 
 		  
 		  }
-		 
-		
-		
+		 	
 	/****************************************************************
 	 * 부가서비스 리스트 구현하기
 	 *
@@ -108,7 +97,6 @@ public class GuideController {
    
    /****************************************************************
 	 * 룸 리스트와 부가서비스 리스트 jsp로 전송
-	 *
 	 ****************************************************************/	
    @RequestMapping(value="/guideList")
    public ModelAndView view(CageRoomVO param1,@ModelAttribute ExtraServiceVO param2) {

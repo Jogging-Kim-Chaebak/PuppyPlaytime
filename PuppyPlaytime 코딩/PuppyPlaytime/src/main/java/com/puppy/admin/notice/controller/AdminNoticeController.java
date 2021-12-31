@@ -1,7 +1,10 @@
 package com.puppy.admin.notice.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -28,12 +31,17 @@ public class AdminNoticeController {
 	@Autowired
 	private AdminNoticeService noticeService;
 	
+	private HttpSession session;
+	
+	private String userId;
 	
 	/************************************************************
 	 * 글목록 구현하기
 	 * *********************************************************/
 	@RequestMapping(value="/noticeList", method=RequestMethod.GET)
-	public String noticeList(Model model) {
+	public String noticeList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
+		
 		log.info("noticeList 호출 성공");
 		
 		List<NoticeVO> noticeList = null;
@@ -55,7 +63,9 @@ public class AdminNoticeController {
 	 * 글쓰기 폼 출력하기
 	 * *********************************************************/
 	@RequestMapping(value="/writeForm", method=RequestMethod.GET)
-	public String writeForm() {
+	public String writeForm(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
+		
 		log.info("writeForm 호출 성공");
 		return "admin/notice/writeForm";
 	}
@@ -64,11 +74,15 @@ public class AdminNoticeController {
 	 * 글쓰기 구현하기
 	 * *********************************************************/
 	@RequestMapping(value="/noticeAdd", method=RequestMethod.POST)
-	public String noticeAdd(@ModelAttribute NoticeVO nvo, Model model) {
+	public String noticeAdd(HttpServletRequest request, HttpServletResponse response, @ModelAttribute NoticeVO nvo, Model model) throws Exception{
+		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
+		
 		log.info("noticeAdd 호출 성공");
 		
 		int result = 0;
 		String url = "";
+		
+		nvo.setN_registrant(userId);
 		
 		try {
 			result=noticeService.noticeAdd(nvo);
@@ -120,7 +134,7 @@ public class AdminNoticeController {
 	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model) throws Exception{
 		log.info(nvo.getN_no()+"번째 글의 updateForm 호출 성공");
 		model.addAttribute("updateData",noticeService.noticeDetail(nvo));
-		return "/admin/notice/noticeUpdateForm";
+		return "admin/notice/noticeUpdateForm";
 	
 	}
 	
@@ -178,5 +192,22 @@ public class AdminNoticeController {
 		return "redirect:" + url;
 		
 	}
+	
+	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
+  		session = request.getSession();
+	    userId = (String) session.getAttribute("userId");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else {
+	    	model.addAttribute("userId", userId);
+	    }
+  	}
 
 }

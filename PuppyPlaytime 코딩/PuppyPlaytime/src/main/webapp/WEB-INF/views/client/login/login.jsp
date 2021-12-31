@@ -36,14 +36,14 @@
              form.m_id.focus();//id박스로 이동.
              return;
             }
-
+			/*
          //아이디 입력 문자수를 8~15자로 제한하는 조건문
          if (form.m_id.value.length < 8 || form.m_id.value.length > 15){
               alert("아이디는 8~15자 이내로 입력 가능합니다.");
               form.m_id.select();//입력한 문자를 선택 상태로 만듬.
               return;
            }
-
+		
            
           //패스워드 검사
             if (form.m_pw.value == ""){
@@ -57,6 +57,7 @@
                  form.m_pw.select();
                  return;
             }
+            */
 
    form.submit();
    }

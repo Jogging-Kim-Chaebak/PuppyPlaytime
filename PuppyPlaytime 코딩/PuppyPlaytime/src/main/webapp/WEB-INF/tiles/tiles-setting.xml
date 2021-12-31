@@ -42,6 +42,12 @@
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
 	
+	<!-- 사용자 이용안내 -->
+	<definition name="client/guide/*" extends="content1">
+		<put-attribute name="menu" value="/WEB-INF/views/template/client/menu_guide.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/client/guide/{1}.jsp" />
+	</definition>
+	
 	<!-- 사용자 공지사항 -->
 	<definition name="client/notice/*" extends="content2">
 		<put-attribute name="body" value="/WEB-INF/views/client/notice/{1}.jsp" />
