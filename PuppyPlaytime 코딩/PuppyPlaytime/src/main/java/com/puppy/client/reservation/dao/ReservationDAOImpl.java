@@ -50,8 +50,8 @@ public class ReservationDAOImpl implements ReservationDAO{
 
 	// 아무 펫 한마리 불러오기
 	@Override
-	public PetVO importOnePet() throws Exception {
-		return session.selectOne("importOnePet");
+	public PetVO importOnePet(String m_id) throws Exception {
+		return session.selectOne("importOnePet", m_id);
 	}
 
 	// 부가서비스 띄워주기

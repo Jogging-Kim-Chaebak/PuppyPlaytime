@@ -52,8 +52,8 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	// 아무 펫 한마리 불러오기
 	@Override
-	public PetVO importOnePet() throws Exception {
-		return reservationDAO.importOnePet();
+	public PetVO importOnePet(String m_id) throws Exception {
+		return reservationDAO.importOnePet(m_id);
 	}
 
 	// 부가서비스 띄워주기

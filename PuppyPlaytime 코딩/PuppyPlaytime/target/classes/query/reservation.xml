@@ -108,7 +108,17 @@
 			p_weight,
 			m_id
 			<if test="p_picture != null and p_picture!=''">,p_picture</if>
-		from pet_tbl
+		from (select p_no,
+			p_name,
+			p_dogbreed,
+			p_unique,
+			p_gender,
+			p_weight,
+			m_id
+			<if test="p_picture != null and p_picture!=''">,p_picture</if>
+			from pet_tbl
+			where m_id = #{m_id}
+			) 
 		where rownum = 1
 	</select>
 	

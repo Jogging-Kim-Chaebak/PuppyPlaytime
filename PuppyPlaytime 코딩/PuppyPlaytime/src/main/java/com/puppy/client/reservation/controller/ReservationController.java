@@ -84,7 +84,7 @@ public class ReservationController {
 	
 	// 예약날짜 받고, 펫 선택창 띄워주기
 	@RequestMapping(value="/reservePetSelectForm", method=RequestMethod.POST)
-	public String reservePetSelectForm(String m_id, ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String reservePetSelectForm(ReserveDate rDate, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		
 		// 성별 한국어로 바꾸기
@@ -95,31 +95,33 @@ public class ReservationController {
 		// 펫 불러오기
 		List<PetVO> petList = reservationService.importPetList(userId);
 		
-		PetVO pet = reservationService.importOnePet();
+		PetVO pet = reservationService.importOnePet(userId);
 		
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("petList", petList);
 		model.addAttribute("petVO", pet);
 		
-		switch(pet.getP_gender()) {
-		case "M" :
-			p_gender_korean = "수컷";
-			break;
-		case "F" :
-			p_gender_korean = "암컷";
-			break;
-		}
-		
-		switch(pet.getP_weight()) {
-		case "small" :
-			p_weight_korean = "소형";
-			break;
-		case "middle" :
-			p_weight_korean = "중형";
-			break;
-		case "big" :
-			p_weight_korean = "대형";
-			break;
+		if(pet != null) {
+			switch(pet.getP_gender()) {
+			case "M" :
+				p_gender_korean = "수컷";
+				break;
+			case "F" :
+				p_gender_korean = "암컷";
+				break;
+			}
+			
+			switch(pet.getP_weight()) {
+			case "small" :
+				p_weight_korean = "소형";
+				break;
+			case "middle" :
+				p_weight_korean = "중형";
+				break;
+			case "big" :
+				p_weight_korean = "대형";
+				break;
+			}
 		}
 		
 		model.addAttribute("p_gender_korean", p_gender_korean);
