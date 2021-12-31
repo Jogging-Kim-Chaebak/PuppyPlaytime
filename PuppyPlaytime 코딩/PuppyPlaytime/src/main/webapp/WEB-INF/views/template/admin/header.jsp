@@ -35,6 +35,8 @@ nav .navbar-nav li a {
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/notice/noticeList">공지사항 관리&nbsp;&nbsp;</a>
 			</li>
+			<li class="nav-item"><a class="nav-link" href="/admin/inquiry/adminInquiryList">문의게시판 관리&nbsp;&nbsp;</a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="/">로그아웃&nbsp;&nbsp;</a>
 			</li>
 		</ul>

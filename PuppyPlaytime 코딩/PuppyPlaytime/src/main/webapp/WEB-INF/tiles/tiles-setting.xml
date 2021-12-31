@@ -26,29 +26,29 @@
 	</definition>
 	
 	<definition name="client/mypage/*" extends="content1">
-		<put-attribute name="title" value="마이페이지" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
 	</definition>
 	
 	<definition name="client/login/*" extends="content2">
-		<put-attribute name="title" value="로그인" />
 		<put-attribute name="body" value="/WEB-INF/views/client/login/{1}.jsp" />
 	</definition>
 	
 	<definition name="client/member/*" extends="content2">
-		<put-attribute name="title" value="회원가입" />
 		<put-attribute name="body" value="/WEB-INF/views/client/member/{1}.jsp" />
 	</definition>
 	
 	<definition name="client/reserve/*" extends="content2">
-		<put-attribute name="title" value="" />
-		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/reserve/{1}.jsp" />
 	</definition>
 	
-	<definition name="client/notice/*" extends="content1">
-		<put-attribute name="title" value="공지사항" />
+	<!-- 사용자 공지사항 -->
+	<definition name="client/notice/*" extends="content2">
 		<put-attribute name="body" value="/WEB-INF/views/client/notice/{1}.jsp" />
+	</definition>
+	
+	<!-- 사용자 문의게시판 -->
+	<definition name="client/inquiry/*" extends="content2">
+		<put-attribute name="body" value="/WEB-INF/views/client/inquiry/{1}.jsp" />
 	</definition>
 </tiles-definitions>

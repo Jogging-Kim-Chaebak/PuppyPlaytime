@@ -7,3 +7,8 @@ create table Inquiry_tbl(
     CONSTRAINT inquiry_tbl_pk PRIMARY KEY(q_no),
     CONSTRAINT inquiry_tbl_fk foreign key(m_id) references Member_tbl(m_id)
 );
+
+create SEQUENCE inquiry_tbl_seq
+start with 1
+INCREMENT by 1
+NOCYCLE;

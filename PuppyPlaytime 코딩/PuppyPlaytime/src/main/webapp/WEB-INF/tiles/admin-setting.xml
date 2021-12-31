@@ -58,4 +58,10 @@
 		<put-attribute name ="body" value ="/WEB-INF/views/admin/statistics/{1}.jsp"/>
 	</definition>
 	
+	<!-- 관리자 문의게시판 관리 -->
+	<definition name="admin/inquiry/*" extends="adminContent2">
+		<put-attribute name ="title" value ="문의게시판 관리"/>
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/inquiry/{1}.jsp"/>
+	</definition>
+	
 </tiles-definitions>
