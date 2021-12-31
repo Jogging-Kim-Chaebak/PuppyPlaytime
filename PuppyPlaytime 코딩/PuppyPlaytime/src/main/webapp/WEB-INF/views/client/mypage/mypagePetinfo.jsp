@@ -11,14 +11,13 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 		$(function(){
-			
 			/* 등록 버튼 클릭 시 처리 이벤트 */
 			$("#insertFormBtn").click(function(){
 				location.href="/client/mypage/insertForm";
 			});
 			
 			/* 펫번호 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-			$(".goDetail").click(function(){
+			$(".petdetailBtn").click(function(){
 				var p_no = $(this).parents("tr").attr("data-num");
 				$("#p_no").val(p_no);
 				console.log("펫번호 : " + p_no);
@@ -75,6 +74,7 @@
 					<th>성별</th>
 					<th>체중</th>
 					<th>특이사항</th>
+					<th>상세보기</th>
 				</tr>
 			</thead>
 			<tbody id="list">
@@ -84,16 +84,21 @@
 					<c:forEach var="pet" items="${petList}" varStatus="status">
 					<tr class="tac" data-num="${pet.p_no}">
 						<td class="goDetail tal">${pet.p_no}</td>
-						<c:if test="${empty pet.p_picture}">
+						<c:choose>
+						<c:when test="${empty pet.p_picture}">
 									<td>등록된 사진 정보가 존재하지 않습니다.</td>
-							</c:if>
+						</c:when>
+						<c:otherwise>
 									<td><img src="/image/petImages/${pet.p_picture}"/></td>
-									
+						</c:otherwise>
+						</c:choose>
 						<td>${pet.p_name}</td>
 						<td>${pet.p_dogbreed}</td>
 						<td>${pet.p_gender}</td>
 						<td>${pet.p_weight}</td>
 						<td>${pet.p_unique}</td>
+						<td><input type="button" id="petdetailBtn" name="petdetailBtn"
+			class="petdetailBtn" value="상세보기"></td>
 					</tr>
 					</c:forEach>
 				</c:when>

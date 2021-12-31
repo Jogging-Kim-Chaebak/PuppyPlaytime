@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PetVO;
 
 @Repository
@@ -17,10 +18,11 @@ private static final String namespace="query.mypage";
 	@Autowired
 	private SqlSession session;
 	//private static String namespace = "com.puppy.client.mypage.dao.MypageDAO";
+	
 	//펫리스트 구현
 	@Override
-	public List<PetVO> petList() {
-		return session.selectList("petList");
+	public List<PetVO> petList(String m_id) {
+		return session.selectList("petList",m_id);
 	}
 
 	//펫등록 구현
@@ -49,10 +51,28 @@ private static final String namespace="query.mypage";
 		
 	}
 
-	//예약리스트 구현
+	//예약리스트 구현(리스트 정보)
 	@Override
-	public List<ReservationVO> reservationList() {
-		return session.selectList("reservationList");
+	public List<ReservationVO> reservationList(String m_id) {
+		return session.selectList("reservationList",m_id);
+	}
+	
+	//예약상세정보 구현
+	@Override
+	public ReservationVO reservationDetail(ReservationVO rvo) {
+		return (ReservationVO)session.selectOne("reservationDetail",rvo);
+	}
+	
+	//예약상세정보 구현(부가서비스)
+	@Override
+	public String reservationExtraservice(int r_extraService) throws Exception {
+		return session.selectOne("reservationExtraservice", r_extraService);
+	}
+	
+	//예약취소 구현
+	@Override
+	public int reservationCancel(ReservationVO rvo) {
+		return session.update("reservationCancel",rvo);
 	}
 
 	//내정보 구현
@@ -66,8 +86,5 @@ private static final String namespace="query.mypage";
 	public int myUpdate(MemberVO mvo) {
 		return session.update("myUpdate",mvo);
 	}
-
 	
-	
-
 }

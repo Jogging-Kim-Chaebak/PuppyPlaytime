@@ -1,5 +1,7 @@
 package com.puppy.common.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PetVO {
 	private int p_no = 0; // 펫번호
 	private String p_picture = ""; // 강아지사진
@@ -9,6 +11,11 @@ public class PetVO {
 	private String p_weight = ""; // 체중
 	private String p_unique = ""; // 특이사항
 	private String m_id = ""; // 회원 아이디
+	
+	//파일 업로드를 위한 속성
+	private MultipartFile file;	// 첨부파일
+	
+	
 	
 	public PetVO() {
 		super();
@@ -89,6 +96,14 @@ public class PetVO {
 
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	
 	

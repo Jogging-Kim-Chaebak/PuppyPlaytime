@@ -7,7 +7,7 @@
 $(function() {
 	/* 수정 버튼 클릭 시 처리 이벤트 */
 	$("#updatebtn").click(function() {
-		alert("수정");
+		alert("리스트로돌아가기");
 		goUrl = "/client/mypage/myUpdate";
 		$("#memberForm").attr("action", goUrl);
 		$("#memberForm").submit();
@@ -33,7 +33,7 @@ $(function() {
 			</div>
 			<div class="form-floating">
 				<input type="password" id="m_pw" name="m_pw"
-					placeholder="영문 숫자 특수문자 포함 20자" class="form-control"> <label
+					placeholder="영문 숫자 특수문자 포함 20자" class="form-control"><label
 					for="m_pw">비밀번호</label>
 			</div>
 			<div class="form-floating">
@@ -44,29 +44,29 @@ $(function() {
 			</div>
 
 			<div class="form-floating">
-				<input type="text" id="m_name" name="m_name" class="form-control"
+				<input type="text" id="m_name" name="m_name" value="${updateData.m_name}" class="form-control"
 					placeholder="이름"><label for="m_name">이름</label>
 
 			</div>
 
 			<div class="form-floating">
-				<input type="text" id="m_birth" name="m_birth" class="form-control"
+				<input type="text" id="m_birth" name="m_birth" value="${updateData.m_birth}" class="form-control"
 					placeholder="YYYY-MM-DD 입력"><label for="m_birth">생일</label>
 			</div>
 			<div class="form-floating">
-				<input type="text" id="m_phone" name="m_phone" class="form-control"
+				<input type="text" id="m_phone" name="m_phone" value="${updateData.m_phone}" class="form-control"
 					placeholder="(-) 제외 숫자로만 11자"><label for="m_phone">핸드폰
 					번호</label>
 			</div>
 			<div class="form-floating">
-				<input type="text" id="m_address" name="m_address"
+				<input type="text" id="m_address" name="m_address" value="${updateData.m_address}"
 					placeholder=" 도로명 주소" class="form-control"><label
 					for="m_address"> 주소</label>
 			</div>
 			
 			
 			<div class="form-floating">
-				<input type="text" id="m_email" name="m_email" class="form-control"
+				<input type="text" id="m_email" name="m_email" value="${updateData.m_email}" class="form-control"
 					placeholder="이메일 입력"> <input type="button" value="인증하기"
 					id="mailCheckBtn"><br>
 				<label for="m_email">회원 이메일 </label> 
