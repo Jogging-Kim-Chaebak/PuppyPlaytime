@@ -8,5 +8,7 @@
 		<typeAlias type="com.puppy.admin.room.vo.CageRoomVO" alias="cageroom" />
 		<typeAlias type="com.puppy.common.vo.PetVO" alias="pet" />
 		<typeAlias type="com.puppy.common.vo.ExtraServiceVO" alias="extraservice" />
+		<typeAlias type="com.puppy.client.inquiry.vo.InquiryVO" alias="inquiry" />
+		<typeAlias type="com.puppy.admin.reply.vo.ReplyVO" alias="reply" />
 	</typeAliases>
 </configuration>

@@ -34,7 +34,7 @@
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/client/reserve/reserveCalendar">예약하기&nbsp;&nbsp;</a>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="#">문의게시판&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/inquiry/inquiryList">문의게시판&nbsp;&nbsp;</a>
 			</li>
 		</ul>
 	</div>
