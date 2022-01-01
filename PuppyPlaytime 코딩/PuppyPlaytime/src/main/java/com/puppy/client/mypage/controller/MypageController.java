@@ -35,24 +35,20 @@ public class MypageController {
 	private MypageService mypageService;
 	
 	private HttpSession session;
-	
 	private String userId;
 	
 	//펫리스트 구현하기
 	@RequestMapping(value="/petList", method=RequestMethod.GET)
-	public String petList(PetVO pvo, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	public String petList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		sessionCheck(request, response, "로그인 후 마이페이지를 이용할 수 있습니다.", model);
 		
 		log.info("petList 호출 성공");
-		
-  		log.info("m_id = " + userId);	
-  		pvo.setM_id(userId);
-  		log.info("pvo.m_id = " + pvo.getM_id());
-  	
-		
-		List<PetVO> petList = mypageService.petList(userId);
-		model.addAttribute("petList", petList);
-		model.addAttribute("data");
+  		log.info("m_id = " + userId);
+  		
+  		if(userId != null) {
+  			List<PetVO> petList = mypageService.petList(userId);
+  			model.addAttribute("petList", petList);
+  		}
 		
 		return "client/mypage/mypagePetinfo";
 	}
@@ -99,7 +95,7 @@ public class MypageController {
 	}
 	
 	//펫 상세보기 구현
-	@RequestMapping(value="petDetail", method = RequestMethod.POST)
+	@RequestMapping(value="/petDetail", method = RequestMethod.POST)
 	public String petDetail(@ModelAttribute PetVO pvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		
@@ -328,7 +324,7 @@ public class MypageController {
   	
   	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
   		session = request.getSession();
-	    userId = (String) session.getAttribute("userId");
+  		userId = (String) session.getAttribute("userId");
 
 	    if(userId == null){
 	    	response.setContentType("text/html; charset=euc-kr");
