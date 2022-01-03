@@ -23,15 +23,14 @@ public class StatisticsDAOImpl implements StatisticsDAO {
 	}
 
 	@Override
-	public List<Map<String, Integer>> adminReservationStatistics() {
+	public Map<String, Integer> adminReservationStatistics() {
 		// TODO Auto-generated method stub
-		return SqlSession.selectList(namespace+".adminReservationStatistics","");
+		return SqlSession.selectMap(namespace+".adminReservationStatistics","");
 	}
 
 	@Override
-	public List<Map<String, Integer>> adminSalesStatistics() {
-		// TODO Auto-generated method stub
-		return SqlSession.selectList(namespace+".adminSalesStatistics","");
+	public Map<String, Integer> adminSalesStatistics() {
+		return SqlSession.selectMap(namespace+".adminSalesStatistics", "");
 	}
 
 	@Override

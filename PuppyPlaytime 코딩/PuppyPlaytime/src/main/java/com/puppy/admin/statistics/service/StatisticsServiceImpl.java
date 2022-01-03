@@ -18,18 +18,17 @@ public class StatisticsServiceImpl implements StatisticsService {
 	
 	@Override
 	public List<Map<String, Integer>> adminJoinStatistics() {
-		
 		return StatisticsDAO.adminJoinStatistics();
 	}
 
 	@Override
-	public List<Map<String, Integer>> adminReservationStatistics() {
+	public Map<String, Integer> adminReservationStatistics() {
 	
 		return StatisticsDAO.adminReservationStatistics();
 	}
 
 	@Override
-	public List<Map<String, Integer>> adminSalesStatistics() {
+	public Map<String, Integer> adminSalesStatistics() {
 		// TODO Auto-generated method stub
 		return StatisticsDAO.adminSalesStatistics();
 	}

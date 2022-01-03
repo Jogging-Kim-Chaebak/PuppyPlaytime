@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
+<%-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -34,12 +34,12 @@
 				</c:if>
 				<c:forEach items="${join}" var="j">
 					<tr>
-						<td align ="center">${j.month}</td>
+						 <td align ="center">${j.month}</td>
 						<td align ="center">${j.reservation}명</td>
 					</tr>
-				</c:forEach>
+				</c:forEach> 
 			</tbody>
 		</table>
 	</div>
 </body>
-</html>
+</html>--%>

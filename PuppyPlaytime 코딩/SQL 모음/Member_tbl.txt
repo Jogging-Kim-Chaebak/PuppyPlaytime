@@ -1,6 +1,6 @@
 CREATE table Member_tbl(
 m_id VARCHAR2(20) not null,
-m_pw VARCHAR2(20) not null,
+m_pw VARCHAR2(80) not null,
 m_name VARCHAR2(10)not null,
 m_birth DATE not null,
 m_email VARCHAR2(30) not null,

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.admin.statistics.service.StatisticsService;
-import com.puppy.client.member.vo.MemberVO;
+import com.puppy.common.graph.ChartMake;
 
 @Controller
 @RequestMapping(value ="/admin/statistics")
@@ -18,23 +18,24 @@ public class StatisticsController {
 	private static final String CONTEXT_PATH = "admin/statistics";
 	
 	@Autowired
-	private StatisticsService satisticsService;
+	private StatisticsService statisticsService;
 	
 	@RequestMapping("/adminJoinStatistics")
 	public ModelAndView adminJoinStatistics() {
-		
-		List<Map<String, Integer>> list = satisticsService.adminJoinStatistics();
+		List<Map<String, Integer>> listMap = statisticsService.adminJoinStatistics();
+		ChartMake.barJoinChart(listMap);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("join",list);
+		mav.addObject("join",listMap);
 		mav.setViewName(CONTEXT_PATH+"/adminJoinStatistics");
 		return mav;
 	}
 	
 	@RequestMapping("/adminReservationStatistics")
 	public ModelAndView adminReservationStatistics() {
-		
-		List<Map<String, Integer>> list = satisticsService.adminReservationStatistics();
+		Map<String, Integer> list = statisticsService.adminReservationStatistics();
+		System.out.println("list 키셋" + list.keySet());
+		ChartMake.barChart(list, 2);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservation",list);
@@ -45,7 +46,8 @@ public class StatisticsController {
 	@RequestMapping("/adminSalesStatistics")
 	public ModelAndView adminSalesStatistics() {
 		
-		List<Map<String, Integer>> list = satisticsService.adminSalesStatistics();
+		Map<String, Integer> list = statisticsService.adminSalesStatistics();
+		ChartMake.barChart(list, 1);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("sale",list);

@@ -1,4 +1,4 @@
-﻿package crypt;
+﻿package com.puppy.common.crypt;
 
 import java.util.Base64;
 import java.util.Base64.Decoder;

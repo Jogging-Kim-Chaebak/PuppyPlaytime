@@ -2,26 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="query.statistics">
 
-	<resultMap type="HashMap" id="hashMap">
-		<result property="month" column="month"></result>
-		<result property="reservation" column="reservation"></result>
-	</resultMap>
-	
-	<resultMap type="HashMap" id="hashMap2">
-		<result property="month" column="month"></result>
-		<result property="reservation" column="reservation"></result>
-		<result property="r_payprice" column="r_payprice"></result>
+	<resultMap type="HashMap" id="joinGraph" >
+		<id column="joinDate" property="joinDate" />
+		<id column="joinCount" property="joinCount" />
 	</resultMap>
 
-	<select id="adminJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="hashMap">
-		Select TO_CHAR(m_regdate, 'yyyy-mm')as month , count(*) as reservation 
+	<select id="adminJoinStatistics" resultMap="joinGraph">
+		Select TO_CHAR(m_regdate, 'yyyy-mm') as "해당 월", count(*) as "가입자 수"
         From member_tbl
         where m_status = 'active'
 		group by TO_CHAR(m_regdate, 'yyyy-mm')
 		order by TO_CHAR(m_regdate, 'yyyy-mm') desc
 	</select>
 	
-	<select id="adminReservationStatistics" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="hashMap2">
+	<!-- 
+	<select id="adminReservationStatistics" resultMap="graph">
 		Select TO_CHAR(r_startDate, 'yyyy-mm')as month , count(*) as reservation 
         From Reservation_tbl
         where r_approval = 'Y'
@@ -29,7 +24,7 @@
 		order by TO_CHAR(r_startDate, 'yyyy-mm') desc
 	</select>
 	
-	<select id="adminSalesStatistics" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="hashMap2" >
+	<select id="adminSalesStatistics" resultMap="graph" >
 		Select TO_CHAR(r_startDate, 'yyyy-mm')as month , sum(r_payPrice)as r_payprice 
         From Reservation_tbl
         where r_approval = 'Y'
@@ -37,12 +32,12 @@
 		order by TO_CHAR(r_startDate, 'yyyy-mm') desc
 	</select>
 	
-	<select id="adminTodayJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="hashMap">
+	<select id="adminTodayJoinStatistics" resultMap="graph">
 		Select TO_CHAR(m_regdate, 'yyyy-mm')as month , count(*) as reservation 
         From member_tbl
         where m_status = 'active' and m_regdate = sysdate
 		group by TO_CHAR(m_regdate, 'yyyy-mm')
 		order by TO_CHAR(m_regdate, 'yyyy-mm') desc
-	</select>
+	</select> -->
 
 </mapper>
