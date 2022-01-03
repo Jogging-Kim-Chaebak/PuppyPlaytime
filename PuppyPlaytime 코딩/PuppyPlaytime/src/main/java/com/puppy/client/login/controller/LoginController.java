@@ -20,8 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.puppy.client.login.service.LoginService;
 import com.puppy.client.member.service.MemberService;
 import com.puppy.client.member.vo.MemberVO;
-
-import crypt.SHA256;
+import com.puppy.common.crypt.SHA256;
 
 @Controller
 @RequestMapping("/client/login")

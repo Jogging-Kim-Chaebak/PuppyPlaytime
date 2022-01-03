@@ -211,6 +211,13 @@
 			<artifactId>tiles-template</artifactId>
 			<version>${org.apache.tiles-version}</version>
 		</dependency>
+		
+		<!-- jfreechart 처리 -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+			<version>1.0.19</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
