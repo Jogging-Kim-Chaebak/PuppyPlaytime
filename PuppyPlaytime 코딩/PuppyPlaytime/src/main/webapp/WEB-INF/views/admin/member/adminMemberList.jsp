@@ -11,12 +11,14 @@
 
 
 function updateData(m_id){
-	$("#m_id").val(m_id);
-	$("#memberForm").attr({
-		"method":"post",
-		"action":"/admin/member/adminMemberDisabled"
-	});
-	$("#memberForm").submit();
+	if(confirm('회원탈퇴를 진행하시겠습니까?')){
+		$("#m_id").val(m_id);
+		$("#memberForm").attr({
+			"method":"post",
+			"action":"/admin/member/adminMemberDisabled"
+		});
+		$("#memberForm").submit();
+	}
 }
 
 	

@@ -1,14 +1,18 @@
 package com.puppy.admin.room.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +31,9 @@ import com.puppy.common.file.FileUploadUtil;
 @RequestMapping(value = "/admin/room")
 public class CageRoomController {
 	private static final String CONTEXT_PATH = "admin/room";
+	
+	private HttpSession session; // 세션 선언
+	private String userId; // 체크할 아이디 선언
 
 	private static final Logger logger = LoggerFactory.getLogger(CageRoomController.class);
 
@@ -39,8 +46,8 @@ public class CageRoomController {
 	private ExtraServiceService extraServiceService;
 
 	@RequestMapping("/roomList") // 케이지 리스트
-	public ModelAndView roomList(@ModelAttribute CageRoomVO param) {
-
+	public ModelAndView roomList(@ModelAttribute CageRoomVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		List<CageRoomVO> list = cageRoomService.roomList(param);
 
 		ModelAndView mav = new ModelAndView();
@@ -51,8 +58,8 @@ public class CageRoomController {
 	}
 
 	@RequestMapping("/roomDetail") // 케이지 상세 정보
-	public ModelAndView roomDetail(@RequestParam("c_no") String no) {
-
+	public ModelAndView roomDetail(@RequestParam("c_no") String no,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		ModelAndView mav = new ModelAndView();
 		CageRoomVO rvo = cageRoomService.roomDetail(Integer.parseInt(no));
 		List<ExtraServiceVO> list = extraServiceService.extraServiceDetail2(Integer.parseInt(no));
@@ -72,7 +79,8 @@ public class CageRoomController {
 
 	@RequestMapping(value = "/roomAdd", method = RequestMethod.POST) // 케이지 등록
 	public String roomAdd(CageRoomVO cvo,ExtraServiceVO svo,@RequestPart(value = "file") MultipartFile file,
-			HttpServletRequest request) throws IllegalStateException, IOException {
+			Model model, HttpServletRequest request, HttpServletResponse response)throws Exception, IllegalStateException, IOException {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		String resultStr = "";
 
 		String c_file = FileUploadUtil.fileUpload(file, request, "roomImages");
@@ -113,7 +121,8 @@ public class CageRoomController {
 	}
 
 	@RequestMapping("/roomDisabled") // 케이지 비활성화
-	public String roomDisabled(@ModelAttribute CageRoomVO param) {
+	public String roomDisabled(@ModelAttribute CageRoomVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		String resultStr = "";
 		int result = cageRoomService.roomDisabled(param);
 
@@ -136,8 +145,8 @@ public class CageRoomController {
 	 */
 	
 	@RequestMapping(value = "/writeForm") // 부가서비스 리스트
-	public ModelAndView writeForm(@ModelAttribute ExtraServiceVO param) {
-
+	public ModelAndView writeForm(@ModelAttribute ExtraServiceVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		List<ExtraServiceVO> list = extraServiceService.extraServiceList(param);
 
 		ModelAndView mav = new ModelAndView();
@@ -146,4 +155,28 @@ public class CageRoomController {
 
 		return mav;
 	}
+	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
+  		session = request.getSession();
+  		userId = (String) session.getAttribute("userId");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else if(!userId.equals("admin")){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else {
+	    	model.addAttribute("userId", userId);
+	    }
+  	}
 }

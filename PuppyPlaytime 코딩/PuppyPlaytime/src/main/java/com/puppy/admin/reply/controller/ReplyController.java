@@ -1,12 +1,18 @@
 package com.puppy.admin.reply.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +38,9 @@ public class ReplyController {
 	@Autowired
 	private ReplyService replyService;
 	
+	private HttpSession session; // 세션 선언
+	private String userId; // 체크할 아이디 선언
+	
 	/**************************************************************
 	 * 댓글 글목록 구현하기
 	 * @return List<ReplyVO>
@@ -40,7 +49,8 @@ public class ReplyController {
 	 * 예전 요청 URL : http://localhost:8080/replies/replyList.do?b_num=게시판글번호
 	 **************************************************************/	
 	 @RequestMapping(value = "/all/{q_no}", method = RequestMethod.GET)
-	 public ResponseEntity<List<ReplyVO>> list(@PathVariable("q_no") Integer q_no) {
+	 public ResponseEntity<List<ReplyVO>> list(@PathVariable("q_no") Integer q_no,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		 sessionCheck(request, response, "잘못된 접근입니다.", model);
 		 ResponseEntity<List<ReplyVO>> entity = null;
 		 try {
 	entity = new ResponseEntity< List<ReplyVO>>(replyService.replyList(q_no), HttpStatus.OK);
@@ -57,7 +67,8 @@ public class ReplyController {
 	 * 참고 : @RequestBody
 	 **************************************************************/
 	@RequestMapping(value="/replyInsert")
-	public ResponseEntity<String> replyInsert(@RequestBody ReplyVO rvo) {
+	public ResponseEntity<String> replyInsert(@RequestBody ReplyVO rvo,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("replyInsert 호출 성공");
 		ResponseEntity<String> entity = null;
 		int result;
@@ -84,7 +95,8 @@ public class ReplyController {
 	@RequestMapping(value = "/{reply_no}", 
 method = {RequestMethod.PUT, RequestMethod.PATCH})
 	public ResponseEntity<String> replyUpdate(@PathVariable("reply_no") Integer reply_no,
-  @RequestBody ReplyVO rvo) {
+  @RequestBody ReplyVO rvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("replyUpdate 호출 성공");
 		ResponseEntity<String> entity = null;
 	    try {
@@ -104,7 +116,8 @@ method = {RequestMethod.PUT, RequestMethod.PATCH})
 	 * 참고 : REST 방식에서 DELETE 작업은 DELETE방식을 이용해서 처리.
 	 **************************************************************/
 	  @RequestMapping(value = "/{reply_no}", method = RequestMethod.DELETE)
-	  public ResponseEntity<String> replyDelete(@PathVariable("reply_no") Integer reply_no) {
+	  public ResponseEntity<String> replyDelete(@PathVariable("reply_no") Integer reply_no,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		  sessionCheck(request, response, "잘못된 접근입니다.", model);
 		  log.info("replyDelete 호출 성공");
 		  ResponseEntity<String> entity = null;
 		  try {
@@ -116,4 +129,28 @@ method = {RequestMethod.PUT, RequestMethod.PATCH})
 		  }
 		  return entity;
 	  }
+	  private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
+	  		session = request.getSession();
+	  		userId = (String) session.getAttribute("userId");
+
+		    if(userId == null){
+		    	response.setContentType("text/html; charset=euc-kr");
+		    	PrintWriter out = response.getWriter();
+		    	out.println("<script type='text/javascript'>");
+		    	out.println("alert('"+ message + "');");
+		    	out.println("location.href='/client/login/login'");
+		    	out.println("</script>");
+		    	out.flush();
+		    }else if(!userId.equals("admin")){
+		    	response.setContentType("text/html; charset=euc-kr");
+		    	PrintWriter out = response.getWriter();
+		    	out.println("<script type='text/javascript'>");
+		    	out.println("alert('"+ message + "');");
+		    	out.println("location.href='/client/login/login'");
+		    	out.println("</script>");
+		    	out.flush();
+		    }else {
+		    	model.addAttribute("userId", userId);
+		    }
+	  	}
 }

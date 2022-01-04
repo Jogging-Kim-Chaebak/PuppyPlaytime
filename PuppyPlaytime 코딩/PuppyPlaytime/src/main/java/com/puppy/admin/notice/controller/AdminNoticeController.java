@@ -26,22 +26,20 @@ import com.puppy.client.notice.vo.NoticeVO;
 @RequestMapping(value="/admin/notice")
 public class AdminNoticeController {
 	private Logger log = LoggerFactory.getLogger(AdminNoticeController.class);
-	
+	private HttpSession session; // 세션 선언
+	private String userId; // 체크할 아이디 선언
 	
 	@Autowired
 	private AdminNoticeService noticeService;
 	
-	private HttpSession session;
-	
-	private String userId;
 	
 	/************************************************************
 	 * 글목록 구현하기
 	 * *********************************************************/
 	@RequestMapping(value="/noticeList", method=RequestMethod.GET)
-	public String noticeList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
+	public String noticeList(Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeList 호출 성공");
 		
 		List<NoticeVO> noticeList = null;
@@ -63,9 +61,8 @@ public class AdminNoticeController {
 	 * 글쓰기 폼 출력하기
 	 * *********************************************************/
 	@RequestMapping(value="/writeForm", method=RequestMethod.GET)
-	public String writeForm(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
-		
+	public String writeForm(Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("writeForm 호출 성공");
 		return "admin/notice/writeForm";
 	}
@@ -74,15 +71,12 @@ public class AdminNoticeController {
 	 * 글쓰기 구현하기
 	 * *********************************************************/
 	@RequestMapping(value="/noticeAdd", method=RequestMethod.POST)
-	public String noticeAdd(HttpServletRequest request, HttpServletResponse response, @ModelAttribute NoticeVO nvo, Model model) throws Exception{
-		sessionCheck(request, response, "접근 제한된 페이지입니다.", model);
-		
+	public String noticeAdd(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeAdd 호출 성공");
 		
 		int result = 0;
 		String url = "";
-		
-		nvo.setN_registrant(userId);
 		
 		try {
 			result=noticeService.noticeAdd(nvo);
@@ -105,7 +99,8 @@ public class AdminNoticeController {
 	 * *********************************************************/
 	
 	@RequestMapping(value="/noticeDetail", method=RequestMethod.GET)
-	public String noticeDetail(@ModelAttribute NoticeVO nvo, Model model) {
+	public String noticeDetail(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeDetail 호출 성공");
 		log.info("n_no = " + nvo.getN_no());
 		
@@ -131,10 +126,11 @@ public class AdminNoticeController {
 	 * 글 수정 페이지
 	 * *********************************************************/
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model) throws Exception{
+	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info(nvo.getN_no()+"번째 글의 updateForm 호출 성공");
 		model.addAttribute("updateData",noticeService.noticeDetail(nvo));
-		return "admin/notice/noticeUpdateForm";
+		return "/admin/notice/noticeUpdateForm";
 	
 	}
 	
@@ -142,7 +138,8 @@ public class AdminNoticeController {
 	 * 글 수정처리
 	 * *********************************************************/
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public String noticeModify(@ModelAttribute NoticeVO nvo, Model model) throws Exception{
+	public String noticeModify(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception{
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeModify 호출 성공");
 		
 		int result=0;
@@ -169,7 +166,8 @@ public class AdminNoticeController {
 	 * *********************************************************/
 	
 	@RequestMapping(value="/noticeDelete")
-	public String noticeDelete(@ModelAttribute  NoticeVO nvo) {
+	public String noticeDelete(@ModelAttribute  NoticeVO nvo,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeDelete 호출 성공");
 		
 		//아래 변수에는 입력 성공에 대한 상태값 담습니다.(1 or 0)
@@ -195,9 +193,17 @@ public class AdminNoticeController {
 	
 	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
   		session = request.getSession();
-	    userId = (String) session.getAttribute("userId");
+  		userId = (String) session.getAttribute("userId");
 
 	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else if(!userId.equals("admin")){
 	    	response.setContentType("text/html; charset=euc-kr");
 	    	PrintWriter out = response.getWriter();
 	    	out.println("<script type='text/javascript'>");
@@ -209,5 +215,4 @@ public class AdminNoticeController {
 	    	model.addAttribute("userId", userId);
 	    }
   	}
-
 }

@@ -20,7 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.puppy.client.login.service.LoginService;
 import com.puppy.client.member.service.MemberService;
 import com.puppy.client.member.vo.MemberVO;
-import com.puppy.common.crypt.SHA256;
+
+import crypt.SHA256;
 
 @Controller
 @RequestMapping("/client/login")
@@ -73,7 +74,7 @@ public class LoginController {
 		}else {
 			session.setAttribute("userId", lvo.getM_id()); // 일치하는 아이디와 비밀번호일 경우
 			if(lvo.getM_id().equals("admin")){
-				return "adminIntro";
+				return "redirect:/admin";
 			}else {
 				return "intro";
 			}	

@@ -35,12 +35,12 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String adminHome() {
-	
-		return "adminHome";
-	}
-	
+	/*
+	 * @RequestMapping(value = "/admin", method = RequestMethod.GET) public String
+	 * adminHome() {
+	 * 
+	 * return "adminHome"; }
+	 */
 	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
   		session = request.getSession();
 	    userId = (String) session.getAttribute("user_id");

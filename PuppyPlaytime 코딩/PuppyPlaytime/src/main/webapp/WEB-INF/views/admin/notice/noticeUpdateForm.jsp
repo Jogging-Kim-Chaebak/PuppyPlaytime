@@ -26,7 +26,7 @@ src="/resources/include/assets/js/common.js"></script>
 				else{
 			
 			var goUrl=""; //이동할 경로를 저장할 변수
-			alert("수정이 완료되었습니다.");
+			alert($('#n_no').val())
 			$("#f_writeForm").attr({
 				"method":"POST",
 				"action":"/admin/notice/modify"
