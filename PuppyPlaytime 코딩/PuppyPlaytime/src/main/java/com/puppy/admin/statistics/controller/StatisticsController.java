@@ -22,23 +22,20 @@ public class StatisticsController {
 	
 	@RequestMapping("/adminJoinStatistics")
 	public ModelAndView adminJoinStatistics() {
-		List<Map<String, Integer>> listMap = statisticsService.adminJoinStatistics();
+		List<Map<String, String>> listMap = statisticsService.adminJoinStatistics();
 		ChartMake.barJoinChart(listMap);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("join",listMap);
 		mav.setViewName(CONTEXT_PATH+"/adminJoinStatistics");
 		return mav;
 	}
 	
 	@RequestMapping("/adminReservationStatistics")
 	public ModelAndView adminReservationStatistics() {
-		Map<String, Integer> list = statisticsService.adminReservationStatistics();
-		System.out.println("list 키셋" + list.keySet());
-		ChartMake.barChart(list, 2);
+		List<Map<String, String>> listMap = statisticsService.adminReservationStatistics();
+		ChartMake.barReservationChart(listMap);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("reservation",list);
 		mav.setViewName(CONTEXT_PATH+"/adminReservationStatistics");
 		return mav;
 	}
@@ -46,11 +43,10 @@ public class StatisticsController {
 	@RequestMapping("/adminSalesStatistics")
 	public ModelAndView adminSalesStatistics() {
 		
-		Map<String, Integer> list = statisticsService.adminSalesStatistics();
-		ChartMake.barChart(list, 1);
+		List<Map<String, String>> listMap = statisticsService.adminSalesStatistics();
+		ChartMake.barSalesChart(listMap);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("sale",list);
 		mav.setViewName(CONTEXT_PATH+"/adminSalesStatistics");
 		return mav;
 	}
