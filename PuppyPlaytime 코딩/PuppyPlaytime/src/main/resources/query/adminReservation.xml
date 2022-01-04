@@ -54,8 +54,8 @@
 	<select id="todayReservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
 		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
 		from Reservation_tbl 
-		where r_approval = 'Y' and r_startDate = sysdate
-		order by r_no asc;
+		where r_approval = 'Y' and to_char(r_startDate,'yymmdd') = to_char(sysdate,'yymmdd')
+		order by r_no asc
 	</select>
 
 </mapper>

@@ -10,7 +10,7 @@
 		<title>댓글</title>
 
 		<!-- jQuery Framework 참조하기 -->
-		<script type="text/javascript" src="/resources/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
 			/** 기본 덧글 목록 불러오기 */
@@ -20,9 +20,9 @@
 			/** 덧글 내용 저장 이벤트 */
 			$("#replyInsert").click(function() {
 				// 작성자 이름에 대한 입력여부 검사
-				//if (!chkData("#reply_registrant","이름을"))	return;
-				//else if (!chkData("#reply_content","내용을"))	return;
-				//else{
+				if (!chkData("#reply_registrant","이름을"))	return;
+				else if (!chkData("#reply_content","내용을"))	return;
+				else{
 					var insertUrl = "/reply/replyInsert";
 					/** 글 저장을 위한 Post 방식의 Ajax 연동 처리 */
 					$.ajax({
@@ -50,7 +50,7 @@
 							}
 						}
 					});
-				//}
+				}
 			});
 			
 			/** 수정버튼 클릭시 수정폼 출력 */

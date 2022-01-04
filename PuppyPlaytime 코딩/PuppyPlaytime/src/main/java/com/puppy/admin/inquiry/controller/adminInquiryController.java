@@ -1,6 +1,11 @@
 package com.puppy.admin.inquiry.controller;
 
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +29,13 @@ public class adminInquiryController {
 	@Autowired
 	private InquiryService inquiryService;
 	
+	private HttpSession session; // 세션 선언
+	private String userId; // 체크할 아이디 선언
 	
 	// 리스트
 	@RequestMapping(value="/adminInquiryList", method=RequestMethod.GET)
-	public String adminInquiryList(Model model) {
+	public String adminInquiryList(Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("adminInquiryList 호출 성공");
 		
 		List<InquiryVO> inquiryList = inquiryService.inquiryList();
@@ -41,7 +49,8 @@ public class adminInquiryController {
 	
 	// 글 상세보기
 	@RequestMapping(value="/adminInquiryDetail", method=RequestMethod.GET)
-	public String adminInquiryDetail(@ModelAttribute InquiryVO ivo, Model model) {
+	public String adminInquiryDetail(@ModelAttribute InquiryVO ivo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("admininquiryDetail 호출 성공");
 		log.info("q_no = " + ivo.getQ_no());
 		
@@ -60,7 +69,8 @@ public class adminInquiryController {
 	
 	// 글삭제 구현
 	@RequestMapping(value="/adminInquiryDelete")
-	public String adminInquiryDelete(@ModelAttribute InquiryVO ivo) {
+	public String adminInquiryDelete(@ModelAttribute InquiryVO ivo,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("adminInquiryDelete 호출 성공");
 		
 		int result = 0;
@@ -75,5 +85,29 @@ public class adminInquiryController {
 		}
 		return "redirect:" + url;
 	}
+	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
+  		session = request.getSession();
+  		userId = (String) session.getAttribute("userId");
+
+	    if(userId == null){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else if(!userId.equals("admin")){
+	    	response.setContentType("text/html; charset=euc-kr");
+	    	PrintWriter out = response.getWriter();
+	    	out.println("<script type='text/javascript'>");
+	    	out.println("alert('"+ message + "');");
+	    	out.println("location.href='/client/login/login'");
+	    	out.println("</script>");
+	    	out.flush();
+	    }else {
+	    	model.addAttribute("userId", userId);
+	    }
+  	}
 	
 }

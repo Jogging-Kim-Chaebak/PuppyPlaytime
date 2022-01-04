@@ -26,15 +26,14 @@ $(function(){
 				$("#reservationForm").attr("action","/admin/reservation/reservationCancel");
 				$("#reservationForm").submit();
 			}
-		
-		$("#closeWindow").click(function(){
-			window.history.back();
-		});
 		}else{
 			alert("이미 거부된 예약입니다.");
 			window.location.href ="/admin/reservation/reservationList"
 		}
 });
+	$("#closeWindow").click(function(){
+		window.history.back();
+	});
 });
 
 </script>
@@ -133,7 +132,7 @@ $(function(){
 		<p></p>
 		<table>
 			<tr align ="center">
-				<td><input type="button" id ="updateData" value="거부" /></td>
+				<td><input type="button" id ="updateData" value="예약취소" /></td>
 				<td><input type="button" id ="closeWindow" value="취소" /></td>
 			</tr>
 		</table>

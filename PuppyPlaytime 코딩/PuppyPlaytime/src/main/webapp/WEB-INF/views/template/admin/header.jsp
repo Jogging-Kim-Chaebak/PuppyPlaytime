@@ -29,6 +29,8 @@ nav .navbar-nav li a {
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/room/roomList">애견공간관리&nbsp;&nbsp;</a>
 			</li>
+			<li class="nav-item"><a class="nav-link" href="/admin/extraService/extraServiceList">부가서비스 관리&nbsp;&nbsp;</a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/reservation/reservationList">예약 관리&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/member/adminMemberList">회원 관리&nbsp;&nbsp;</a>

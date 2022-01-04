@@ -26,15 +26,21 @@
 		<put-attribute name="body" value="" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/admin/footer.jsp" />
 	</definition>
-
+	
 	<definition name="admin/room/*" extends="adminContent2">
 		<put-attribute name ="title" value ="룸 관리"/>
 		<put-attribute name ="body" value ="/WEB-INF/views/admin/room/{1}.jsp"/>
 	</definition>
 	
-	<definition name="admin/extraService/*" extends="adminContent2">
+		<definition name="admin/extraService/*" extends="adminContent2">
 		<put-attribute name ="title" value ="부가서비스 관리"/>
 		<put-attribute name ="body" value ="/WEB-INF/views/admin/extraService/{1}.jsp"/>
+	</definition>
+	
+	<definition name="admin/statistics/*" extends="adminContent1">
+		<put-attribute name ="title" value ="통계"/>
+		<put-attribute name="menu" value="/WEB-INF/views/template/admin/menu_statistics.jsp" />
+		<put-attribute name ="body" value ="/WEB-INF/views/admin/statistics/{1}.jsp"/>
 	</definition>
 
 	<definition name="admin/member/*" extends="adminContent2">
@@ -51,11 +57,6 @@
 	<definition name="admin/notice/*" extends="adminContent2">
 		<put-attribute name ="title" value ="공지사항 관리"/>
 		<put-attribute name ="body" value ="/WEB-INF/views/admin/notice/{1}.jsp"/>
-	</definition>
-	
-	<definition name="admin/statistics/*" extends="adminContent2">
-		<put-attribute name ="title" value ="통계"/>
-		<put-attribute name ="body" value ="/WEB-INF/views/admin/statistics/{1}.jsp"/>
 	</definition>
 	
 	<!-- 관리자 문의게시판 관리 -->
