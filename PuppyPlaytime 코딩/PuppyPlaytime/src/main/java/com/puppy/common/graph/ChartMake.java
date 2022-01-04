@@ -23,9 +23,10 @@ import com.puppy.common.file.FileUploadUtil;
 public class ChartMake {
 	public static Logger log = LoggerFactory.getLogger(ChartMake.class);
 	
-	public static void barJoinChart(List<Map<String, Integer>> resultList) {
+	// 월별 가입자 수
+	public static void barJoinChart(List<Map<String, String>> resultList) {
 		String docRoot = "C:\\PuppyPlaytimeRepository\\graph\\";
-		
+		FileUploadUtil.makeDir(docRoot);
 		log.info("업로드할 파일 경로(docRoot) : " + docRoot);
 		
 		File file = new File(docRoot + "/barJoinChart.jpg");
@@ -37,21 +38,94 @@ public class ChartMake {
 			
 			for(int i=0; i<resultList.size(); i++) {
 				// [Map 객체 를 넣기 시작한다.]
-				Map<String, Integer> treemap = new TreeMap<String, Integer>(resultList.get(i));
+				Map<String, String> treemap = new TreeMap<String, String>();
+				treemap = resultList.get(i);
+				
 				log.info("treeMap : " + treemap.toString());
-				System.out.println("treeMap : " + treemap.toString());
-			
+				
+				int joinCount;
+				String joinDate;
+				
 				// 데이터 입력 (값, 범례, 카테고리)
-				//dataset.addValue(treemap.getValue(), result.getKey(), result.getKey());
+				joinCount = Integer.parseInt(treemap.get("joinCount"));
+				joinDate = treemap.get("joinDate");
+				
+				//System.out.println(joinCount + " " + joinDate);
+				
+				dataset.addValue(joinCount, "해당 월", joinDate);
 			}
 			
-			JFreeChart chart = ChartFactory.createBarChart("월별 매출액", "해당 월", "매출액", dataset, PlotOrientation.VERTICAL, true, true, false);
+			// createBarChart(chart title, domain axis label, range axis label, data, orientation, include legend, tooltips, URLS)
+			JFreeChart chart = ChartFactory.createBarChart("월별 가입자 수", "해당 월", "가입자 수", dataset, PlotOrientation.VERTICAL, false, true, false);
 		
 			chart.setBackgroundPaint(Color.white);
 			chart.getTitle().setFont(new Font("sansserif", Font.BOLD, 16));
 			
 			Font font = new Font("sansserif", Font.BOLD, 12);
-			chart.getLegend().setItemFont(font);
+			//chart.getLegend().setItemFont(font);
+			
+			CategoryPlot plot = chart.getCategoryPlot();
+			
+			// X축 라벨
+			plot.getDomainAxis().setLabelFont(font);		// 해당 월
+			// Y축 도메인
+			plot.getDomainAxis().setTickLabelFont(font); 	// 월 나열
+			// Y축 라벨
+			plot.getRangeAxis().setLabelFont(font); 		// 매출액
+			// Y축 범위
+			plot.getRangeAxis().setTickLabelFont(font);
+			
+			fos = new FileOutputStream(file);
+			ChartUtilities.writeChartAsJPEG(fos, chart, 500, 280);
+		}catch(Exception e) {
+			e.getMessage();
+		}finally {
+			try {
+				if(fos != null) fos.close();
+			}catch(IOException e) {
+				e.getMessage();
+			}
+		}
+	}
+
+	// 월별 매출액 수
+	public static void barSalesChart(List<Map<String, String>> resultList) {
+		String docRoot = "C:\\PuppyPlaytimeRepository\\graph\\";
+		FileUploadUtil.makeDir(docRoot);
+		log.info("업로드할 파일 경로(docRoot) : " + docRoot);
+		
+		File file = new File(docRoot + "/barSalesChart.jpg");
+		FileOutputStream fos = null;
+		
+		try {
+			// 데이터로 사용할 카테고리 데이터 셋을 생성
+			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+			
+			for(int i=0; i<resultList.size(); i++) {
+				// [Map 객체 를 넣기 시작한다.]
+				Map<String, String> treemap = new TreeMap<String, String>();
+				treemap = resultList.get(i);
+				
+				log.info("treeMap : " + treemap.toString());
+				
+				int salesPrice;
+				String salesDate;
+				
+				// 데이터 입력 (값, 범례, 카테고리)
+				salesPrice = Integer.parseInt(treemap.get("salesPrice"));
+				salesDate = treemap.get("salesDate");
+							
+				dataset.addValue(salesPrice, "해당 월", salesDate);
+			}
+			
+			// createBarChart(chart title, domain axis label, range axis label, data, orientation, include legend, tooltips, URLS)
+			JFreeChart chart = ChartFactory.createBarChart("월별 매출액", "해당 월", "매출액", dataset, PlotOrientation.VERTICAL, false, true, false);
+		
+			chart.setBackgroundPaint(Color.white);
+			chart.getTitle().setFont(new Font("sansserif", Font.BOLD, 16));
+			
+			Font font = new Font("sansserif", Font.BOLD, 12);
+			//chart.getLegend().setItemFont(font);
 			
 			CategoryPlot plot = chart.getCategoryPlot();
 			
@@ -77,6 +151,70 @@ public class ChartMake {
 		}
 	}
 	
+	// 월별 예약 수
+	public static void barReservationChart(List<Map<String, String>> resultList) {
+		String docRoot = "C:\\PuppyPlaytimeRepository\\graph\\";
+		FileUploadUtil.makeDir(docRoot);
+		log.info("업로드할 파일 경로(docRoot) : " + docRoot);
+		
+		File file = new File(docRoot + "/barReservationChart.jpg");
+		FileOutputStream fos = null;
+		
+		try {
+			// 데이터로 사용할 카테고리 데이터 셋을 생성
+			DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+			
+			for(int i=0; i<resultList.size(); i++) {
+				// [Map 객체 를 넣기 시작한다.]
+				Map<String, String> treemap = new TreeMap<String, String>();
+				treemap = resultList.get(i);
+				
+				log.info("treeMap : " + treemap.toString());
+				
+				int reservationCount;
+				String reservationDate;
+				
+				// 데이터 입력 (값, 범례, 카테고리)
+				reservationCount = Integer.parseInt(treemap.get("reservationCount"));
+				reservationDate = treemap.get("reservationDate");
+							
+				dataset.addValue(reservationCount, "해당 월", reservationDate);
+			}
+			
+			// createBarChart(chart title, domain axis label, range axis label, data, orientation, include legend, tooltips, URLS)
+			JFreeChart chart = ChartFactory.createBarChart("월별 예약 수", "해당 월", "예약 수", dataset, PlotOrientation.VERTICAL, false, true, false);
+		
+			chart.setBackgroundPaint(Color.white);
+			chart.getTitle().setFont(new Font("sansserif", Font.BOLD, 16));
+			
+			Font font = new Font("sansserif", Font.BOLD, 12);
+			//chart.getLegend().setItemFont(font);
+			
+			CategoryPlot plot = chart.getCategoryPlot();
+			
+			// X축 라벨
+			plot.getDomainAxis().setLabelFont(font);		// 해당 월
+			// Y축 도메인
+			plot.getDomainAxis().setTickLabelFont(font); 	// 월 나열
+			// Y축 라벨
+			plot.getRangeAxis().setLabelFont(font); 		// 매출액
+			// Y축 범위
+			plot.getRangeAxis().setTickLabelFont(font);
+			
+			fos = new FileOutputStream(file);
+			ChartUtilities.writeChartAsJPEG(fos, chart, 500, 280);
+		}catch(Exception e) {
+			e.getMessage();
+		}finally {
+			try {
+				if(fos != null) fos.close();
+			}catch(IOException e) {
+				e.getMessage();
+			}
+		}
+	}
+	
+	/* 통계 예제
 	public static void barChart(Map<String, Integer> resultMap, int number) {
 		String docRoot = "C:\\PuppyPlaytimeRepository\\graph\\";
 		System.out.println(docRoot);
@@ -124,5 +262,5 @@ public class ChartMake {
 				e.getMessage();
 			}
 		}
-	}
+	}*/
 }
