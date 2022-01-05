@@ -8,6 +8,16 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 목록</title>
+<style type="text/css">
+table, td, th {
+
+  border-collapse : collapse;
+}
+
+th, td {
+  text-align: center;
+}
+</style>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -40,27 +50,29 @@
 </head>
 <body>
 
-	<div class="contentContainer">
-		<div class="contentTit"><h3>예약 관리</h3></div>
-	
+	<div class="nav-item2">
+		<div class="tab-pane fade active show" id="reservationList">
+		<div align="center">
+		<br><br><h3>예약 관리</h3><br><br>
+		</div>
 		
 		<!-- 예약리스트 시작 -->
 		<form id="userFoam" name="userFoam">
 		<div id="reservationList">		
-		<table border="1" summary="예약 리스트">
+		<table class="table table-hover" border="1" summary="예약 리스트">
 			<colgroup>
 				<col width="10%" />
 				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
+				<col width="10%" />
 				<col width="20%" />
-				<col width="15%" />
-				<col width="15%" />
-				<col width="10%" />
-				<col width="10%" />
 				<col width="10%" />
 			</colgroup>
 			<thead>
-				<tr>
-					<th>예약번호</th>
+				<tr class="table-primary">
+					<th scope="row">예약번호</th>
 					<th>케이지번호</th>
 					<th>케이지종류</th>
 					<th>케이지유형</th>
@@ -76,7 +88,7 @@
 				<c:if test="${not empty reservationList}">
 					<c:forEach var="list" items="${reservationList}" varStatus="status">
 
-					<tr class="tac" data-num="${list.r_no}">
+					<tr class="table-secondary" data-num="${list.r_no}">
 						<td><input type="hidden" name="r_no" id="r_no" value="${list.r_no}"/>${list.r_no}</td>
 						<td><input type="hidden" name="c_no" id="c_no" value="${list.c_no}"/>${list.c_no}</td>
 						<td>${list.c_kind}</td>
@@ -115,6 +127,7 @@
 		<form name="detailForm" id="detailForm" method="post">
 			<input type="hidden" name="r_no" id="r_no">
 		</form>
+		</div>
 	</div>
 	
 </body>
