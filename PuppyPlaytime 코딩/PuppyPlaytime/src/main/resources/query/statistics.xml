@@ -14,6 +14,11 @@
 		<id column="salesDate" property="salesDate" />
 		<id column="salesPrice" property="salesPrice" />
 	</resultMap>
+	
+	<resultMap type="HashMap" id="hashMap">
+		<result property="month" column="month"></result>
+		<result property="reservation" column="reservation"></result>
+	</resultMap>
 
 	<select id="adminJoinStatistics" resultMap="joinGraph">
 		Select TO_CHAR(m_regdate, 'yyyy-mm') as "joinDate", to_char(count(*)) as "joinCount"
