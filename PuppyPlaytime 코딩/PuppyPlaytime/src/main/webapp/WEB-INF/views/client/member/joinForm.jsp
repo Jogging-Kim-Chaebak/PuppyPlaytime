@@ -11,38 +11,19 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+.form {
+	width: 800px;
+	padding: 20px;
+	margin-left: auto;
+	border: 1px solid #d9230f;
+	text-align: left;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+</style>
 <script type="text/javascript">
-	$(function() {
-		/*아이디 중복검사 버튼 클릭시  */
-		$("#m_idConfirm").click(function() {
-			if ($("#m_id").val().replace(/\s/g, "") == "") {
-				alert('아이디를 입력해주세요.');
-				return false;
-			} else {
-				$.ajax({
-					url : "/client/member/m_idConfirm",
-					type : "POST",
-					data : "m_id=" + $("#m_id").val(),
-					datatype : "text",
-					success : function(resultData) {
-						if (resultData == "ok") {
-							alert("사용할 수 없는 아이디입니다.");
-							$("#m_id").val("");
-							$("#m_id").focus();
-						} else {
-							alert("사용할 수 있는 아이디입니다.");
-							$("#m_id").attr("readOnly", "readOnly");
-							$('#joinInsert').attr('disabled', false);
-						}
-					},
-					error : function() {
-						alert('시스템 오류입니다.')
-					}
-				});
-			}
-		});
-	});
 	//회원가입 버튼 클릭시
 	function checks() {
 		//유효성
@@ -62,7 +43,7 @@
 		var userbirth = document.getElementById("m_birth"); //생일
 		var userPhone = document.getElementById("m_phone"); //핸드폰 번호
 		var userEmail = document.getElementById("m_email"); //이메일
-
+		
 		/*아이디 유효성 검사*/
 		//아이디에서 입력 필수 조건문
 		if (userID.value == '') {
@@ -145,63 +126,146 @@
 			alert("---@---.com 형식으로 입력하여주세요.");
 			return false;
 		}
+		//아이디 중복
+		if($("#resultAll").val() != "Y") {
+			alert('중복 체크부터 하세요.');
+			$('#m_idConfirm').focus();
+			return false;
+		}
+		
+	    if (confirm("회원가입을 하시겠습니까?")) {
+			alert("회원가입을 축하합니다");
+		}
 		form.submit();
 
 	}
 	
+	$(function() {
+		/*아이디 중복검사 버튼 클릭시  */
+		$("#m_idConfirm").click(function() {
+			
+			if ($("#m_id").val().replace(/\s/g, "") == "") {
+				alert('아이디를 입력해주세요.');
+				return;
+			} else {
+				$.ajax({
+					url : "/client/member/m_idConfirm",
+					type : "POST",
+					data : "m_id=" + $("#m_id").val(),
+					datatype : "text",
+					success : function(result) {
+						
+						if (result == "N") {
+							alert("사용할 수 없는 아이디입니다.");
+							$('#m_idConfirm').attr('m_idConfirm','N');
+							$("#m_id").val("");
+							$("#m_id").focus();
+						} else if(result == "Y"){
+							alert("사용할 수 있는 아이디입니다.");
+							$('#m_idConfirm').attr('m_idConfirm','Y');
+							$("#m_id").attr("readOnly", "readOnly");
+							//$('#joinInsert').attr('disabled', false);
+						}
+						$("#resultAll").val(result);
+						// alert($("#resultAll").val());
+					},
+					error : function() {
+						alert('시스템 오류입니다.')
+					}
+				});
+			}
+
+		}); //ajax 종료
+
+	});//function 종료
+	$(function() {
+		var code = "";                //이메일전송 인증번호 저장위한 코드
+	/* 인증번호 이메일 전송 */
+	$("#mailCheckBtn").click(function(){
+		 var email = $("#m_email").val();        // 입력한 이메일
+		 var cehckBox = $("#m_emailNumber");        // 인증번호 입력란
+		 
+		 $.ajax({
+		        type:"GET",
+		        url:"mailCheck?email=" + email,
+		        success:function(data){
+		        	//console.log("data : "+data); //정상적으로 들어왔는지 확인
+		        	cehckBox.attr("disabled",false);
+		        	code = data;
+		        }       
+		    });
+		});
+	});
+	$(function() {
+		var code = ""; 
+	/* 인증번호 비교 */
+	$("#m_emailNumber_box").blur(function(){
+	    
+	    var inputCode = $("#m_emailNumber").val();        // 입력코드    
+	    var checkResult = $("#m_emailNumber_box");   // 비교 결과     
+	    
+	    if(inputCode == code){                               // 일치할 경우
+	        checkResult.html("인증번호가 일치합니다.");
+	        checkResult.attr("class", "correct");        
+	    } else {                                             // 일치하지 않을 경우
+	        checkResult.html("인증번호를 다시 확인해주세요.");
+	        checkResult.attr("class", "incorrect");
+	    } 
+	});
+	});
 </script>
 <title>회원가입</title>
 </head>
 <body>
 <body>
-	<form id="memberForm" name="memberForm" action="#"
-		onsubmit="return checks();" method="post">
-		<div class="form-group">
-			<h3>회원가입</h3>
+	<div class="form">
+		<form id="memberForm" name="memberForm" action="#"
+			onsubmit="return checks();" method="post">
+			<div class="form-group">
 
-			<div class="form-floating">
-				<input type="text" id="m_id" name="m_id" class="form-control"
-					placeholder="영문 숫자 포함 20자" /> <label for="m_id">아이디</label> <input
-					type="button" id="m_idConfirm" name="m_idConfirm" value="아이디 중복체크"
-					class="col-sm-2 control-label" />
-			</div>
-			<div class="form-floating">
-				<input type="password" id="m_pw" name="m_pw"
-					placeholder="영문 숫자 특수문자 포함 20자" class="form-control"> <label
-					for="m_pw">비밀번호</label>
-			</div>
-			<div class="form-floating">
+				<h3>회원가입</h3>
 
-				<input type="password" id="m_pwCheck" name="m_pwCheck"
-					maxlength="15" class="form-control" placeholder="입력한 비밀번호와 일치해야함">
-				<label for="m_pwCheck">비밀번호 확인</label>
-			</div>
+				<div class="form-floating mb-3">
+					<input type="text" id="m_id" name="m_id" class="form-control"
+						placeholder="아이디" aria-describedby="button-addon2" />
+				    <label for="m_id">아이디</label>
+				    <input type="hidden" name="resultAll" id="resultAll" value="N">
+					<button type="button" id="m_idConfirm" name="m_idConfirm" class="btn btn-primary">아이디 중복체크</button>
+				</div>
+				<div class="form-floating">
+					<input type="password" id="m_pw" name="m_pw" placeholder="영문 숫자 특수문자 포함 20자" class="form-control">
+					<label for="m_pw">비밀번호</label><br>
+				</div>
+				<div class="form-floating">
 
-			<div class="form-floating">
-				<input type="text" id="m_name" name="m_name" class="form-control"
-					placeholder="이름"><label for="m_name">이름</label>
+					<input type="password" id="m_pwCheck" name="m_pwCheck"
+						maxlength="15" class="form-control" placeholder="입력한 비밀번호와 일치해야함">
+					<label for="m_pwCheck">비밀번호 확인</label><br>
+				</div>
 
-			</div>
+				<div class="form-floating">
+					<input type="text" id="m_name" name="m_name" class="form-control" placeholder="이름">
+					<label for="m_name">이름</label><br>
+				</div>
 
-			<div class="form-floating">
-				<input type="date" id="m_birth" name="m_birth" class="form-control"
-					placeholder="YYYY-MM-DD 입력"><label for="m_birth">생일</label>
-			</div>
-			<div class="form-floating">
-				<input type="text" id="m_phone" name="m_phone" class="form-control"
-					placeholder="(-) 제외 숫자로만 11자"><label for="m_phone">핸드폰
-					번호</label>
-			</div>
-			<div class="form-floating">
-				<input type="text" id="m_address" name="m_address"
-					placeholder=" 도로명 주소" class="form-control"><label
-					for="m_address"> 주소</label>
-			</div>
-			<div class="form-floating mb-3">
-				<span>*</span>약관 <input type="radio" id="m_required1"
-					name="m_required1" value="y" /> <label for="m_required1">약관동의</label><br>
-				<br>
-				<textarea rows="15" cols="60"> 약관동의-puppy playtime  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 puppy playtime 서비스의 이용과 관련하여 puppy playtime  서비스를 제공하는 puppy playtime
+				<div class="form-floating">
+					<input type="date" id="m_birth" name="m_birth" class="form-control">
+					<label for="m_birth">생일</label><br>
+				</div>
+				<div class="form-floating">
+					<input type="text" id="m_phone" name="m_phone" class="form-control">
+					<label for="m_phone">핸드폰 번호 : (-) 제외 숫자로만 11자</label><br>
+				</div>
+				<div class="form-floating">
+					<input type="text" id="m_address" name="m_address" 	placeholder=" 도로명 주소" class="form-control">
+					<label for="m_address"> 주소</label><br>
+				</div>
+				
+				<span>약관</span>
+				<div class="form-floating mb-3">
+					<input type="radio" id="m_required1" name="m_required1" value="y" />약관동의
+					<label for="m_required1" class="form-label mt-4"></label>
+					<textarea class="form-control" rows="15"> 약관동의-puppy playtime  서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 puppy playtime 서비스의 이용과 관련하여 puppy playtime  서비스를 제공하는 puppy playtime
  주식회사(이하 ‘puppy playtime’)와 이를 이용하는 puppy playtime  서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 puppy playtime 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
 - 이름, 생년월일, 성별, 아이디, 비밀번호, 별명, 연락처(메일주소, 휴대폰 번호 중 선택), 가입인증정보
 만14세 미만 아동 회원가입
@@ -213,34 +277,40 @@
 - IP Address, 쿠키, 방문 일시, 서비스 이용 기록, 불량 이용 기록
 셋째, 네이버 아이디를 이용한 부가 서비스 및 맞춤식 서비스 이용 또는 이벤트 응모 과정에서 해당 서비스의 이용자에 한해서만
  개인정보 추가 수집이 발생할 수 있으며, 이러한 경우 별도의 동의를 받습니다. </textarea>
-				<br> <br> <input type="radio" id="m_required2"
-					name="m_required2" value="y" /> <label for="m_required2">개인정보</label><br>
-				<br>
-				<textarea rows="15" cols="60">개인 정보 수집 및 이용 동의 -개인정보보호법에 따라 puppy playtime 에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적,
+					
+					<br> <input type="radio" id="m_required2" name="m_required2" value="y" />개인정보
+					<label for="m_required2" class="form-label mt-4"></label>
+					<textarea class="form-control" rows="15">개인 정보 수집 및 이용 동의 -개인정보보호법에 따라 puppy playtime 에 회원가입 신청하시는 분께 수집하는 개인정보의 항목, 개인정보의 수집 및 이용목적,
 						  개인정보의 보유 및 이용기간, 동의 거부권 및 동의 거부 시 불이익에 관한  사항을 안내 드리오니 자세히 읽은 후 동의하여 주시기 바랍니다.</textarea>
+				</div>
+
+				<div class="form-floating">
+					선택 <input type="checkbox" id="m_optional" name="m_optional" />이메일
+				</div>
+				
+				<div class="input-group mb-3">
+					<input type="text" id="m_email" name="m_email" class="form-control"
+						placeholder="이메일 입력" aria-describedby="button-addon2">
+					<label 	for="m_email"></label>
+					<button class="btn btn-primary" type="button" value="인증하기" name="mailCheckBtn"
+						id="mailCheckBtn" class="btn btn-primary btn-sm">인증</button>
+					<br>
+				</div>
+				<div class="input-group mb-3">
+					<input type="text" id="m_emailNumber" class="form-control"
+						name="m_emailNumber" placeholder="인증번호"
+						aria-describedby="button-addon2">
+					<button type="button" value="인증" id="m_emailNumber_box"
+						class="btn btn-primary btn-sm">인증하기</button>
+					<br>
+				</div>
 			</div>
-
-			<div class="form-floating">
-				선택 <input type="checkbox" id="m_optional" name="m_optional" />이메일
-
-
-			</div>
-			<div class="mail_check_wrap">
-				<input type="text" id="m_email" name="m_email" class="form-control"
-					placeholder="이메일 입력"> 
-					<label for="m_email">회원 이메일 </label>
-				<input type="button" value="인증하기" id="mailCheckBtn"><br>
-				<br> <input type="text" id="m_emailNumber" name="m_emailNumber"
-					placeholder="인증번호">
-					<input type="button" value="인증" id="m_emailNumber_box">
-			</div>
-		</div>
-
-		<br>
-		<div class="form-group">
-			<button type="button" class="btn btn-primary"
+			<br>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary"
 				onclick="checks()">회원가입</button>
-		</div>
-	</form>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

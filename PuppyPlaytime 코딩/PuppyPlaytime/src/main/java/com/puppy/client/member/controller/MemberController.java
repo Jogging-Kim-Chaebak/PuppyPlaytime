@@ -3,7 +3,6 @@ package com.puppy.client.member.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.client.member.service.MemberService;
 import com.puppy.client.member.vo.MemberVO;
-import com.puppy.common.crypt.SHA256;
+
+import crypt.SHA256;
 
 //회원가입 창
 @Controller
@@ -53,7 +53,7 @@ public class MemberController {
 		// 회원가입 서비스 실행
 		log.info("joinForm post 방식으로 호출");
 
-		//비밀번호 암호화
+		// 비밀번호 암호화
 		SHA256 sha = SHA256.getInsatnce();
 		String shaPass = sha.getSha256(mvo.getM_pw().getBytes());
 		mvo.setM_pw(shaPass);// 비밀번호를 보냄
@@ -70,63 +70,57 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "/m_idConfirm", method = RequestMethod.POST)
 	public String m_idConfirm(@RequestParam("m_id") String id) throws Exception {
-		String ok = "";
+		String N = "";
+		String Y = "";
+		String result = "";
 		MemberVO mvo = memberService.m_idConfirm(id);
 
-		if (mvo != null) {
-			ok = "ok";
+		if (mvo != null) {// 사용할 수 없는 아이디
+			result = "N";
+		} else {
+			result = "Y";
 		}
-		return ok;
+		return result;
 	}
 
-	// 회원가입시 이메일 인증 랜덤 번호 전송
-	@RequestMapping(value = "/sendMail" , method = RequestMethod.GET)
-	public String sendMail(HttpServletRequest request) throws Exception {
+	/* 이메일 인증 */
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String mailCheckGET(String email) throws Exception {
 
-		/* 뷰(view)로부터 넘어온 데이터 확인 */
+		/* 뷰(View)로부터 넘어온 데이터 확인 */
 		log.info("이메일 데이터 전송 확인");
-		
-		/* 인증번호 (난수 생성) */
+		log.info("인증번호 : " + email);
+
+		/* 인증번호(난수) 생성 */
+		// 111111 ~ 999999 범위의 숫자를 얻기 위해서 nextInt(888888) + 111111를 사용
 		Random random = new Random();
-		// 111111~999999 범위의 숫자를 얻기 위해 사용식
 		int checkNum = random.nextInt(888888) + 111111;
-		// 인증번호가 정상 생성 확인
 		log.info("인증번호 : " + checkNum);
 
-		String subject = ""; // 제목
-		subject = request.getParameter("subject");
-		String content = ""; // 내용
-		content = request.getParameter("content");
-		String from = "PuppyPlaytime<ghld5@naver.com>";// 보내는사람 이메일
-		String to = "";// 받는이 아이디@도메인주소
-		to = request.getParameter("m_email");
+		/* 이메일 보내기 */
+		String setFrom = "PuppyPlaytime<chan978@naver.com>";
+		String toMail = email;
+		String title = "회원가입 인증 이메일 입니다.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
 		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-			MimeMessageHelper mailHelper = new MimeMessageHelper(mail, true, "UTF-8");
 
-			mailHelper.setFrom(from);
-
-			mailHelper.setTo(to);
-			mailHelper.setSubject(subject);
-			mailHelper.setText(content, true);
-			
-
-			mailSender.send(mail);
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/client/member/joinForm";
+
+		String num = Integer.toString(checkNum);
+
+		return num;
 	}
-	
-	@RequestMapping(value = "/mail")
-	public ModelAndView writeForm() {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/client/member/mail");
-
-		return mav;
-	}
-
 }
