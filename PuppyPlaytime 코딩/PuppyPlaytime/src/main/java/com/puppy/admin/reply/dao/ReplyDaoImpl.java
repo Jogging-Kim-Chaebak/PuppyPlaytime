@@ -21,12 +21,12 @@ public class ReplyDaoImpl implements ReplyDao {
 
 	@Override
 	public int replyInsert(ReplyVO rvo) {
-		return session.insert("replyInsert");
+		return session.insert("replyInsert", rvo);
 	}
 
 	@Override
 	public int replyUpdate(ReplyVO rvo) {
-		return session.update("replyUpdate");
+		return session.update("replyUpdate", rvo);
 	}
 
 	@Override

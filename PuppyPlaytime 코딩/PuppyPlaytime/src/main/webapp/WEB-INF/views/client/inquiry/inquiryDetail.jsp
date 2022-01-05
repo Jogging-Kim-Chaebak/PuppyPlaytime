@@ -50,7 +50,7 @@
 		</form>
 		<%-- =============== 상세 정보 보여주기 시작 ============ --%>
 		<div class="contentTB">
-			<table>
+			<table class="table table-hover">
 				<colgroup>
 					<col width="17%" />
 					<col width="33%" />
@@ -60,7 +60,7 @@
 				<tbody>
 					<tr>
 						<td class="ac">작성자</td>
-						<td><input type="text" value="${userId}" readonly/></td>
+						<td>${userId}</td>
 						<td class="ac">작성일</td>
 						<td>${detail.q_regdate}</td>
 					</tr>
@@ -89,9 +89,10 @@
 				</c:if>
 					
 					<input type="button" value="목록"
-					id="inquiryListBtn"/></td>
+					id="inquiryListBtn"  class="btn btn-primary"/></td>
 			</tr>
 		</table>
+		<br>
 			<jsp:include page="reply.jsp"></jsp:include>
 	</div>
 </body>

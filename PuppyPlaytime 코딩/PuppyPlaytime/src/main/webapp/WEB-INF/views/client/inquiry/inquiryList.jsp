@@ -42,7 +42,7 @@
 			
 			<%-- ================= 리스트 시작  =============== --%>
 			<div id="inquiryList">
-			<table summary="문의게시판 리스트">
+			<table summary="문의게시판 리스트" class="table table-hover">
 				<colgroup>
 					<col width="10%" />
 					<col width="62%" />
@@ -61,7 +61,7 @@
 					    <th class="borcle">작성자</th>
 					</tr>
 				</thead>
-				<tbody id="list">
+				<tbody id="list" class="table-secondary">
 				<!-- 데이터 출력 -->
 				<c:choose>
 					<c:when test="${not empty inquiryList}" >
@@ -86,7 +86,7 @@
 			<%-- ================= 리스트 종료 ================ --%>
 			<%-- ============== 글쓰기 버튼 출력 시작============ --%>
 			<div class="contentBtn">
-				<input type="button" value="문의하기" id="insertFormBtn">
+				<input type="button" value="문의하기" id="insertFormBtn"  class="btn btn-lg btn-primary">
 			</div>
 			<%-- ============== 글쓰기 버튼 출력 종료============ --%>
 			
