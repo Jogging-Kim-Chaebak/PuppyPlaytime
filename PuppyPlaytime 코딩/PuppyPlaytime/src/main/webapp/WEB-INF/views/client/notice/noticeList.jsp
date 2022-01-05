@@ -26,14 +26,6 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 src="/resources/include/assets/js/common.js"></script>
 <script type="text/javascript">
 $(function(){
-	
-	/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-	$(".goDetail").click(function(){
-		var n_no = $(this).parents("tr").attr("data-num");
-		var page = ${pagination.makeQuery(pagination.pageRequest.page)}.val(page); //페이징 정보
-		$("#n_no").val(n_no);
-		
-		console.log("글번호 : "+ n_no + "페이지 : " + page);
 		
 		/* 상세 페이지로 이동할 때 페이징 요청 정보를 매개변수로 전달한다 */
 		$("#detailForm").attr({
@@ -86,7 +78,8 @@ $(function(){
 				<td>${notice.n_no}</td>
 				<td class="name">
 				${notice.n_registrant}</td>
-				<td class ="goDetail tal">${notice.n_title}</td>
+				
+				<td class ="goDetail tal"><a href="/client/notice/noticeDetail${pgrq.toUriString(pgrq.page)}&n_no=${notice.n_no}"><c:out value="${notice.n_title}"/></td>
 				<td>${notice.n_regdate}</td>
 	
 			</tr>
