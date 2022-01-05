@@ -44,11 +44,9 @@ public class InquiryDaoImpl implements InquiryDao {
 		return session.delete("inquiryDelete", q_no);
 	}
 
-	//비밀번호
 	@Override
-	public int memberPw(String m_pw, int q_no) {
-	
-		return session.selectOne(m_pw);
+	public List<InquiryVO> inquiryMyList(String userId) {
+		return session.selectList("inquiryMyList", userId);
 	}
 
 }

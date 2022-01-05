@@ -71,10 +71,11 @@ public class InquiryServiceImpl implements InquiryService {
 		return result;
 	}
 
-	//비밀번호
+	// 사용자 문의내역 자신의 문의내역만 보이게 하기
 	@Override
-	public int memberPw(String m_pw, int q_no) {
-		return inquiryDao.memberPw(m_pw, q_no);
+	public List<InquiryVO> inquiryMyList(String userId) {
+		
+		return inquiryDao.inquiryMyList(userId);
 	}
 
 }

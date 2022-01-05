@@ -42,7 +42,7 @@ public class InquiryController {
 		
 		log.info("inquiryList 호출 성공");
 		
-		List<InquiryVO> inquiryList = inquiryService.inquiryList();
+		List<InquiryVO> inquiryList = inquiryService.inquiryMyList(userId);
 		model.addAttribute("inquiryList", inquiryList);
 		model.addAttribute("data");
 		
