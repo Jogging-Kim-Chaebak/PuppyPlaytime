@@ -58,7 +58,7 @@ $(function(){
 <%--============== 리스트 시작 =============== --%>
 <div id="noticeList">
 	
-<table class="table table-bordered">
+<table class="table table-bordered table-sm">
 	<colgroup>
 		<col width="8%">
 		<col width="15%">
@@ -105,10 +105,7 @@ $(function(){
 <!-- 페이징 네비게이션 -->
 <ul class="pagination justify-content">
 	<c:if test="${pagination.prev}">
-		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">Previous</a></li>
-	</c:if>
-	<c:if test="${!pagination.prev}">
-		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">&laquo;</a></li>
 	</c:if>
 	
 	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }"
@@ -116,10 +113,7 @@ var="idx">
 	<li class="page-item"><a class="page-link" href="/client/notice/noticeList${pagination.makeQuery(idx)}">${idx}</a></li>
 	</c:forEach>
 	<c:if test="${pagination.next && pagination.endPage > 0}">
-		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">Next</a></li>
-	</c:if>
-	<c:if test="${!pagination.next}">
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">&raquo;</a></li>
 	</c:if>
 </ul>
 
