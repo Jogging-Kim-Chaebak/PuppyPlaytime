@@ -26,6 +26,7 @@
 	</definition>
 	
 	<definition name="client/mypage/*" extends="content1">
+		<put-attribute name="menu" value="/WEB-INF/views/template/client/menu_mypage.jsp" />
 		<put-attribute name="body" value="/WEB-INF/views/client/mypage/{1}.jsp" />
 	</definition>
 	
