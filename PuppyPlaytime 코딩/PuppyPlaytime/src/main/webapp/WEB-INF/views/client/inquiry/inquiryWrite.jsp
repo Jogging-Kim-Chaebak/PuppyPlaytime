@@ -7,9 +7,6 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>글쓰기 화면</title>
-
-		<script type="text/javascript" src="/resources/include/js/common.js"></script>
-		
 		<script type="text/javascript">
 			$(function(){
 				/* 저장 버튼 클릭 시 처리 이벤트 */
