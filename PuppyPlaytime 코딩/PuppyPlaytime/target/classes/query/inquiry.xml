@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.puppy.client.inquiry.dao.InquiryDao">
+<mapper namespace="query.inquiry">
 
 	<!-- 리스트 -->
 	<select id="inquiryList" resultType="inquiry">
 		SELECT q_no, m_id, q_title, to_char(q_regdate,'YYYY-MM-DD') as q_regdate
 		FROM inquiry_tbl
 		ORDER BY q_no desc
+	</select>
+	
+	<!-- 본인 문의내역 불러오기 -->
+	<select id="inquiryMyList" resultType="inquiry" parameterType="String">
+		select q_no, m_id, q_title, to_char(q_regdate,'YYYY-MM-DD') as q_regdate
+		FROM inquiry_tbl
+		where m_id = #{userId}
 	</select>
 	
 	<!-- 상세 페이지 게시물 조회 -->
@@ -51,6 +58,7 @@
 	<delete id="inquiryDelete" parameterType="inquiry">
 		delete from inquiry_tbl where q_no = #{q_no}
 	</delete>
+	
 	
 	
 </mapper>

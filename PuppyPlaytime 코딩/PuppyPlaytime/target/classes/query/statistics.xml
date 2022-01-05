@@ -15,7 +15,7 @@
 		<id column="salesPrice" property="salesPrice" />
 	</resultMap>
 	
-	<resultMap type="HashMap" id="hashMap">
+	<resultMap type="HashMap" id="reservationCount">
 		<result property="month" column="month"></result>
 		<result property="reservation" column="reservation"></result>
 	</resultMap>
@@ -44,12 +44,10 @@
 		order by TO_CHAR(r_startDate, 'yyyy-mm') desc
 	</select>
 	
-	<select id="adminTodayJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="hashMap">
-		Select TO_CHAR(m_regdate, 'yyyy-mm')as month , count(*) as reservation 
+	<select id="adminTodayJoinStatistics" parameterType="com.puppy.client.member.vo.MemberVO" resultType="int">
+		Select count(m_id) as reservation 
         From member_tbl
-        where m_status = 'active' and TO_CHAR(m_regdate,'yymmdd') = TO_CHAR(sysdate,'yymmdd')
-		group by TO_CHAR(m_regdate, 'yyyy-mm')
-		order by TO_CHAR(m_regdate, 'yyyy-mm') desc
+        where TO_CHAR(m_regdate,'yyyyMMdd') = TO_CHAR(sysdate,'yyyyMMdd')
 	</select>
 
 </mapper>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="query.notice">
 
-	<!-- 게시물 기본 조회 -->
+	<!-- 게시물 기본 조회(삭제)
 	<select id = "noticeList" resultType="notice">
 		SELECT 		n_no,
    				    to_char(n_regdate,'YYYY-MM-DD') as n_regdate,
@@ -11,8 +11,30 @@
     				n_registrant
     				FROM notice_tbl
     				ORDER BY n_no desc
-	</select>
+	</select> -->
+	
+	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록 반환 -->
+	<select id="noticeList" resultType="notice">
+		<![CDATA[
+		SELECT n_no,
+   			   to_char(n_regdate,'YYYY-MM-DD') as n_regdate,
+   			   n_content,
+   			   n_title,
+    		   n_registrant
+    	 FROM (select n_no,
+   				    n_regdate,
+   				    n_content,
+   				    n_title,
+    				n_registrant,
+    				rownum as rnum
+    			from notice_tbl)
+    	WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+    			ORDER BY n_no
+		
+		]]>
 
+	</select>
+	
 	<!-- 상세 페이지를 위한 게시물 조회 -->
 	<select id="noticeDetail" parameterType="int" resultType="notice">
 		SELECT 
@@ -34,27 +56,4 @@
 		]]>
 	</select>
 	
-	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록 반환 -->
-	<select id="list" resultType="notice">
-		<![CDATA[
-		SELECT n_no,
-   			   to_char(n_regdate,'YYYY-MM-DD HH24:MI:SS') as n_regdate,
-   			   n_content,
-   			   n_title,
-    		   n_registrant
-    	 FROM (select n_no,
-   				    n_regdate,
-   				    n_content,
-   				    n_title,
-    				n_registrant
-    				rownum as rnum
-    			from notice_tbl)
-    	WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-    			ORDER BY n_no DESC,
-    			n_regdate DESC
-		
-		]]>
-
-	</select>
-
 </mapper>
