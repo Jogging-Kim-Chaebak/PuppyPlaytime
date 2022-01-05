@@ -23,6 +23,7 @@ import com.puppy.client.reservation.service.ReservationService;
 import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.client.reservation.vo.ReserveDate;
 import com.puppy.common.vo.ExtraServiceVO;
+import com.puppy.common.vo.Pagination;
 import com.puppy.common.vo.PetVO;
 
 @Controller
@@ -156,6 +157,13 @@ public class ReservationController {
 
 		List<CageRoomVO> roomList = reservationService.listRoom(rDate);
 		
+		// 페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		
+		pagination.setPageRequest(rDate.getPageRequest());
+		pagination.setTotalCount(reservationService.roomCount(rDate));
+		
+		model.addAttribute("pagination", pagination);
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("roomList", roomList);
 		model.addAttribute("p_no", p_no);

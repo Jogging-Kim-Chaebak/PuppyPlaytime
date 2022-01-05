@@ -30,4 +30,7 @@ public interface ReservationService {
 
 	// 부가서비스 불러오기
 	public List<ExtraServiceVO> listExtraService(int c_no) throws Exception;
+
+	// 예약 룸 건수를 반환한다.
+	public int roomCount(ReserveDate rDate) throws Exception;
 }
