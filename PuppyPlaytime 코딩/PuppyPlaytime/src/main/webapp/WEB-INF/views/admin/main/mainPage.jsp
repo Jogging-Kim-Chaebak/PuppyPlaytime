@@ -80,12 +80,13 @@
 						<td colspan="2" align="center">등록된 회원 정보가 존재하지 않습니다.</td>
 					</tr>
 				</c:if>
-				<c:forEach items="${join}" var="j">
+		
+				<c:if test="${!empty join}">
 					<tr>
-						<td align ="center">${j.month}</td>
-						<td align ="center">${j.reservation}명</td>
+						<td align ="center">금일 가입자 수 : </td>
+						<td align ="center">${join}명</td>
 					</tr>
-				</c:forEach>
+				</c:if> 
 		</table>
 	</div>
 </body>

@@ -13,13 +13,12 @@
 <meta charset="UTF-8">
 <title>글 목록</title>
 <style>
-.pagination{ justify-content:center; }
-th,td{text-align: center; }
+h2{ text-align: center; }
 </style>
 
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
+
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" 
@@ -30,12 +29,10 @@ $(function(){
 	/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
 	$(".goDetail").click(function(){
 		var n_no = $(this).parents("tr").attr("data-num");
-		var page = ${pagination.makeQuery(pagination.pageRequest.page)}.val(page); //페이징 정보
 		$("#n_no").val(n_no);
+		console.log("글번호 : "+ n_no);
 		
-		console.log("글번호 : "+ n_no + "페이지 : " + page);
-		
-		/* 상세 페이지로 이동할 때 페이징 요청 정보를 매개변수로 전달한다 */
+		/* 상세 페이지로 이동하기 위해 form추가 */
 		$("#detailForm").attr({
 			"method":"get",
 			"action":"/client/notice/noticeDetail"
@@ -49,7 +46,7 @@ $(function(){
 </head>
 <body>
 
-	<div class="contentTit"></div>
+	<div class="contentTit"><h2>공지사항</h2></div>
 <%-- ============= 상세 페이지 이동을 위한 FORM ============== --%>
 <form name="detailForm" id="detailForm">
 	<input type="hidden" name="n_no" id="n_no" />
@@ -58,19 +55,19 @@ $(function(){
 <%--============== 리스트 시작 =============== --%>
 <div id="noticeList">
 	
-<table class="table table-bordered">
+<table border="1" summary="공지사항 리스트">
 	<colgroup>
-		<col width="8%">
+		<col width="15%">
 		<col width="15%">
 		<col width="42%">
 		<col width="15%">
 	</colgroup>
 	<thead>
 		<tr>
-			<th class="tac">글번호</th>
-			<th class="tac">작성자</th>
-			<th class="tac">글제목</th>
-			<th data-value="n_regdate" class="tac">작성일</th>
+			<th class="order">글번호</th>
+			<th class="borcle">작성자</th>
+			<th>글제목</th>
+			<th data-value="n_regdate" class="order">작성일</th>
 			
 			
 		</tr>
@@ -82,7 +79,7 @@ $(function(){
 		<c:when test="${not empty noticeList}">
 			<c:forEach var="notice" items="${noticeList}"
 			varStatus="status">
-			<tr align="center" data-num="${notice.n_no}">
+			<tr class="tac" data-num="${notice.n_no}">
 				<td>${notice.n_no}</td>
 				<td class="name">
 				${notice.n_registrant}</td>
@@ -103,25 +100,18 @@ $(function(){
 </table>
 
 <!-- 페이징 네비게이션 -->
-<ul class="pagination justify-content">
+<div>
 	<c:if test="${pagination.prev}">
-		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">Previous</a></li>
+		<a href="${pagination.startPage - 1}">&laquo;</a>
 	</c:if>
-	<c:if test="${!pagination.prev}">
-		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-	</c:if>
-	
 	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }"
 var="idx">
-	<li class="page-item"><a class="page-link" href="/client/notice/noticeList${pagination.makeQuery(idx)}">${idx}</a></li>
+	<a href="/client/notice/list${pagination.makeQuery(idx)}">${idx}</a>
 	</c:forEach>
 	<c:if test="${pagination.next && pagination.endPage > 0}">
-		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">Next</a></li>
+			<a href="${pagination.endPage +1}">&raquo;</a>
 	</c:if>
-	<c:if test="${!pagination.next}">
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</c:if>
-</ul>
+</div>
 
 <%--============== 리스트 종료 =============== --%>
 

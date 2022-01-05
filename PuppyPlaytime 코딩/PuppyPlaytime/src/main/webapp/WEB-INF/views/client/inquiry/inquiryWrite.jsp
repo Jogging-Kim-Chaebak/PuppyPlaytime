@@ -40,14 +40,14 @@
 	
 			<div class="contentTB">
 				<form id="q_writeForm" name="q_writeForm">
-					<table id="inquiryWrite" class="table table-hover">
+					<table id="inquiryWrite">
 						<colgroup>
 							<col width="17%" />
 							<col width="83%" />
 						</colgroup>
 						<tr>
 							<td class="ac">작성자</td>
-							<td>${userId }</td>
+							<td><input type="text" value="${userId }" readonly></td>
 						</tr>
 						<tr>
 							<td class="ac">글제목</td>
@@ -55,15 +55,15 @@
 						</tr>
 						<tr>
 							<td class="ac vm">내용</td>
-							<td><textarea name="q_content" id="q_content" class="form-label mt-4"></textarea></td>
+							<td><textarea name="q_content" id="q_content"></textarea></td>
 						</tr>	
 					</table>
 				</form>
 			</div>
 				
 			<div class="contentBtn">
-				<input type="button" value="저장" class="btn btn-primary" id="inquiryInsertBtn" class="btn btn-primary">
-				<input type="button" value="목록" class="btn btn-primary" id="inquiryListBtn" class="btn btn-primary">
+				<input type="button" value="저장" class="but" id="inquiryInsertBtn">
+				<input type="button" value="목록" class="but" id="inquiryListBtn">
 			</div>
 		</div>
 	</body>

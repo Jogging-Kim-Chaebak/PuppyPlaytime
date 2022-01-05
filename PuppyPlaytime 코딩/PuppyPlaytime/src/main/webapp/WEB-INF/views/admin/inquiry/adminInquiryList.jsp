@@ -43,7 +43,7 @@
 			
 			<%-- ================= 리스트 시작  =============== --%>
 			<div id="inquiryList">
-			<table summary="문의게시판 리스트"  class="table table-hover">
+			<table summary="문의게시판 리스트">
 				<colgroup>
 					<col width="10%" />
 					<col width="62%" />

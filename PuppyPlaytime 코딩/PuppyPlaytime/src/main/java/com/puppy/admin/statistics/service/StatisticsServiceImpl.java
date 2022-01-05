@@ -32,7 +32,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	}
 
 	@Override
-	public Map<String, Integer> adminTodayJoinStatistics() {
+	public int adminTodayJoinStatistics() {
 		return StatisticsDAO.adminTodayJoinStatistics();
 	}
 

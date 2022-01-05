@@ -35,7 +35,7 @@
 		</form>
 		<%-- =============== 상세 정보 보여주기 시작 ============ --%>
 		<div class="contentTB">
-			<table  class="table table-hover">
+			<table>
 				<colgroup>
 					<col width="17%" />
 					<col width="33%" />
@@ -69,14 +69,13 @@
 					
 					
 					<input type="button" value="삭제"
-					id="inquiryDeleteBtn" class="btn btn-primary"/> 
+					id="inquiryDeleteBtn"/> 
 				
 					
 					<input type="button" value="목록"
-					id="inquiryListBtn" class="btn btn-primary"/></td>
+					id="inquiryListBtn"/></td>
 			</tr>
 		</table>
-		<br>
 			<jsp:include page="reply.jsp"></jsp:include>
 	</div>
 </body>

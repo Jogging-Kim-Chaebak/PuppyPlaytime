@@ -177,12 +177,12 @@
 
 			// 수정하기 버튼
 			var up_input = $("<input>");
-			up_input.attr({"type" : "button", "value" : "수정하기", "class":"btn btn-primary"});
+			up_input.attr({"type" : "button", "value" : "수정하기"});
 			up_input.addClass("update_form");
 			
 			// 삭제하기 버튼
 			var del_input = $("<input>");
-			del_input.attr({"type" : "button", "value" : "삭제하기", "class":"btn btn-primary"});
+			del_input.attr({"type" : "button", "value" : "삭제하기"});
 			del_input.addClass("delete_btn");
 			
 			// 내용
@@ -205,12 +205,12 @@
 	<body>
 		<div id="replyContainer">
 			<h1></h1>
-			<div id="comment_write" class="alert alert-dismissible alert-secondary">
+			<div id="comment_write">
 				<form id="comment_form">
-					<div >
+					<div>
 						<label for="reply_registrant">작성자</label>
 						<input type="text" name="reply_registrant" id="reply_registrant" value="admin" />
-						<input type="button" id="replyInsert" value="저장하기" class="btn btn-primary"  />
+						<input type="button" id="replyInsert" value="저장하기" />
 					</div>
 					<div>
 						<label for="reply_content">덧글내용</label>
@@ -218,7 +218,6 @@
 					</div>
 				</form>
 			</div>
-			
 			<ul id="comment_list">
 				<!-- 여기에 동적 생성 요소가 들어가게 됩니다. -->
 			</ul>

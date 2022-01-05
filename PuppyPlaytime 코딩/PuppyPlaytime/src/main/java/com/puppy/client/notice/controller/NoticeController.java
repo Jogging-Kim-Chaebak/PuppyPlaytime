@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.puppy.client.notice.domain.PageRequest;
+import com.puppy.client.notice.domain.Pagination;
 import com.puppy.client.notice.service.NoticeService;
 import com.puppy.client.notice.vo.NoticeVO;
-import com.puppy.common.vo.PageRequest;
-import com.puppy.common.vo.Pagination;
 
 @Controller
 @RequestMapping(value="/client/notice")
@@ -25,18 +25,22 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	//글목록 구현하기
-	/*
-	 * @RequestMapping(value="/noticeList", method=RequestMethod.GET) public String
-	 * noticeList(Model model) { log.info("사용자페이지 noticeList 호출 성공");
-	 * 
-	 * List<NoticeVO> noticeList = null; try { noticeList =
-	 * noticeService.noticeList(); } catch (Exception e) {
-	 * 
-	 * e.printStackTrace(); } model.addAttribute("noticeList",noticeList);
-	 * model.addAttribute("data");
-	 * 
-	 * return "client/notice/noticeList"; }
-	 */
+	@RequestMapping(value="/noticeList", method=RequestMethod.GET)
+	public String noticeList(Model model) {
+		log.info("사용자페이지 noticeList 호출 성공");
+		
+		List<NoticeVO> noticeList = null;
+		try {
+			noticeList = noticeService.noticeList();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		model.addAttribute("noticeList",noticeList);
+		model.addAttribute("data");
+		
+		return "client/notice/noticeList";
+	}
 	
 	
 	//글 상세보기 구현
@@ -61,12 +65,12 @@ public class NoticeController {
 		return "client/notice/noticeDetail";
 	}
 	//페이징 요청 정보를 매개 변수로 받고 다시 뷰에 전달한다
-	@RequestMapping(value="/noticeList", method = RequestMethod.GET)
-	public void noticeList(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) 
+	@RequestMapping(value="/list", method = RequestMethod.GET)
+	public void list(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) 
 throws Exception{
 		
 		//뷰에 페이징 처리를 한 게시글 목록을 전달한다.
-		model.addAttribute("noticeList",noticeService.noticeList(pageRequest));
+		model.addAttribute("list",noticeService.list(pageRequest));
 		
 		//페이징 네비게이션 정보를 뷰에 전달한다.
 		Pagination pagination = new Pagination();

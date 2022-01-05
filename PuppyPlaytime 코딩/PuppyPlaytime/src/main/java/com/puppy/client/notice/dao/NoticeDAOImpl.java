@@ -6,8 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.puppy.client.notice.domain.PageRequest;
 import com.puppy.client.notice.vo.NoticeVO;
-import com.puppy.common.vo.PageRequest;
 
 @Repository
 public class NoticeDAOImpl implements NoticeDAO {
@@ -17,20 +17,12 @@ public class NoticeDAOImpl implements NoticeDAO {
 	
 	private static final String namespace = "query.notice";
 	
-	//글목록 구현(삭제)
-	/*
-	 * @Override public List<NoticeVO> noticeList() throws Exception {
-	 * 
-	 * return session.selectList(namespace + ".noticeList"); }
-	 */
-	
-	//페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 반환한다.
+	//글목록 구현
 	@Override
-	public List<NoticeVO> noticeList(PageRequest pageRequest) throws Exception {
-			
-		return session.selectList(namespace + ".noticeList",pageRequest);
+	public List<NoticeVO> noticeList() throws Exception {
+		
+		return session.selectList(namespace + ".noticeList");
 	}
-	
 	//글상세페이지 구현
 	@Override
 	public NoticeVO noticeDetail(NoticeVO nvo) throws Exception {
@@ -42,6 +34,12 @@ public class NoticeDAOImpl implements NoticeDAO {
 	public int count() throws Exception {
 		
 		return (Integer)session.selectOne(namespace + ".noticeListCnt");
+	}
+	
+	@Override
+	public List<NoticeVO> list(PageRequest pageRequest) throws Exception {
+		
+		return session.selectList(namespace + ".pageRequest",pageRequest);
 	}
 
 }

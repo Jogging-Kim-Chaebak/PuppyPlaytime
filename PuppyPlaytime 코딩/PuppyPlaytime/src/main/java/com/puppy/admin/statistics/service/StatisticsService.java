@@ -11,6 +11,6 @@ public interface StatisticsService {
 
 	public List<Map<String, String>> adminSalesStatistics();
 
-	public Map<String, Integer> adminTodayJoinStatistics();
+	public int adminTodayJoinStatistics();
 
 }

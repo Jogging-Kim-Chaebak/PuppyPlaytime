@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class ReplyVO {
 
-	private int reply_no; // 댓글번호
-	private int q_no; // 문의게시판 글번호
-	private String reply_regdate; // 댓글 작성일
-	private String reply_content; // 댓글내용
-	private String reply_title; // 댓글 제목
-	private String reply_registrant; // 댓글 등록자 (관리자)
+	private int reply_no = 0; // 댓글번호
+	private int q_no = 0; // 문의게시판 글번호
+	private String reply_regdate = ""; // 댓글 작성일
+	private String reply_content = ""; // 댓글내용
+	private String reply_title = ""; // 댓글 제목
+	private String reply_registrant = ""; // 댓글 등록자 (관리자)
 	
 	public int getReply_no() {
 		return reply_no;

@@ -194,11 +194,11 @@
 		</script>
 	</head>
 	<body>
-		<div id="replyContainer" class="card border-dark mb-3">
+		<div id="replyContainer">
 			<h1></h1>
 			<div id="comment_write">
 				<form id="comment_form">
-					<!-- <div>
+					<div>
 						<label for="reply_registrant">작성자</label>
 						<input type="text" name="reply_registrant" id="reply_registrant" value="admin" />
 						<input type="button" id="replyInsert" value="저장하기" />
@@ -206,10 +206,8 @@
 					<div>
 						<label for="reply_content">덧글내용</label>
 						<textarea name="reply_content" id="reply_content"></textarea>
-					</div> -->
+					</div>
 				</form>
-				
-				
 			</div>
 			<ul id="comment_list">
 				<!-- 여기에 동적 생성 요소가 들어가게 됩니다. -->
