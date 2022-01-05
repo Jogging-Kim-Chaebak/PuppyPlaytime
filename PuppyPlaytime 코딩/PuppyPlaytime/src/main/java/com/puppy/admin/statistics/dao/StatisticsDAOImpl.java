@@ -32,8 +32,8 @@ public class StatisticsDAOImpl implements StatisticsDAO {
 	}
 
 	@Override
-	public Map<String, Integer> adminTodayJoinStatistics() {
-		return SqlSession.selectMap(namespace+".adminTodayJoinStatistics","");
+	public int adminTodayJoinStatistics() {
+		return SqlSession.selectOne(namespace+".adminTodayJoinStatistics","");
 	}
 
 }

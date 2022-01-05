@@ -39,7 +39,7 @@ public class AdminMainController {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		
 		List<ReservationVO> list = reservationService.todayReservationList(param);
-		Map<String, Integer> map = satisticsService.adminTodayJoinStatistics();
+		int map = satisticsService.adminTodayJoinStatistics();
 		
 		System.out.println("리스트"+list);
 		System.out.println("맵"+map);
