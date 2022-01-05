@@ -2,7 +2,9 @@ package com.puppy.client.reservation.vo;
 
 import java.util.Date;
 
-public class ReserveDate {
+import com.puppy.common.vo.PageRequest;
+
+public class ReserveDate extends PageRequest{
 	private String startDate;
 	private String endDate;
 	private Date startReservation;

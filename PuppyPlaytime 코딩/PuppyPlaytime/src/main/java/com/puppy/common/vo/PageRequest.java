@@ -47,4 +47,15 @@ public class PageRequest {
 				.build();
 		return uriComponents.toUriString();
 	}	
+	
+	public String toUriString(int page) {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("size",this.sizePerPage)
+				.build();
+				
+		return uriComponents.toUriString();
+		
+	}
+
 }
