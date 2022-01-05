@@ -11,11 +11,30 @@
 <script type="text/javascript">
 	$(function(){
 		/* 수정 버튼 클릭 시 처리 이벤트 */
-		$("#petUpdateBtn").click(function(){
-			alert("수정버튼클릭");
+		$("#petUpdateBtn").click(function(){			
+			var name = document.getElementById("p_name"); //이름
+			var dogbreed = document.getElementById("p_dogbreed"); //견종
 			
-			var checked_radio=$('input:radio[name=p_gender]:checked').val();
-			var checked_radio=$('input:radio[name=p_weight]:checked').val();
+			if (name.value == '') {
+				alert("이름을 입력해야 합니다.");
+				return false;
+			}
+			
+			if (dogbreed.value == '') {
+				alert("견종을 입력해야 합니다.");
+				return false;
+			}
+			
+			if ( ! $('input[name=p_gender]:checked').val()) {
+				alert('성별을 선택해주세요.');
+				return false;
+			}
+			
+			if ( ! $('input[name=p_weight]:checked').val()) {
+				alert('체중을 선택해주세요.');
+				return false;
+			}
+			
 			$("#f_writeForm").attr({
 				"method":"POST",
 				"action":"/client/mypage/petUpdate"
@@ -33,42 +52,43 @@
 <body>
 <form id="f_writeForm" name="f_writeForm" enctype="multipart/form-data">
 	<div class="contentContainer">
-		<div class="contentTit"><h3>펫정보 수정하기</h3></div>
+		<div class="contentTit"><br><br><h3>펫정보 수정하기</h3><br></div>
 		
-		<div class="contentTB">
+		<div align="center" class="form-group row">
 			
 				<input type="hidden" id="p_no" name="p_no" value="${updateData.p_no}" />
 				<input type="hidden" id="p_picture" name="p_picture" value="${updateData.file}" />
 				
 				
-			<table border="1">
+			<table style="width: 70%" class="table table-hover" border="1">
 					
 					<tr>
-						<td>이름</td>
-						<td><input type="text" name="p_name" id="p_name" value="${updateData.p_name}"></td>
-						<td rowspan="3"><td><img src="/image/petImages/${updateData.p_picture}"/></td>
+						<td width="15%" class="table-primary">이름</td>
+						<td width="50%"><input type="text" name="p_name" id="p_name" value="${updateData.p_name}" class="form-control"></td>
+						<td width="35%" rowspan="4"><img src="/image/petImages/${updateData.p_picture}" width="100%" height="100%" class="img-thumbnail"/></td>
 					</tr>
 					<tr>
-						<td>견종</td>
-						<td><input type="text" name="p_dogbreed" id="p_dogbreed" value="${updateData.p_dogbreed}"></td>
+						<td class="table-primary">견종</td>
+						<td><input type="text" name="p_dogbreed" id="p_dogbreed" value="${updateData.p_dogbreed}" class="form-control"></td>
 					</tr>
 					<tr>
-						<td>성별</td>
-						<td><input type="radio" name="p_gender" id="p_gender" value="M">수컷
-						<input type="radio" name="p_gender" id="p_gender" value="F">암컷</td>
+						<td class="table-primary">성별</td>
+						<td><input type="radio" name="p_gender" id="p_gender" value="M" class="form-check-input">수컷
+						<input type="radio" name="p_gender" id="p_gender" value="F" class="form-check-input">암컷</td>
 					</tr>
 					<tr>
-						<td>체중</td>
-						<td><input type="radio" name="p_weight" id="p_weight" value="S">소형(5kg미만)
-							<input type="radio" name="p_weight" id="p_weight" value="M">중형(5kg이상 20kg미만)
-							<input type="radio" name="p_weight" id="p_weight" value="L">대형(20kg이상)
+						<td class="table-primary">체중</td>
+						<td><input type="radio" name="p_weight" id="p_weight" value="small" class="form-check-input">소형(5kg미만)
+							<input type="radio" name="p_weight" id="p_weight" value="middle" class="form-check-input">중형(5kg이상 20kg미만)
+							<input type="radio" name="p_weight" id="p_weight" value="big" class="form-check-input">대형(20kg이상)
 						</td>
 						
-						<td><input type="file" name="file" id="file"></td>
+						
 					</tr>
 					<tr>
-						<td>특이사항</td>
-						<td><input type="text" name="p_unique" id="p_unique"></td>
+						<td class="table-primary">특이사항</td>
+						<td><textarea rows="10" cols="10" class="form-control" name="p_unique" id="p_unique"></textarea></td>
+						<td><input type="file" name="file" id="file"></td>
 					</tr>
 					
 				</table>
