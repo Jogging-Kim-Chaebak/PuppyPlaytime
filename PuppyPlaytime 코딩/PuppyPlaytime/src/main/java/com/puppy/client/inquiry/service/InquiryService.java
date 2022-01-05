@@ -16,5 +16,5 @@ public interface InquiryService {
 
 	public int inquiryDelete(int q_no);
 
-	public int memberPw(String m_pw, int q_no);
+	public List<InquiryVO> inquiryMyList(String m_id);
 }

@@ -16,6 +16,6 @@ public interface InquiryDao {
 
 	public int inquirtDelete(int q_no);
 
-	public int memberPw(String m_pw, int q_no);
+	public List<InquiryVO> inquiryMyList(String userId);
 
 }
