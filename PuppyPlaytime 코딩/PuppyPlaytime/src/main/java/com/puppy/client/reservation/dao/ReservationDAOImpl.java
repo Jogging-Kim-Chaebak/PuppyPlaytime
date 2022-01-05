@@ -59,4 +59,10 @@ public class ReservationDAOImpl implements ReservationDAO{
 	public List<ExtraServiceVO> listExtraService(int c_no) throws Exception {
 		return session.selectList("listExtraService", c_no);
 	}
+
+	// 예약 룸 건수를 반환한다.
+	@Override
+	public int roomCount(ReserveDate rDate) throws Exception {
+		return session.selectOne("roomCount", rDate);
+	}
 }

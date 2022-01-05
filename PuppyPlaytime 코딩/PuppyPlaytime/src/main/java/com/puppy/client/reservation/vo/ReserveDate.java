@@ -4,12 +4,23 @@ import java.util.Date;
 
 import com.puppy.common.vo.PageRequest;
 
-public class ReserveDate extends PageRequest{
+public class ReserveDate{
 	private String startDate;
 	private String endDate;
 	private Date startReservation;
 	private Date endReservation;
+	private PageRequest pageRequest;
 	
+	public ReserveDate() {
+		pageRequest = new PageRequest();
+	}
+	
+	public PageRequest getPageRequest() {
+		return pageRequest;
+	}
+	public void setPageRequest(PageRequest pageRequest) {
+		this.pageRequest = pageRequest;
+	}
 	public String getStartDate() {
 		return startDate;
 	}

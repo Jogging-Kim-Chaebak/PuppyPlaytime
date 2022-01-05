@@ -12,11 +12,22 @@
     			c_explain,
     			c_picture,
     			c_status
-    	FROM cageroom_tbl
+    	FROM (select 
+    			c_no,
+   				c_kind,
+   				c_type,
+   				c_price,
+    			c_explain,
+    			c_picture,
+    			c_status,
+    			rownum as rnum
+    		from cageroom_tbl)
     	WHERE not c_no in (select c_no
 						from reservation_tbl
 						where (r_startdate >= #{startReservation}) and
 						(r_enddate <= #{endReservation}))
+		and rnum between #{pageRequest.sizePerPage}*#{pageRequest.page}-9 and #{pageRequest.sizePerPage}*#{pageRequest.page}
+		order by c_no desc	
 		]]>
 	</select>
 
@@ -130,6 +141,18 @@
 			c_no
 		from extraservice_tbl
 		where c_no = #{c_no}
+	</select>
+	
+	<!-- 가능한 케이지룸 조회 -->
+	<select id = "roomCount" resultType="int">
+		<![CDATA[
+		SELECT 	count(c_no)
+    	FROM cageroom_tbl
+    	WHERE not c_no in (select c_no
+						from reservation_tbl
+						where (r_startdate >= #{startReservation}) and
+						(r_enddate <= #{endReservation}))			
+		]]>
 	</select>
 	
 </mapper>
