@@ -6,6 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 찾기</title>
+<style type="text/css">
+.form {
+	width: 800px;
+	padding: 20px;
+	margin-left: auto;
+	border: 1px solid #d9230f;
+	text-align: left;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+</style>
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -60,11 +71,9 @@
 						$("#m_email").focus();//이메일 박스로 이동
 					} else {
 						alert("아이디와 이메일이 맞습니다.");
-						//$("#m_email").attr("readOnly", "readOnly");
-						//$("#m_id").attr("readOnly", "readOnly");
 						$('#findPw').attr('disabled', false);
 						window.open("", "pop",//""으로 get으로!
-								"width=700, height=400");
+						"width=700, height=400");
 						$("#findPw").attr("action", "/client/login/pw_popup");
 						$("#findPw").attr("target", "pop");
 						$("#findPw").submit();//get 으로 전송하고 post로!
@@ -81,23 +90,32 @@
 </script>
 </head>
 <body>
-	<form name="findPw" id="findPw" action="/client/login/pw_popup">
-		<div class="form-group">
-			<label class="form-label mt-4">비밀번호 찾기</label>
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="m_id" name="m_id"
-					placeholder="아이디를 입력해주세요">
-				<label for="m_id">아이디</label><br>
-				<input type="text" class="form-control" id="m_email" name="m_email"
-					placeholder="이메일을 입력해주세요"> 
-				<label for="m_email">이메일</label>
-				<button type="button" value="찾기" onclick="pwFind()" id="updatePw"
-					class="col-sm-2 control-label">비밀번호 변경</button>
+	<div class="form">
+		<form name="findPw" id="findPw" action="/client/login/pw_popup">
+			<div class="row">
+				<label class="form-label mt-4">비밀번호 찾기</label>
+				<div class="col">
+				<label for="m_id">아이디</label>
+					<input type="text" class="form-control" id="m_id" name="m_id"
+						placeholder="아이디"> 
+				
+				
+				 <label for="m_email">이메일</label>
+					<input type="text" class="form-control" id="m_email" name="m_email"
+						placeholder="이메일">
+				</div>
+				
+				<div class="col">
+					<button type="button" value="찾기" onclick="pwFind()" id="updatePw"
+						 class="btn btn-primary mb-2">비밀번호 변경</button>
+				</div>
 			</div>
-		</div>
-	</form>
-	<button type="button" class="btn btn-primary"
-		onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
-	<button type="button" class="btn btn-primary"  onclick="location.href='http://localhost:8080/client/login/find_pw'">다시입력</button>
+		</form>
+		<br>
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='http://localhost:8080/client/login/find_pw'">다시입력</button>
+	</div>
 </body>
 </html>
