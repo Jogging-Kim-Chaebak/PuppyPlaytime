@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
+<style type="text/css">
+.form {
+	width: 800px;
+	padding: 20px;
+	margin-left: auto;
+	border: 1px solid #d9230f;
+	text-align: center;
+	margin-right: auto;
+	margin-bottom: 10px;
+}
+
+</style>
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -40,11 +52,11 @@
 						alert("해당되는 이메일이 없습니다.");
 						$("#m_email").val("");
 						$("#m_email").focus();//이메일 박스로 이동
-					} else {	
-						alert("아이디 : "+resultData);
+					} else {
+						alert("아이디 : " + resultData);
 						$("#m_email").attr("readOnly", "readOnly");
 						$('#findId').attr('disabled', false);
-						
+
 					}
 				},
 				error : function() {
@@ -57,24 +69,34 @@
 </script>
 </head>
 <body>
-	<form name="findId" id="findId" action="/client/login/find_id"
-		method="post">
-		<div class="form-group">
-			<label class="form-label mt-4">아이디 찾기</label>
-			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="m_email" name="m_email"
-					placeholder="이메일을 입력해주세요"> <label for="m_email">이메일</label>
-				<button type="button" value="찾기" onclick="idFind()"
-					class="col-sm-2 control-label">찾기</button>
+	<div class="form">
+		<form name="findId" id="findId" action="/client/login/find_id"
+			method="post">
+			<div class="form-group">
+				<label class="form-label mt-4"><h2>아이디 찾기</h2></label>
 
+				<div class="row">
+				<label for="m_email" class="sr-only">이메일</label> 
+					<div class="col">			
+						<input 	type="text" class="form-control" id="m_email" name="m_email"
+							placeholder="이메일" >
+					</div>
+					<div class="col">
+						<button type="button" value="찾기" onclick="idFind()"
+							class="btn btn-primary mb-2">찾기</button>
+
+					</div>
+				</div>
 			</div>
 
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
-			<button type="button" class="btn btn-primary" onclick="location.href='http://localhost:8080/client/login/find_id'">다시입력</button>
-		</div>
-	</form>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary"
+					onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
+				<button type="button" class="btn btn-primary"
+					onclick="location.href='http://localhost:8080/client/login/find_id'">다시입력</button>
+			</div>
+		</form>
 
-
+	</div>
 </body>
 </html>

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.puppy.client.member.service.MemberService;
 import com.puppy.client.member.vo.MemberVO;
 
-import crypt.SHA256;
+import com.puppy.common.crypt.SHA256;
 
 //회원가입 창
 @Controller
