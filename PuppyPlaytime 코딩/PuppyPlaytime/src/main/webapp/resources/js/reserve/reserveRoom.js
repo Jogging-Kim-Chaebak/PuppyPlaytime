@@ -7,3 +7,13 @@ function reservationDetail(c_no){
 	});
 	$("#dateCageForm").submit();
 }
+
+function reservationRoom(idx){
+	$("#page").val(idx);
+	
+	$("#dateCageForm").attr({
+		"action" : "/client/reserve/reserveRoom",
+		"method" : "post"
+	});
+	$("#dateCageForm").submit();
+}

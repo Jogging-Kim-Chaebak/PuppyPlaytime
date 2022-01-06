@@ -1,0 +1,74 @@
+select *
+from member_tbl;
+
+select *
+from cageRoom_tbl;
+
+select *
+from reservation_tbl;
+
+select *
+from extraservice_tbl;
+
+delete from reservation_tbl;
+delete from cageRoom_tbl;
+delete from extraservice_tbl;
+
+drop sequence reservation_tbl_seq;
+
+create sequence reservation_tbl_seq
+start with 1
+increment by 1;
+
+drop sequence cageRoom_tbl_seq;
+
+create sequence cageroom_tbl_seq
+start with 1
+increment by 1 
+nocache;
+
+drop sequence EXTRASERVICE_TBL_SEQ;
+
+--부가서비스 게시판에 사용할 시퀀스 생성
+CREATE SEQUENCE EXTRASERVICE_TBL_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+
+commit;
+
+rollback;
+
+SELECT 	c.c_no,
+   				c.c_kind,
+   				c.c_type,
+   				c.c_price,
+    			c.c_explain,
+    			c.c_picture,
+    			c.c_status,
+    			s.s_name,
+    			s.s_explain
+    	FROM (select 
+    			c_no,
+   				c_kind,
+   				c_type,
+   				c_price,
+    			c_explain,
+    			c_picture,
+    			c_status,
+    			rownum as rnum
+    		from cageroom_tbl)c, extraservice_tbl s
+    	WHERE not c_no in (select c_no
+						from reservation_tbl
+						where (r_startdate >= to_date('20220118150000','YYYYMMDDHH24MISS')) and
+                  (r_enddate <= to_date('20220122090000','YYYYMMDDHH24MISS')))
+		and rnum between 10*1-9 and 10*1
+        order by c_kind, c_type asc;
+        
+alter table member_tbl modify(m_name varchar2(30));
+alter table pet_tbl modify(p_name varchar2(30));
+alter table pet_tbl modify(p_dogbreed varchar2(30));
+alter table extraservice_tbl modify(s_name varchar2(30));
+
+commit;

@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -148,21 +149,24 @@ public class ReservationController {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
-		rDate.setStartDate(rDate.getStartDate() + " 15:00:00");
-		rDate.setEndDate(rDate.getEndDate() + " 09:00:00");
+			
+		// 페이징 하더라도 한번만 시간을 더해준다.
+		if(rDate != null && rDate.getStartDate().length() < 12) {
+			rDate.setStartDate(rDate.getStartDate() + " 15:00:00");
+			rDate.setEndDate(rDate.getEndDate() + " 09:00:00");
+		}
 		
 		rDate.setStartReservation(format.parse(rDate.getStartDate()));
 		rDate.setEndReservation(format.parse(rDate.getEndDate()));
-
-		List<CageRoomVO> roomList = reservationService.listRoom(rDate);
 		
+		List<CageRoomVO> roomList = reservationService.listRoom(rDate);
+	
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
 		Pagination pagination = new Pagination();
 		
 		pagination.setPageRequest(rDate.getPageRequest());
 		pagination.setTotalCount(reservationService.roomCount(rDate));
-		
+				
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("roomList", roomList);
