@@ -61,8 +61,8 @@
 	<h3>예약 페이지</h3>
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="reserveCalendar">예약 날짜</a></li>
-		<li class="breadcrumb-item"><a href="javascript:history.go(-2)">마이펫 정보</a></li>
-		<li class="breadcrumb-item"><a href="javascript:history.go(-1)">예약룸 정보</a></li>
+		<li class="breadcrumb-item active">마이펫 정보</li>
+		<li class="breadcrumb-item active">예약룸 정보</li>
 		<li class="breadcrumb-item active">예약 페이지</li>
 	</ol>
 	<div class="row">
@@ -109,7 +109,8 @@
    					</c:if>
    					<c:if test="${cageRoomVO.c_kind eq 'middle'}" >
    						방 종류 : 중형
-   					</c:if>    					<c:if test="${cageRoomVO.c_kind eq 'big'}" >
+   					</c:if>    					
+   					<c:if test="${cageRoomVO.c_kind eq 'big'}" >
     					방 종류 : 대형
     				</c:if>
 					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;방 유형 : ${cageRoomVO.c_type } </li>

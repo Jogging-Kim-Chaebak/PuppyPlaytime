@@ -1,6 +1,6 @@
 CREATE TABLE EXTRASERVICE_TBL(
     s_no VARCHAR2(5) NOT NULL,
-    s_name VARCHAR2(15) NOT NULL,
+    s_name VARCHAR2(30) NOT NULL,
     s_explain VARCHAR2(500) NOT NULL,
     s_status VARCHAR2(15) NOT NULL,
     s_price NUMBER(7) NOT NULL,

@@ -1,7 +1,7 @@
 create table Pet_tbl(
 	p_no number(6) not null,
-	p_name varchar2(10) not null,
-	p_dogbreed varchar2(15) not null,
+	p_name varchar2(30) not null,
+	p_dogbreed varchar2(30) not null,
 	p_unique varchar2(200),
 	p_gender varchar2(2) not null,
 	p_weight varchar2(15) not null,

@@ -108,11 +108,19 @@ public class LoginController {
 	}
 
 	// 로그아웃 메소드
-	@RequestMapping(value="logout")
-	public String logout() {
+	@RequestMapping(value="/logout")
+	public String logout(HttpServletResponse response, HttpServletRequest request) throws Exception {
+		response.setContentType("text/html; charset=euc-kr");
+	    PrintWriter out = response.getWriter();
+		
+		session = request.getSession();
 		session.removeAttribute("userId"); 
-	    session.invalidate();
-	    
+			
+		out.println("<script type='text/javascript'>");
+	    out.println("alert('로그아웃 되었습니다.');");
+	    out.println("</script>");
+	    out.flush();
+
 		return "intro";
 	}
 	
