@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puppy.admin.room.dao.CageRoomDAO;
 import com.puppy.admin.room.vo.CageRoomVO;
+import com.puppy.common.vo.PageRequest;
 
 @Service
 @Transactional
@@ -22,10 +23,10 @@ public class CageRoomServiceImpl implements CageRoomService {
 	private CageRoomDAO cageRoomDAO;
 	
 	@Override
-	public List<CageRoomVO> roomList(CageRoomVO param) {
+	public List<CageRoomVO> roomList(PageRequest pageRequest) {
 		// TODO Auto-generated method stub
 		List<CageRoomVO> list = new ArrayList<CageRoomVO>();
-		list = cageRoomDAO.roomList(param);
+		list = cageRoomDAO.roomList(pageRequest);
 		return list;
 	}
 
@@ -46,6 +47,12 @@ public class CageRoomServiceImpl implements CageRoomService {
 	public int roomDisabled(CageRoomVO param) {
 		// TODO Auto-generated method stub
 		return cageRoomDAO.roomDisabled(param);
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return cageRoomDAO.count();
 	}
 
 }

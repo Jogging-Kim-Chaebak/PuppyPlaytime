@@ -25,7 +25,7 @@ nav .navbar-nav li a {
 		class="collapse navbar-collapse justify-content-end align-self-end"
 		id="navbarColor03">
 		<ul class="navbar-nav">
-			<li class="nav-item"><a class="nav-link" href="/admin/statistics/adminSalesStatistics">통계&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/admin/statistics/adminJoinStatistics">통계&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/room/roomList">애견공간관리&nbsp;&nbsp;</a>
 			</li>

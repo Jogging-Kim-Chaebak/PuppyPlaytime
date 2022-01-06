@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puppy.admin.member.dao.AdminMemberDAO;
 import com.puppy.client.member.vo.MemberVO;
+import com.puppy.common.vo.PageRequest;
 
 @Service
 @Transactional
@@ -18,9 +19,9 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	private AdminMemberDAO adminMemberDAO;
 	
 	@Override
-	public List<MemberVO> adminMemberList(MemberVO param) {
+	public List<MemberVO> adminMemberList(PageRequest pageRequest) {
 		List<MemberVO> list = new ArrayList<MemberVO>();
-		list = adminMemberDAO.adminMemberList(param);
+		list = adminMemberDAO.adminMemberList(pageRequest);
 		return list;
 	}
 
@@ -28,6 +29,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	public int adminMemberDisabled(String m_id) {
 		// TODO Auto-generated method stub
 		return adminMemberDAO.adminMemberDisabled(m_id);
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return adminMemberDAO.count();
 	}
 
 }

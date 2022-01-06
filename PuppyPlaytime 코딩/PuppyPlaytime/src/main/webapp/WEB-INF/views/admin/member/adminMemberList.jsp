@@ -73,6 +73,21 @@ function updateData(m_id){
 				</c:forEach>
 			</tbody>
 		</table>
+		<!-- 페이징 네비게이션 -->
+<ul class="pagination justify-content">
+	<c:if test="${pagination.prev}">
+		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">&laquo;</a></li>
+	</c:if>
+	
+	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }"
+var="idx">
+	<li class="page-item"><a class="page-link" href="/admin/member/adminMemberList${pagination.makeQuery(idx)}">${idx}</a></li>
+	</c:forEach>
+	<c:if test="${pagination.next && pagination.endPage > 0}">
+		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">&raquo;</a></li>
+	</c:if>
+</ul>
+		
 	</div>
 </body>
 </html>

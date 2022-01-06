@@ -46,7 +46,7 @@ $(function(){
 <body>
 	<div>
 		<form id ="roomForm" name="roomForm" method="post">
-			<table border="1">
+			<table border="1" class="table table-hover">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>룸 상세 정보</h4></td>
@@ -78,7 +78,7 @@ $(function(){
 						<c:if test="${empty cageRoomVO.c_picture}">
 									<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
 							</c:if>
-									<td colspan="3"><img src="/image/roomImages/${cageRoomVO.c_picture}"/></td>
+									<td colspan="3"><img src="/image/roomImages/${cageRoomVO.c_picture}" width="520" height="250"/></td>
 						
 					</tr>
 					

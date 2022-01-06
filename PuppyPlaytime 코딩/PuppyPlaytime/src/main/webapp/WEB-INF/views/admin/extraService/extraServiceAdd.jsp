@@ -25,16 +25,21 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 			if($("#s_status").val()==""){
 				$("#s_status").val("use");
 			}
+			if($("#s_name").val().length > 9){
+				alert('서비스 명을 8자 이하로 작성해주십시오.');
+				return false;
+			}
 			if($("#s_name").val().replace(/\s/g,"")==""){
 				alert('서비스 명을 입력해주세요.');
 				return false;
 			}
+			
 			if($("#s_price").val().replace(/[^0-9]/g,"")==""){
 				alert('서비스 가격을 입력해주세요.');
 				return false;
 			}
 			if($("#s_explain").val().replace(/\s/g,"")==""){
-				alert('케이지 설명을 입력해주세요.');
+				alert('서비스 설명을 입력해주세요.');
 				return false;
 			}
 			
