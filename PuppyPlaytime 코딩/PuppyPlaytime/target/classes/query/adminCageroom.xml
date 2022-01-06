@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.puppy.admin.room.dao.CageRoomDAO">
+<mapper namespace="query.adminCageroom">
 	<resultMap type="com.puppy.admin.room.vo.CageRoomVO" id="cageRoomVO">
 		<result property="c_no" column="c_no"></result>
 		<result property="c_kind" column="c_kind"></result>
@@ -20,11 +20,12 @@
 		<result property="c_no" column="c_no"></result>
 	</resultMap>
 	
-	<select id="roomList" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
-		select c_no,c_kind,c_type,c_price
-		from cageroom_tbl 
-		where c_status = 'use'
-		order by c_no asc
+	<select id="roomList" resultType="com.puppy.admin.room.vo.CageRoomVO">
+		<![CDATA[select c_no,c_kind,c_type,c_price
+		from (select c_no,c_kind,c_type,c_price, rownum as rnum 
+		from cageroom_tbl where c_status = 'use')
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+		order by c_no asc]]>
 	</select>
 	
 	<select id="roomDetail" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
@@ -55,4 +56,12 @@
 		set c_status = 'unuse' 
 		where c_no =#{c_no} 
 	</update>
+	
+	<select id="roomCnt" resultType="int">
+		<![CDATA[
+		SELECT count(c_no)
+		  FROM cageroom_tbl
+		 WHERE c_status = 'use'
+		]]>
+	</select>
 </mapper>

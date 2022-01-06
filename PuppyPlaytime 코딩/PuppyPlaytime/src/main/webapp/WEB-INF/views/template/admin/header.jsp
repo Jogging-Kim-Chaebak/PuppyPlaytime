@@ -25,6 +25,8 @@ nav .navbar-nav li a {
 		class="collapse navbar-collapse justify-content-end align-self-end"
 		id="navbarColor03">
 		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="/client/login/logout">로그아웃&nbsp;&nbsp;</a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/statistics/adminJoinStatistics">통계&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/room/roomList">애견공간관리&nbsp;&nbsp;</a>
@@ -38,8 +40,6 @@ nav .navbar-nav li a {
 			<li class="nav-item"><a class="nav-link" href="/admin/notice/noticeList">공지사항 관리&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/admin/inquiry/adminInquiryList">문의게시판 관리&nbsp;&nbsp;</a>
-			</li>
-			<li class="nav-item"><a class="nav-link" href="/">로그아웃&nbsp;&nbsp;</a>
 			</li>
 		</ul>
 	</div>

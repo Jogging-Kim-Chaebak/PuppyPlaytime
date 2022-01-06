@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="query.adminMember">
 
-	<resultMap type="com.puppy.client.member.vo.MemberVO" id="memberVO">
+	<!-- <resultMap type="com.puppy.client.member.vo.MemberVO" id="memberVO">
 		<result property="m_id" column="m_id"></result>
 		<result property="m_pw" column="m_pw"></result>
 		<result property="m_name" column="m_name"></result>
@@ -15,12 +15,13 @@
 		<result property="m_required2" column="m_required2"></result>
 		<result property="m_status" column="m_status"></result>
 		<result property="m_regdate" column="m_regdate"></result>
-	</resultMap>
+	</resultMap>  -->
 	
-	<select id="adminMemberList" parameterType="com.puppy.client.member.vo.MemberVO" resultMap="memberVO">
-		select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status 
-		from Member_tbl 
-		where m_status = 'active'
+	<select id="adminMemberList" resultType="member">
+		<![CDATA[ select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status 
+		from (select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status,rownum as rnum 
+		from Member_tbl where m_status = 'active')
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}]]>
 	</select>
 	
 	<update id="adminMemberDisabled" parameterType="com.puppy.client.member.vo.MemberVO">
@@ -28,6 +29,15 @@
 		set m_status = 'inactive' 
 		where m_id =#{m_id} 
 	</update>
-
+	
+	
+	<!-- 게시글 전체 건수를 조회한다. -->
+	<select id="adminMemberCnt" resultType="int">
+		<![CDATA[
+		SELECT count(m_id)
+		  FROM Member_tbl
+		  where m_status = 'active'
+		]]>
+	</select>
 
 </mapper>
