@@ -23,6 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.admin.extraservice.service.ExtraServiceService;
 import com.puppy.common.vo.ExtraServiceVO;
+import com.puppy.common.vo.PageRequest;
+import com.puppy.common.vo.Pagination;
 import com.puppy.admin.room.service.CageRoomService;
 import com.puppy.admin.room.vo.CageRoomVO;
 import com.puppy.common.file.FileUploadUtil;
@@ -46,14 +48,19 @@ public class CageRoomController {
 	private ExtraServiceService extraServiceService;
 
 	@RequestMapping("/roomList") // 케이지 리스트
-	public ModelAndView roomList(@ModelAttribute CageRoomVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public ModelAndView roomList(@ModelAttribute("pgrq") PageRequest pageRequest,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
-		List<CageRoomVO> list = cageRoomService.roomList(param);
-
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("roomList", list);
+		mav.addObject("roomList", cageRoomService.roomList(pageRequest));
 		mav.setViewName(CONTEXT_PATH + "/cageRoomList");
-
+		
+		//페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(cageRoomService.count());
+		model.addAttribute("pagination", pagination);
+		
 		return mav;
 	}
 

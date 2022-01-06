@@ -15,6 +15,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
+
 	
 	$(function(){
 		$("#insertData").click(function(){
@@ -56,6 +57,22 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 			if($("#file").val().replace(/\s/g,"")==""){
 				alert('케이지 사진을 등록해주세요.');
 				return false;
+			}
+			
+			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
+			var fileSize;
+			var maxSize = 5 * 1024 * 1024;
+			
+			if($("#file").val() != "" && $("#file").val() != null) {
+				fileSize =  document.roomForm.file.files[0].size;
+			if(!$("#file").val().match(fileForm)){
+				alert('이미지 파일만 업로드 가능합니다.');
+				return false;
+			}
+			if(fileSize > maxSize){
+				alert("파일 사이즈는 5MB까지 가능");
+		        return;
+				}
 			}
 			
 			
@@ -117,7 +134,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>케이지 사진</th>
-						<td colspan ="3"><input type="file" id="file" name="file"/></td>
+						<td colspan ="3"><input type="file" id="file" name="file" accept="image/*"/></td>
 					</tr>
 					<tr>
 						<th><span class ="required">*</span>부가서비스</th>

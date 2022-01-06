@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.puppy.admin.room.vo.CageRoomVO;
+import com.puppy.common.vo.PageRequest;
 
 @Repository
 public class CageRoomDAOImpl implements CageRoomDAO {
@@ -19,12 +20,12 @@ public class CageRoomDAOImpl implements CageRoomDAO {
 	@Inject
 	private SqlSession SqlSession;
 	
-	private static final String namespace = "com.puppy.admin.room.dao.CageRoomDAO";
+	private static final String namespace = "query.adminCageroom";
 	
 	@Override
-	public List<CageRoomVO> roomList(CageRoomVO param) {
+	public List<CageRoomVO> roomList(PageRequest pageRequest) {
 		// TODO Auto-generated method stub
-		return SqlSession.selectList(namespace+".roomList",param);
+		return SqlSession.selectList(namespace+".roomList",pageRequest);
 	}
 
 	@Override
@@ -44,6 +45,12 @@ public class CageRoomDAOImpl implements CageRoomDAO {
 	public int roomDisabled(CageRoomVO param) {
 		// TODO Auto-generated method stub
 		return SqlSession.update(namespace+".roomDisabled",param);
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return (Integer)SqlSession.selectOne(namespace + ".roomCnt");
 	}
 
 }

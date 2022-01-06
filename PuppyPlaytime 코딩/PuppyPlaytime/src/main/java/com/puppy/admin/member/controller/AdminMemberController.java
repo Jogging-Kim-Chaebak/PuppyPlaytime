@@ -1,7 +1,6 @@
 package com.puppy.admin.member.controller;
 
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.admin.member.service.AdminMemberService;
-import com.puppy.client.member.vo.MemberVO;
+import com.puppy.common.vo.PageRequest;
+import com.puppy.common.vo.Pagination;
 
 @Controller
 @RequestMapping(value ="/admin/member")
@@ -29,13 +29,18 @@ public class AdminMemberController {
 	private AdminMemberService adminMemberService;
 	
 	@RequestMapping("/adminMemberList") // 부가서비스 리스트
-	public ModelAndView adminMemberList(@ModelAttribute MemberVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public ModelAndView adminMemberList(@ModelAttribute("pgrq") PageRequest pageRequest ,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
-		List<MemberVO> list = adminMemberService.adminMemberList(param);
-
+		
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("adminMemberList", list);
+		mav.addObject("adminMemberList", adminMemberService.adminMemberList(pageRequest));
 		mav.setViewName(CONTEXT_PATH + "/adminMemberList");
+		
+		//페이징 네비게이션 정보를 뷰에 전달한다.
+				Pagination pagination = new Pagination();
+				pagination.setPageRequest(pageRequest);
+				pagination.setTotalCount(adminMemberService.count());
+				model.addAttribute("pagination", pagination);
 
 		return mav;
 	}

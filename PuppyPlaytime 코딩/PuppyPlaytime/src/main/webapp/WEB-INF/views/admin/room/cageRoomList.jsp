@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,33 +11,28 @@
 <script type="text/javascript">
 
 	function writeForm(){
-		 window.location.href ="/admin/room/writeForm"
+		if(${fn:length(roomList)}<50){
+			window.location.href ="/admin/room/writeForm"
+		}
+		else{
+			alert('서비스는 50개까지만 등록가능합니다.');
+			return false;
+		}
 	}
+	
+	
 	
 	function detailRoom(c_no){
-		/* var c_no = $(this).parents("tr").attr("data-num"); */
-	/* 	$("#c_no").val(c_no); */
-		$("#c_no").val(c_no);
-		$("#detailForm").attr({
-			"method":"GET",
-			"action":"/admin/room/roomDetail"
-		});
-		$("#detailForm").submit();
-	}
-	
-	/* $(function(){
-		$("#goDetail").click(function(){
-			var c_no = $(this).parents("tr").attr("data-num");
 			$("#c_no").val(c_no);
-			console.log("룸번호 : " +c_no);
 			$("#detailForm").attr({
 				"method":"GET",
-				"action":"/admin/room/roomDetail.do"
+				"action":"/admin/room/roomDetail"
 			});
 			$("#detailForm").submit();
-		});
-	}); */
+		
+	}
 	
+
 </script>
 <style type ="text/css">
 
@@ -84,6 +80,20 @@
 				</tr>
 			</tbody>
 		</table>
+				<!-- 페이징 네비게이션 -->
+<ul class="pagination justify-content">
+	<c:if test="${pagination.prev}">
+		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">&laquo;</a></li>
+	</c:if>
+	
+	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }"
+var="idx">
+	<li class="page-item"><a class="page-link" href="/admin/room/roomList${pagination.makeQuery(idx)}">${idx}</a></li>
+	</c:forEach>
+	<c:if test="${pagination.next && pagination.endPage > 0}">
+		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">&raquo;</a></li>
+	</c:if>
+</ul>
 	</div>
 </body>
 </html>

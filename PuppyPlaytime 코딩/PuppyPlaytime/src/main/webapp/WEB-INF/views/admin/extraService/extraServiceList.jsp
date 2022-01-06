@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,11 +12,18 @@
 <script type="text/javascript">
 
 	function writeForm(){
-		$("#detailForm").attr({
-			"method":"GET",
-			"action":"/admin/extraService/writeForm"
-		});
-		$("#detailForm").submit();
+		if(${fn:length(extraServiceList)}<4){
+			$("#detailForm").attr({
+				"method":"GET",
+				"action":"/admin/extraService/writeForm"
+			});
+			$("#detailForm").submit();
+		}
+		else{
+			alert('서비스는 4개까지만 등록가능합니다.');
+			return false;
+		}
+		
 	}
 	
 	function detailService(s_no){
@@ -36,7 +45,7 @@
 		<input type ="hidden" name="s_no" id ="s_no"/>
 	</form>
 	<div>
-		<table border = "1">
+		<table border = "1" class="table table-hover">
 			<caption>부가서비스 리스트</caption>
 			<colgroup>
 				<col width="100px" />
@@ -45,9 +54,9 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>서비스 번호</th>
-					<th>서비스 명</th>
-					<th>가격</th>
+					<th align ="center">서비스 번호</th>
+					<th align ="center">서비스 명</th>
+					<th align ="center">가격</th>
 				</tr>
 			</thead>
 			<tbody>
