@@ -85,8 +85,8 @@ th, td {
 			</thead>
 			<tbody>
 			<!-- 데이터 출력 -->
-				<c:if test="${not empty reservationList}">
-					<c:forEach var="list" items="${reservationList}" varStatus="status">
+				<c:if test="${not empty mypageReservation}">
+					<c:forEach var="list" items="${mypageReservation}" varStatus="status">
 
 					<tr class="table-secondary" data-num="${list.r_no}">
 						<td><input type="hidden" name="r_no" id="r_no" value="${list.r_no}"/>${list.r_no}</td>
@@ -96,7 +96,30 @@ th, td {
 						<td><fmt:formatDate value="${list.r_startDate}" pattern="yyyy-MM-dd"/></td>
 						<td><fmt:formatDate value="${list.r_endDate}" pattern="yyyy-MM-dd"/></td>
 						<td>${list.r_payPrice}원</td>
-						<td><c:set var="name" value="${list.r_status}" />
+						<td><c:set var="name" value="${list.r_approval}" />
+								<c:choose> 
+								    <c:when test="${name eq 'Y'}">
+								       <c:set var="name" value="${list.r_status}" />
+										<c:choose> 
+										   <c:when test="${name eq 'done'}">
+								        		<a>이용완료</a>
+								   			</c:when>
+								    		<c:when test="${name eq 'cancel'}">
+								    		    <a>예약취소</a>
+								    		</c:when>
+								    		<c:when test="${name eq 'refunded'}">
+								        		<a>환불완료</a>
+								    		</c:when>
+								    	</c:choose>
+								    </c:when>
+								    <c:when test="${name eq 'W'}">
+								        <a>승인대기중</a>
+								    </c:when>
+								    <c:when test="${name eq 'N'}">
+								        <a>승인취소</a>
+								    </c:when>
+								</c:choose>
+						<%-- <c:set var="name" value="${list.r_status}" />
 								<c:choose> 
 								    <c:when test="${name eq 'done'}">
 								        <a>이용완료</a>
@@ -111,6 +134,7 @@ th, td {
 								        <a>예약완료</a>
 								    </c:otherwise>
 								</c:choose>
+								 --%>
 						</td>
 						<td><input type="button" id="reservationdetailBtn" name="reservationdetailBtn"
 			class="reservationdetailBtn" value="상세보기"></td>
@@ -120,6 +144,22 @@ th, td {
 				</c:if>
 			</tbody>
 		</table>
+		
+		<!-- 페이징 네비게이션 -->
+<ul class="pagination justify-content">
+	<c:if test="${mypagepagination.prev}">
+		<li class="page-item"><a class="page-link" href="${mypagepagination.startPage - 1}">&laquo;</a></li>
+	</c:if>
+	
+	<c:forEach begin="${mypagepagination.startPage }" end="${mypagepagination.endPage }"
+var="idx">
+	<li class="page-item"><a class="page-link" href="/client/mypage/mypageReservation${mypagepagination.makeQuery(idx)}">${idx}</a></li>
+	</c:forEach>
+	<c:if test="${mypagepagination.next && mypagepagination.endPage > 0}">
+		<li class="page-item"><a class="page-link" href="${mypagepagination.endPage +1}">&raquo;</a></li>
+	</c:if>
+</ul>
+
 		</div>
 		<!-- 예약리스트 종료 -->
 	</form>

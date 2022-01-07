@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.dao.MypageDAO;
+import com.puppy.client.mypage.vo.MypageVO;
+import com.puppy.client.notice.vo.NoticeVO;
 import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.vo.ExtraServiceVO;
+import com.puppy.common.vo.PageRequest;
 import com.puppy.common.vo.PetVO;
 
 @Service
@@ -69,13 +72,28 @@ public class MypageServiceImpl implements MypageService{
 		return detail;
 		
 	}
-
+	/*
 	//예약 리스트 구현(예약정보)
 	@Override
 	public List<ReservationVO> reservationList(String m_id) {
 		return mypageDAO.reservationList(m_id);
 	}
+	*/
 	
+	// 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 반환한다.
+			@Override
+			public List<ReservationVO> reservationList(MypageVO mvo) throws Exception {
+				
+				return mypageDAO.reservationList(mvo);
+		}
+	
+			//게시글 전체 건수를 반환한다.
+			@Override
+			public int count() throws Exception {
+				
+				return mypageDAO.count();
+			}
+			
 	//예약 상세보기 구현(예약정보)
 	@Override
 	public ReservationVO reservationDetail(ReservationVO rvo) {

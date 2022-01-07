@@ -3,7 +3,9 @@ package com.puppy.client.mypage.controller;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,17 +13,24 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.service.MypageService;
+import com.puppy.client.mypage.vo.MypagePagination;
+import com.puppy.client.mypage.vo.MypageVO;
 import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.file.FileUploadUtil;
 import com.puppy.common.vo.ExtraServiceVO;
+import com.puppy.common.vo.PageRequest;
+import com.puppy.common.vo.Pagination;
 import com.puppy.common.vo.PetVO;
 
 
@@ -33,6 +42,10 @@ public class MypageController {
 	
 	@Autowired
 	private MypageService mypageService;
+	
+	// JavaMailSender 객체 타입인 mailSender 변수를 선언
+		@Autowired
+		private JavaMailSender mailSender;
 	
 	private HttpSession session;
 	private String userId;
@@ -175,7 +188,7 @@ public class MypageController {
         }
         return "redirect:"+url;
     }
-    
+    /*
     //예약리스트 구현하기
     @RequestMapping(value="/reservationList", method=RequestMethod.GET) 
     public String reservationList(Model model, HttpServletRequest request,
@@ -193,7 +206,23 @@ public class MypageController {
 	 
 		return "client/mypage/mypageReservation";
   	}
-	 
+	 */
+    
+    //페이징 요청 정보를 매개 변수로 받고 다시 뷰에 전달한다
+  	@RequestMapping(value="/mypageReservation", method = RequestMethod.GET)
+  	public void mypageReservation(@ModelAttribute("pgrq") MypageVO mvo, Model model) throws Exception{
+  		
+  		mvo.setM_id(userId);
+  		//뷰에 페이징 처리를 한 게시글 목록을 전달한다.
+  		model.addAttribute("mypageReservation",mypageService.reservationList(mvo));
+  		
+  		//페이징 네비게이션 정보를 뷰에 전달한다.
+  		MypagePagination mypagepagination = new MypagePagination();
+  		mypagepagination.setMypageVO(mvo);
+  		mypagepagination.setTotalCount(mypageService.count());
+  		model.addAttribute("mypagepagination", mypagepagination);
+  	}
+    
 	//예약 상세보기 구현
 		@RequestMapping(value="reservationDetail", method = RequestMethod.POST)
 		public String reservationDetail(@ModelAttribute ExtraServiceVO evo, ReservationVO rvo, Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -338,4 +367,45 @@ public class MypageController {
 	    	model.addAttribute("userId", userId);
 	    }
   	}
+  	
+  	/* 이메일 인증 */
+	@RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public String mailCheckGET(String email) throws Exception {
+
+		/* 뷰(View)로부터 넘어온 데이터 확인 */
+		log.info("이메일 데이터 전송 확인");
+		log.info("이메일 : " + email);
+
+		/* 인증번호(난수) 생성 */
+		// 111111 ~ 999999 범위의 숫자를 얻기 위해서 nextInt(888888) + 111111를 사용
+		Random random = new Random();
+		int checkNum = random.nextInt(888888) + 111111;
+		log.info("인증번호 : " + checkNum);
+
+		/* 이메일 보내기 */
+		String setFrom = "PuppyPlaytime<chan978@naver.com>";
+		String toMail = email;
+		String title = "회원가입 인증 이메일 입니다.";
+		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
+		try {
+
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(setFrom);
+			helper.setTo(toMail);
+			helper.setSubject(title);
+			helper.setText(content, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String num = Integer.toString(checkNum);
+
+		return num;
+	}
 }
