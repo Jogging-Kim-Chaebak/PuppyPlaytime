@@ -41,10 +41,11 @@ public class InquiryController {
 		sessionCheck(request, response, "로그인 후 문의게시판 이용해주세요.", model);
 		
 		log.info("inquiryList 호출 성공");
-		
-		List<InquiryVO> inquiryList = inquiryService.inquiryMyList(userId);
-		model.addAttribute("inquiryList", inquiryList);
-		model.addAttribute("data");
+		if(userId != null) {
+			List<InquiryVO> inquiryList = inquiryService.inquiryMyList(userId);
+			model.addAttribute("inquiryList", inquiryList);
+			model.addAttribute("data");
+		}
 		
 		return "client/inquiry/inquiryList";
 	}

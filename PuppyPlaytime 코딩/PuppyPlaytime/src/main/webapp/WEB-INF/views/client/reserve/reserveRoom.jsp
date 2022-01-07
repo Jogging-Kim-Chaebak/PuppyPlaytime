@@ -33,19 +33,14 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach items="${roomList }" var="room">
-				<div class="card">
-					<div class="row g-0">
-						<div class="col-md-4">
-							<img class="img-fluid rounded-start" src="/image/roomImages/${room.c_picture}"/>
-						</div>
-						<div class="col-md-8">
-							<div class="card-body">
-								<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
-								<p class="card-text">${room.c_explain }</p>
-							 	<p class="card-text">1박당 가격 : ${room.c_price }</p>
-							   	<a onclick="reservationDetail(${room.c_no})" class="btn btn-primary">예약하기</a>
-						  	</div>
-					  	</div>
+				<div class="card mb-3 text-center">		
+					<img width="100%" height="500px" class="card-img-top" src="/image/roomImages/${room.c_picture}"/>
+
+					<div class="card-body">
+						<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
+						<p class="card-text">${room.c_explain }</p>
+						<p class="card-text">1박당 가격 : ${room.c_price }</p>
+						<a onclick="reservationDetail(${room.c_no})" class="btn btn-primary text-right">예약하기</a>
 					</div>
 			  	</div>
 			  	<br>
