@@ -108,6 +108,49 @@ $(function() {
 	
 	
 });
+
+$(document).ready(function() {
+    var code = "";                //이메일전송 인증번호 저장위한 코드
+    
+ /* 인증번호 이메일 전송 */
+ $("#mailCheckBtn").on("click",function(){
+     var email = $("#m_email").val();        // 입력한 이메일
+     var checkBox = $("#m_emailNumber");        // 인증번호 입력란
+     
+     $.ajax({
+            type:"GET",
+            url:"mailCheck?email=" + email,
+            success:function(data){
+               alert("인증번호를 보냈습니다.");
+               checkBox.attr("disabled",false);
+               code=data;
+            }       
+        });
+    });
+       
+    /* 인증번호 비교 */
+    $("#m_emailNumber_box").on("click",function(){
+    
+        var inputCode = $("#m_emailNumber").val();        // 입력코드    
+        var checkResult = $("#mailCheckBtn");             // 비교 결과     
+     
+        if(inputCode == code){                               // 일치할 경우
+            alert("인증번호가 일치합니다.");
+          $("#mailCheckBtn").val("true");
+          $("#m_emailNumber").attr("disabled",true);
+          
+        } else {                                             // 일치하지 않을 경우
+            alert("인증번호를 다시 확인해주세요.");
+            $("#mailCheckBtn").val("false");
+           $("#m_emailNumber").attr("disabled",true);
+           
+        } 
+        
+     
+    });
+ });
+
+
 </script>
 <meta charset="UTF-8">
 <title>내정보 수정</title>
@@ -171,6 +214,12 @@ $(function() {
 			<div align="right">	
 					<input type="button" class="btn btn-primary" value="인증하기"
 					id="mailCheckBtn"><br>
+					<input type="text" id="m_emailNumber" class="form-control"
+                     name="m_emailNumber" placeholder="인증번호"
+                     aria-describedby="button-addon2">
+                  <button type="submit" value="인증" id="m_emailNumber_box" name="m_emailNumber_box"
+                     class="btn btn-primary btn-sm">인증</button>
+					
 			</div>
 		</div>
 

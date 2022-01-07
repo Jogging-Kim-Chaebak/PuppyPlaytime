@@ -71,7 +71,7 @@
 		p_no=#{p_no}
 	</delete>
 
-	<!-- 예약 리스트 -->
+	<!-- 예약 리스트 
 	<select id="reservationList"
 		resultType="com.puppy.client.reservation.vo.ReservationVO">
 		SELECT a.r_no,
@@ -86,7 +86,48 @@
 		FROM reservation_tbl a INNER JOIN cageroom_tbl b ON a.c_no = b.c_no
 		WHERE a.m_id = #{m_id}
 	</select>
+-->
+	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록 반환 -->
+	<select id="mypageReservation" resultType="com.puppy.client.reservation.vo.ReservationVO">
+		<![CDATA[
+		SELECT r_no,
+				c_no,
+				r_startDate,
+				r_endDate,
+				r_payPrice,
+				c_kind,
+				c_type,
+				r_status,
+				r_approval,
+				m_id
+    	 FROM (select a.r_no,
+    	 				a.c_no,
+						a.r_startDate,
+						a.r_endDate,
+						a.r_payPrice,
+						b.c_kind,
+						b.c_type,
+						a.r_status,
+						a.r_approval,
+						a.m_id,
+    				rownum as rnum
+    			FROM reservation_tbl a INNER JOIN cageroom_tbl b ON a.c_no = b.c_no)
+    	WHERE (m_id = #{m_id}) and rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+    			ORDER BY r_no desc
+		
+		]]>
 
+	</select>
+	
+	<!-- 게시글 전체 건수를 조회한다. -->
+	<select id="reservationListCnt" resultType="int">
+		<![CDATA[
+		SELECT count(r_no)
+		  FROM reservation_tbl a INNER JOIN cageroom_tbl b ON a.c_no = b.c_no
+		 WHERE r_no > 0
+		]]>
+	</select>
+	
 	<!-- 예약상세 정보 -->
 	<select id="reservationDetail" resultType="com.puppy.client.reservation.vo.ReservationVO">
 		SELECT 	a.r_no,
