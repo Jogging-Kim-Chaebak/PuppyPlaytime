@@ -7,7 +7,6 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>글 목록</title>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<script type="text/javascript">
 		$(function(){
 		

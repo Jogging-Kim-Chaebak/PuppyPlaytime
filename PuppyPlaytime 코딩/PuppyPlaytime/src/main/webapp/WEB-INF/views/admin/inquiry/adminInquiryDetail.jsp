@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8" />
 <title>글상세 보기</title>
-<script type="text/javascript" src="/resources/include/js/common.js"></script>
 <script type="text/javascript">
 	$(function() {
 
