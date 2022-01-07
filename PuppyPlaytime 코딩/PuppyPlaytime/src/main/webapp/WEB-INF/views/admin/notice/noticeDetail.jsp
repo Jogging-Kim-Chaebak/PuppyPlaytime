@@ -11,11 +11,19 @@
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" 
-src="/resources/include/assets/js/common.js"></script>
+
 <script type="text/javascript">
 	
 	$(function(){
+		
+var formObj = $("#f_data");
+		
+		//현재 페이지 번호와 페이징 크기
+		var pageObj = $("#page");
+		var sizePerPageObj = $("#sizePerPage");
+		var pageVal = pageObj.val();
+		var sizePerPageVal = sizePerPageObj.val();
+		
 		/*삭제 버튼 클릭 시 처리 이벤트*/
 		$("#deleteBtn").click(function(){
 			var goUrl=""; //이동할 경로를 저장할 변수
@@ -33,22 +41,45 @@ src="/resources/include/assets/js/common.js"></script>
 		
 		/*수정 버튼 클릭 시 처리 이벤트*/
 		$("#updateBtn").click(function(){
-			var goUrl=""; //이동할 경로를 저장할 변수
 			
+			var goUrl=""; //이동할 경로를 저장할 변수
 			goUrl = "/admin/notice/modify";
 			
-			$("#f_data").attr("action",goUrl);
+			$("#f_data").attr("action", goUrl);
 
 			$("#f_data").submit();
-	
+			
+			
+			
+			//self.location = "/admin/notice/modify?n_no=" + n_noVal;
+			//self.location = "/admin/notice/modify?"+pageVal + "&n_no="+ n_noVal;
+			
 		});
 		
 	
 	});
 	
 </script>
+<script>
+	$(document).ready(function(){
+		var formObj = $("#notice");
+		
+		//현재 페이지 번호와 페이징 크기
+		var pageObj = $("#page");
+		var sizePerPageObj = $("#sizePerPage");
+		var pageVal = pageObj.val();
+		var sizePerPageVal = sizePerPageObj.val();
+		
+	});
+	
+</script>
 </head>
 <body>
+
+<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+	<input type="hidden" name="page" value="${pgrq.page}">
+	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+
 	<div class="contentContainer">
 		<div class="contentTit"><!-- <h3>게시판 상세보기</h3> --></div>
 		<form name="f_data" id="f_data" method="GET">

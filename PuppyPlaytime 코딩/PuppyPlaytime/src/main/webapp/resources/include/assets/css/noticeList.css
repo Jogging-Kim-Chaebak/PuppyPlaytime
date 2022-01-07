@@ -11,22 +11,21 @@ table{border-collapse:collapse;}
 ul{list-style:none;}
 
 
-
 /********* 게시판 리스트 화면 *********/
 /*리스트 부분*/
 #noticeList{margin-top:10px;}
-#noticeList table{width:96%; padding:0px; border:1px solid #000066; border-bottom:0px;}
+#noticeList table{width:96%; padding:0px; border:1px solid #000000; border-bottom:0px;}
 #noticeList tr{padding:0px;}
 #noticeList th, #noticeList td{padding:8px; border-bottom:1px solid #000066;}
-#noticeList th{border-right:1px solid #000066; background-color:#e7e7e7;}
+#noticeList th{border-right:1px solid #000000; background-color:#FFB689;}
 
 #noticeList .borcle{border-right:0px;}
-#noticeList .rCount{font-size:10px; color:red;}
+#noticeList .rCount{font-size:10px;}
 
 
 
 /************ 게시판 상세 화면 ************/
-#noticeBut{width:96%; margin-top:10px;}
+#button{width:96%; margin-top:10px;}
 #noticeBut #btd1{width:70%; text-align:left; vertical-align:bottom;}
 #noticeBut #btd2{width:40%; text-align:right; vertical-align:bottom;}
 #noticeBut #btd3{width:30%; text-align:right; vertical-align:bottom;}
@@ -44,3 +43,8 @@ ul{list-style:none;}
 #file{display:inline;}
 #imgView{position:absolute;}
 .imgViewData{position:relative; top:-2px; left:0px; z-index:100}
+
+/*게시판 td 정렬*/
+td{text-align: center; padding:8px;}
+
+

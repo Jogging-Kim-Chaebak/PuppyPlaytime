@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.puppy.admin.notice.service.AdminNoticeService;
 import com.puppy.client.notice.vo.NoticeVO;
+import com.puppy.common.vo.PageRequest;
+import com.puppy.common.vo.Pagination;
 
 @Controller
 @RequestMapping(value="/admin/notice")
@@ -34,28 +36,39 @@ public class AdminNoticeController {
 	
 	
 	/************************************************************
-	 * 글목록 구현하기
+	 * 글목록 구현하기(목록을 페이징처리로 변경)
 	 * *********************************************************/
-	@RequestMapping(value="/noticeList", method=RequestMethod.GET)
-	public String noticeList(Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
-		
-		sessionCheck(request, response, "잘못된 접근입니다.", model);
-		log.info("noticeList 호출 성공");
-		
-		List<NoticeVO> noticeList = null;
-		try {
-			noticeList = noticeService.noticeList();
-		} catch (Exception e) {
+	/*
+	 * @RequestMapping(value="/noticeList", method=RequestMethod.GET) public String
+	 * noticeList(Model model, HttpServletRequest request, HttpServletResponse
+	 * response)throws Exception {
+	 * 
+	 * sessionCheck(request, response, "잘못된 접근입니다.", model);
+	 * log.info("noticeList 호출 성공");
+	 * 
+	 * List<NoticeVO> noticeList = null; try { noticeList =
+	 * noticeService.noticeList(); } catch (Exception e) {
+	 * 
+	 * e.printStackTrace(); } model.addAttribute("noticeList",noticeList);
+	 * model.addAttribute("data");
+	 * 
+	 * return "admin/notice/noticeList"; }
+	 */
+	
+	//페이징 요청 정보를 매개 변수로 받고 다시 뷰에 전달한다
+	@RequestMapping(value="/noticeList", method = RequestMethod.GET)
+	public void noticeList(@ModelAttribute("pgrq") PageRequest pageRequest, Model model) 
+	throws Exception{
 			
-			e.printStackTrace();
-		}
-		model.addAttribute("noticeList",noticeList);
-		model.addAttribute("data");
-		
-		return "admin/notice/noticeList";
+		//뷰에 페이징 처리를 한 게시글 목록을 전달한다.
+		model.addAttribute("noticeList",noticeService.noticeList(pageRequest));
+			
+		//페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(noticeService.count());
+		model.addAttribute("pagination", pagination);
 	}
-	
-	
 	
 	/************************************************************
 	 * 글쓰기 폼 출력하기
@@ -126,19 +139,24 @@ public class AdminNoticeController {
 	 * 글 수정 페이지
 	 * *********************************************************/
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public String modifyForm(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response, 
+@ModelAttribute("pgrq") PageRequest pageRequest)throws Exception{
+		
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info(nvo.getN_no()+"번째 글의 updateForm 호출 성공");
+		//조회한 게시글 상세 정보를 뷰에 전달한다.
 		model.addAttribute("updateData",noticeService.noticeDetail(nvo));
+		
 		return "/admin/notice/noticeUpdateForm";
 	
 	}
 	
 	/************************************************************
-	 * 글 수정처리
+	 * 글 수정처리(페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.)
 	 * *********************************************************/
 	@RequestMapping(value="/modify", method = RequestMethod.POST)
-	public String noticeModify(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception{
+	public String noticeModify(@ModelAttribute NoticeVO nvo, PageRequest pageRequest, Model model, HttpServletRequest request, 
+			HttpServletResponse response, RedirectAttributes rttr)throws Exception{
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeModify 호출 성공");
 		
@@ -146,14 +164,19 @@ public class AdminNoticeController {
 		String url="";
 		
 		result = noticeService.noticeModify(nvo);
-		
+		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+		rttr.addAttribute("page",pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+						
 		if(result == 1) {
-			
 			url="/admin/notice/noticeDetail?n_no="+nvo.getN_no();
+			rttr.addFlashAttribute("msg","SUCCESS");
 		}else {
 			
 			model.addAttribute("code",1);
 			url="/admin/notice/modify?n_no="+nvo.getN_no();
+			
+			
 		}
 		System.out.println(nvo);
 		return "redirect:"+url;
@@ -162,15 +185,16 @@ public class AdminNoticeController {
 	
 	
 	/************************************************************
-	 * 글삭제 구현하기
+	 * 글삭제 구현하기(게시글 삭제 처리, 페이징 요청 정보를 매개변수로 받고 다시 뷰에 전달한다.)
 	 * *********************************************************/
 	
 	@RequestMapping(value="/noticeDelete")
-	public String noticeDelete(@ModelAttribute  NoticeVO nvo,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public String noticeDelete(@ModelAttribute  NoticeVO nvo, Model model, HttpServletRequest request,
+			HttpServletResponse response, PageRequest pageRequest, RedirectAttributes rttr)throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeDelete 호출 성공");
 		
-		//아래 변수에는 입력 성공에 대한 상태값 담습니다.(1 or 0)
+		//아래 변수에는 입력 성공에 대한 상태값을 담습니다.(1 or 0)
 		int result = 0;
 		String url = "";
 		
@@ -180,6 +204,12 @@ public class AdminNoticeController {
 			
 			e.printStackTrace();
 		}
+		
+		// RedirectAttributes 객체에 일회성 데이터를 지정하여 전달한다.
+		rttr.addAttribute("page",pageRequest.getPage());
+		rttr.addAttribute("sizePerPage", pageRequest.getSizePerPage());
+		
+		rttr.addFlashAttribute("msg", "SUCCESS");
 		
 		if(result==1) {
 			url="/admin/notice/noticeList";

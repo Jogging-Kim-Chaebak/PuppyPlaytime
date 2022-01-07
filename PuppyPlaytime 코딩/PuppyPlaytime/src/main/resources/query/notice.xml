@@ -16,20 +16,12 @@
 	<!-- 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록 반환 -->
 	<select id="noticeList" resultType="notice">
 		<![CDATA[
-		SELECT n_no,
-   			   to_char(n_regdate,'YYYY-MM-DD') as n_regdate,
-   			   n_content,
-   			   n_title,
-    		   n_registrant
-    	 FROM (select n_no,
-   				    n_regdate,
-   				    n_content,
-   				    n_title,
-    				n_registrant,
-    				rownum as rnum
-    			from notice_tbl)
-    	WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-    			ORDER BY n_no
+		SELECT * FROM(
+			SELECT a.*, ROWNUM as rnum FROM (
+	         	 SELECT * FROM notice_tbl
+	         	 ORDER BY n_no DESC
+	         )
+	a) WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 		
 		]]>
 
