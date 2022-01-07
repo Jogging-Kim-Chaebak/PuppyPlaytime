@@ -65,4 +65,10 @@ public class ReservationDAOImpl implements ReservationDAO{
 	public int roomCount(ReserveDate rDate) throws Exception {
 		return session.selectOne("roomCount", rDate);
 	}
+
+	// 펫 무게 받아오기
+	@Override
+	public String getPetWeight(int p_no) throws Exception {
+		return session.selectOne("getPetWeight", p_no);
+	}
 }

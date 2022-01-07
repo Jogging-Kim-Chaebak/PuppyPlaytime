@@ -67,4 +67,10 @@ public class ReservationServiceImpl implements ReservationService{
 	public int roomCount(ReserveDate rDate) throws Exception {
 		return reservationDAO.roomCount(rDate);
 	}
+
+	// 펫 체급 받아오기
+	@Override
+	public String getPetWeight(int p_no) throws Exception {
+		return reservationDAO.getPetWeight(p_no);
+	}
 }
