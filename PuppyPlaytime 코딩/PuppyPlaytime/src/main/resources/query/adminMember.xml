@@ -18,10 +18,17 @@
 	</resultMap>  -->
 	
 	<select id="adminMemberList" resultType="member">
-		<![CDATA[ select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status 
+		<!-- <![CDATA[ select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status 
 		from (select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status,rownum as rnum 
 		from Member_tbl where m_status = 'active')
-		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}]]>
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}]]> -->
+		
+		SELECT * FROM(select a.*,rownum as rnum from
+			(select m_id,m_name,m_birth,m_email,m_phone,m_address ,m_status
+			from Member_tbl 
+			where m_status = 'active' )
+	a) WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+		
 	</select>
 	
 	<update id="adminMemberDisabled" parameterType="com.puppy.client.member.vo.MemberVO">

@@ -95,7 +95,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 <body>
 	<div>
 		<form id ="roomForm" name="roomForm" enctype="multipart/form-data">
-			<table border="1">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>케이지 룸 등록</h4></td>

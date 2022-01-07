@@ -63,7 +63,7 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 <body>
 	<div>
 		<form id ="serviceForm" name="serviceForm">
-			<table border="1">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>부가서비스 등록</h4></td>

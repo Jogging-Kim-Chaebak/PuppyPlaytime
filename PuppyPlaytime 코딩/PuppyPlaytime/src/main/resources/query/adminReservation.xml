@@ -19,18 +19,34 @@
 		<result property="r_status" column="r_status"></result>
 	</resultMap>
 	
-	<select id="reservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
-		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
-		from Reservation_tbl 
-		where r_approval = 'Y' or r_approval = 'N'
-		order by r_no asc
+	<select id="reservationList" resultType="com.puppy.client.reservation.vo.ReservationVO">
+		<!-- <![CDATA[select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+		from(select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no, rownum as rnum 
+		from Reservation_tbl where r_approval = 'Y' or r_approval = 'N')
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page} 
+		order by r_no asc]]> -->
+		
+		SELECT * FROM(select a.*,rownum as rnum from
+			(select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+			from Reservation_tbl 
+			where r_approval = 'Y' or r_approval = 'N' 
+	        ORDER BY r_no DESC)
+	a) WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	
-	<select id="newReservationList" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
-		select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
-		from Reservation_tbl 
-		where r_approval = 'W'
-		order by r_no asc
+	<select id="newReservationList" resultType="com.puppy.client.reservation.vo.ReservationVO">
+		<!-- <![CDATA[select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+		from(select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no, rownum as rnum 
+		from Reservation_tbl where r_approval = 'W')
+		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page} 
+		order by r_no asc]]> -->
+		
+		SELECT * FROM(select a.*,rownum as rnum from
+			(select r_no,r_approval,r_payPrice,r_requestDate,r_startDate,r_endDate ,m_id ,c_no 
+			from Reservation_tbl 
+			where r_approval = 'W' 
+	        ORDER BY r_no DESC)
+	a) WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	
 	<select id="reservationDetail" parameterType="com.puppy.client.reservation.vo.ReservationVO" resultMap="reservationVO">
@@ -56,6 +72,24 @@
 		from Reservation_tbl 
 		where r_approval = 'Y' and to_char(r_startDate,'yymmdd') = to_char(sysdate,'yymmdd')
 		order by r_no asc
+	</select>
+	
+	<!-- 게시글 전체 건수를 조회한다. -->
+	<select id="newReservationCnt" resultType="int">
+		<![CDATA[
+		SELECT count(r_no)
+		  FROM Reservation_tbl
+		 WHERE r_approval = 'W'
+		]]>
+	</select>
+	
+	<!-- 게시글 전체 건수를 조회한다. -->
+	<select id="reservationCnt" resultType="int">
+		<![CDATA[
+		SELECT count(r_no)
+		  FROM Reservation_tbl
+		 WHERE r_approval = 'Y' or r_approval = 'N'
+		]]>
 	</select>
 
 </mapper>

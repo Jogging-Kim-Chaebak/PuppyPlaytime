@@ -30,7 +30,7 @@
 		<input type ="hidden" name="r_no" id ="r_no"/>
 	</form>
 	
-	<div>
+		<div>
 			<table class="table table-dark table-striped">
 				<colgroup>
 					<col width="100px" />
@@ -53,12 +53,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:if test="${empty reservationList}">
+					<c:if test="${empty newReservationList}">
 						<tr>
 							<td colspan="7" align="center">등록된 예약 정보가 존재하지 않습니다.</td>
 						</tr>
 					</c:if>
-					<c:forEach items="${reservationList}" var="rlist">
+					<c:forEach items="${newReservationList}" var="rlist">
 						<tr class ="tac" data-num="${rlist.r_no}">
 							<%-- <td align ="center"><input type ="button" value ="${room.c_no}" onclick="detailRoom('${room.c_no}')" /></td> --%>
 							<td align ="center"><input type ="button" onclick ="detailRoom('${rlist.r_no}')" value ="${rlist.r_no}"/></td>
@@ -80,7 +80,7 @@
 	
 	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }"
 var="idx">
-	<li class="page-item"><a class="page-link" href="/admin/reservation/reservationList${pagination.makeQuery(idx)}">${idx}</a></li>
+	<li class="page-item"><a class="page-link" href="/admin/reservation/newReservationList${pagination.makeQuery(idx)}">${idx}</a></li>
 	</c:forEach>
 	<c:if test="${pagination.next && pagination.endPage > 0}">
 		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">&raquo;</a></li>

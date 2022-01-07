@@ -35,7 +35,7 @@ $(function(){
 <body>
 	<div>
 		<form id ="serviceForm" name="serviceForm" method="post">
-			<table border="1">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>서비스 상세 정보</h4></td>
