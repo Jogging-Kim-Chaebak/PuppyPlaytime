@@ -30,7 +30,7 @@
 		<input type ="hidden" name="r_no" id ="r_no"/>
 	</form>
 	<div>
-		<table border = "1">
+		<table class="table table-dark table-striped">
 			<caption>룸 리스트</caption>
 			<colgroup>
 				<col width="100px" />

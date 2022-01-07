@@ -45,7 +45,7 @@
 		<input type ="hidden" name="s_no" id ="s_no"/>
 	</form>
 	<div>
-		<table border = "1" class="table table-hover">
+		<table class="table table-dark table-striped">
 			<caption>부가서비스 리스트</caption>
 			<colgroup>
 				<col width="100px" />
@@ -54,9 +54,9 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th align ="center">서비스 번호</th>
-					<th align ="center">서비스 명</th>
-					<th align ="center">가격</th>
+					<th class="text-center">서비스 번호</th>
+					<th class="text-center">서비스 명</th>
+					<th class="text-center">가격</th>
 				</tr>
 			</thead>
 			<tbody>

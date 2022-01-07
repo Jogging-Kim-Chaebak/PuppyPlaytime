@@ -32,7 +32,7 @@ function updateData(m_id){
 		<input type ="hidden" name="m_id" id ="m_id"/>
 	</form>
 	<div>
-		<table border = "1">
+		<table class="table table-dark table-striped">
 			<caption>회원 리스트</caption>
 			<colgroup>
 				<col width="200px" />
@@ -45,13 +45,13 @@ function updateData(m_id){
 			</colgroup>
 			<thead>
 				<tr>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>생년월일</th>
-					<th>이메일주소</th>
-					<th>전화번호</th>
-					<th>주소</th>
-					<th>상태</th>
+					<th class="text-center">아이디</th>
+					<th class="text-center">이름</th>
+					<th class="text-center">생년월일</th>
+					<th class="text-center">이메일주소</th>
+					<th class="text-center">전화번호</th>
+					<th class="text-center">주소</th>
+					<th class="text-center">상태</th>
 				</tr>
 			</thead>
 			<tbody>
