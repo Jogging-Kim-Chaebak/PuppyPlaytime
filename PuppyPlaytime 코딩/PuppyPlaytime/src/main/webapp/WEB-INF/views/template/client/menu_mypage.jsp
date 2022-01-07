@@ -6,13 +6,13 @@
 <div class="container">
 	<ul class="nav nav-tabs">
  	 <li class="nav-item1">
-    	<a class="nav-link active" aria-current="page" href="/client/mypage/myDetail">내정보 관리</a>
+    	<a class="nav-link" aria-current="page" href="/client/mypage/myDetail">내정보 관리</a>
  	 </li>
  	 <li class="nav-item2">
-  	  <a class="nav-link active" href="/client/mypage/reservationList">예약 관리</a>
+  	  <a class="nav-link" href="/client/mypage/mypageReservation">예약 관리</a>
  	 </li>
  	 <li class="nav-item3">
-  	  <a class="nav-link active" href="/client/mypage/petList">마이펫 관리</a>
+  	  <a class="nav-link" href="/client/mypage/petList">마이펫 관리</a>
  	 </li>
 	</ul>
 </div>

@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.puppy.client.member.vo.MemberVO;
+import com.puppy.client.mypage.vo.MypageVO;
+import com.puppy.client.notice.vo.NoticeVO;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.vo.PageRequest;
 import com.puppy.common.vo.PetVO;
 
 @Repository
@@ -48,13 +51,28 @@ public class MypageDAOImpl implements MypageDAO{
 		
 		
 	}
-
+/*
 	//예약리스트 구현(리스트 정보)
 	@Override
 	public List<ReservationVO> reservationList(String m_id) {
 		return session.selectList(namespace + ".reservationList",m_id);
 	}
+	*/
 	
+	//페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 반환한다.
+		@Override
+		public List<ReservationVO> reservationList(MypageVO mvo) throws Exception {
+				
+			return session.selectList(namespace + ".mypageReservation",mvo);
+		}
+		
+		//게시글 전체 건수를 반환
+		@Override
+		public int count() throws Exception {
+			
+			return (Integer)session.selectOne(namespace + ".reservationListCnt");
+		}
+		
 	//예약상세정보 구현
 	@Override
 	public ReservationVO reservationDetail(ReservationVO rvo) {

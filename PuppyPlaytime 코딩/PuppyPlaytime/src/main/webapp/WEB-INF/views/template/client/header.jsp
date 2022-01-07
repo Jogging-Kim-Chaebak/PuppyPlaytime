@@ -28,7 +28,7 @@
 				<li class="nav-item"><a class="nav-link" href="/client/login/logout">로그아웃&nbsp;&nbsp;</a>
 				</li>
 			</c:if>
-			<li class="nav-item"><a class="nav-link" href="/client/mypage/petList">마이페이지&nbsp;&nbsp;</a>
+			<li class="nav-item"><a class="nav-link" href="/client/mypage/myDetail">마이페이지&nbsp;&nbsp;</a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="/client/guide/guideList">이용안내&nbsp;&nbsp;</a>
 			</li>
