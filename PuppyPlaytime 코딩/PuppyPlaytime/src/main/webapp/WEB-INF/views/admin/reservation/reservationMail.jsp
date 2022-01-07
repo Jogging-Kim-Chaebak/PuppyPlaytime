@@ -53,7 +53,7 @@ $(function(){
 <body>
 	<div>
 		<form id ="mailForm" name="mailForm">
-			<table border="1">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4><input type="text" id="subject" name="subject"/></h4></td>

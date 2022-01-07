@@ -46,7 +46,7 @@ $(function(){
 <body>
 	<div>
 		<form id ="roomForm" name="roomForm" method="post">
-			<table border="1" class="table table-hover">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>룸 상세 정보</h4></td>
@@ -88,7 +88,7 @@ $(function(){
 									<td colspan="3" align="center">등록된 부가서비스 정보가 존재하지 않습니다.</td>
 							</c:if>
 							<c:if test="${!empty extraServiceList}">
-							<td>
+							<td colspan="4">
 								<c:forEach items="${extraServiceList}" var="ex">
 									<input type="text" id="s_name" name="s_name" value="${ex.s_name} " readonly="readonly"/>
 								</c:forEach>

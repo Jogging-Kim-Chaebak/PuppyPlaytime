@@ -26,6 +26,8 @@ import com.puppy.client.member.vo.MemberVO;
 import com.puppy.client.mypage.service.MypageService;
 import com.puppy.client.reservation.vo.ReservationVO;
 import com.puppy.common.vo.ExtraServiceVO;
+import com.puppy.common.vo.PageRequest;
+import com.puppy.common.vo.Pagination;
 import com.puppy.common.vo.PetVO;
 
 @Controller
@@ -51,30 +53,41 @@ public class AdminReservationController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	/*
-	 * @RequestMapping("/newReservationList") //새로운 예약 리스트 public ModelAndView
-	 * newReservationList(@ModelAttribute ReservationVO param,Model model,
-	 * HttpServletRequest request, HttpServletResponse response)throws Exception {
-	 * sessionCheck(request, response, "잘못된 접근입니다.", model); List<ReservationVO>
-	 * list = reservationService.newReservationList(param);
-	 * 
-	 * ModelAndView mav = new ModelAndView(); mav.addObject("newReservationList",
-	 * list); mav.setViewName(CONTEXT_PATH + "/newReservationList");
-	 * 
-	 * return mav; }
-	 */
 	
+	  @RequestMapping("/newReservationList") //새로운 예약 리스트 
+	  public ModelAndView newReservationList(@ModelAttribute("pgrq") PageRequest pageRequest ,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	  sessionCheck(request, response, "잘못된 접근입니다.", model);
+	  List<ReservationVO> list = reservationService.newReservationList(pageRequest);
+	  
+	  ModelAndView mav = new ModelAndView(); 
+	  mav.addObject("newReservationList",list); 
+	  mav.setViewName(CONTEXT_PATH + "/newReservationList");
+	  
+	//페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(reservationService.count2());
+		model.addAttribute("pagination", pagination);
+
+	  
+	  return mav; }
+
 	@RequestMapping("/reservationList") //예약 리스트
-	public ModelAndView reservationList(@ModelAttribute ReservationVO param,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public ModelAndView reservationList(@ModelAttribute("pgrq") PageRequest pageRequest ,Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
-		List<ReservationVO> list1 = reservationService.newReservationList(param);
-		List<ReservationVO> list2 = reservationService.reservationList(param);
+		List<ReservationVO> list2 = reservationService.reservationList(pageRequest);
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationList", list2);
-		mav.addObject("newReservationList", list1);
 		mav.setViewName(CONTEXT_PATH + "/reservationList");
+		
+		//페이징 네비게이션 정보를 뷰에 전달한다.
+		Pagination pagination = new Pagination();
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(reservationService.count());
+		model.addAttribute("pagination", pagination);
 
+		
 		return mav;
 	}
 	

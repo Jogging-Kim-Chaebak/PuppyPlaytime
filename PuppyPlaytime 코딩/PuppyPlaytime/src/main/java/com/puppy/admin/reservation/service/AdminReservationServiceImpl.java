@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puppy.admin.reservation.dao.AdminReservationDAO;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.vo.PageRequest;
 
 @Service
 @Transactional
@@ -18,16 +19,16 @@ public class AdminReservationServiceImpl implements AdminReservationService {
 	private AdminReservationDAO reservationDAO;
 	
 	@Override
-	public List<ReservationVO> newReservationList(ReservationVO param) {
+	public List<ReservationVO> newReservationList(PageRequest pageRequest) {
 		List<ReservationVO> list = new ArrayList<ReservationVO>();
-		list = reservationDAO.newReservationList(param);
+		list = reservationDAO.newReservationList(pageRequest);
 		return list;
 	}
 
 	@Override
-	public List<ReservationVO> reservationList(ReservationVO param) {
+	public List<ReservationVO> reservationList(PageRequest pageRequest) {
 		List<ReservationVO> list = new ArrayList<ReservationVO>();
-		list = reservationDAO.reservationList(param);
+		list = reservationDAO.reservationList(pageRequest);
 		return list;
 	}
 
@@ -54,6 +55,18 @@ public class AdminReservationServiceImpl implements AdminReservationService {
 		List<ReservationVO> list = new ArrayList<ReservationVO>();
 		list = reservationDAO.todayReservationList(param);
 		return list;
+	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return reservationDAO.count();
+	}
+	
+	@Override
+	public int count2() {
+		// TODO Auto-generated method stub
+		return reservationDAO.count2();
 	}
 
 }

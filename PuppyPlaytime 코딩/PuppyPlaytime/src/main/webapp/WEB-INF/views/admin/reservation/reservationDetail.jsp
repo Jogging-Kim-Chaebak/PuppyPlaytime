@@ -30,7 +30,6 @@ $(function(){
 		if(confirm('예약을 거부하시겠습니까?')){
 			$("#reservationForm").attr("action","/admin/reservation/reservationCancel");
 			$("#reservationForm").submit();
-			 window.location.href ="/admin/reservation/mail"
 		}
 	});
 	
@@ -46,7 +45,7 @@ $(function(){
 		<form id ="reservationForm" name="reservationForm" method="post">
 			<input type ="hidden" id ="r_no" name ="r_no" value ="${reservationVO.r_no}"/>
 		</form>
-			<table border="1">
+			<table class="table table-dark table-striped">
 				<thead>
 					<tr>
 						<td colspan="4" align="center"><h4>예약 상세(승인/거부)</h4></td>
@@ -109,7 +108,7 @@ $(function(){
 									<td colspan="3" align="center">등록된 부가서비스 정보가 존재하지 않습니다.</td>
 							</c:if>
 							<c:if test="${!empty extraServiceList}">
-							<td>
+							<td colspan="3">
 								<c:forEach items="${extraServiceList}" var="ex">
 									<input type="text" id="s_name" name="s_name" value="${ex.s_name} " readonly="readonly"/>
 								</c:forEach>

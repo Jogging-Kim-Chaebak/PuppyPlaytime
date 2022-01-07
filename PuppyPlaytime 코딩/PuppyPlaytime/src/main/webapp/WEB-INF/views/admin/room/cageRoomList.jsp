@@ -43,7 +43,7 @@
 		<input type ="hidden" name="c_no" id ="c_no"/>
 	</form>
 	<div>
-		<table border = "1">
+		<table class="table table-dark table-striped">
 			<caption>룸 리스트</caption>
 			<colgroup>
 				<col width="100px" />
@@ -53,10 +53,10 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>케이지 번호</th>
-					<th>종류</th>
-					<th>유형</th>
-					<th>가격</th>
+					<th class="text-center">케이지 번호</th>
+					<th class="text-center">종류</th>
+					<th class="text-center">유형</th>
+					<th class="text-center">가격</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -71,11 +71,11 @@
 						<td align ="center"><input type ="button" onclick ="detailRoom('${room.c_no}')" value ="${room.c_no}"/></td>
 						<td align ="center">${room.c_kind}</td>
 						<td align ="center">${room.c_type}</td>
-						<td align ="center">${room.c_price}</td>
+						<td colspan ="2" align ="center">${room.c_price}</td>
 					</tr>
 				</c:forEach>
 				<tr>
-					<td colspan ="4" align ="center">개별 케이지 등록</td>
+					<td colspan ="3" align ="center">개별 케이지 등록</td>
 					<td align="center"><input type= "button" value="케이지 등록" onclick ="writeForm()"/></td>
 				</tr>
 			</tbody>
