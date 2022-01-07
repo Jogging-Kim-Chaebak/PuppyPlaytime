@@ -10,7 +10,6 @@
 		<title>댓글</title>
 
 		<!-- jQuery Framework 참조하기 -->
-		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
 			/** 기본 덧글 목록 불러오기 */
@@ -194,19 +193,10 @@
 		</script>
 	</head>
 	<body>
-		<div id="replyContainer" class="card border-dark mb-3">
+		<div id="replyContainer">
 			<h1></h1>
 			<div id="comment_write">
 				<form id="comment_form">
-					<!-- <div>
-						<label for="reply_registrant">작성자</label>
-						<input type="text" name="reply_registrant" id="reply_registrant" value="admin" />
-						<input type="button" id="replyInsert" value="저장하기" />
-					</div>
-					<div>
-						<label for="reply_content">덧글내용</label>
-						<textarea name="reply_content" id="reply_content"></textarea>
-					</div> -->
 				</form>
 				
 				
