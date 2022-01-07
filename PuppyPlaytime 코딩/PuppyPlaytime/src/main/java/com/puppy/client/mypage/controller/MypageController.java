@@ -302,15 +302,16 @@ public class MypageController {
   		sessionCheck(request, response, "잘못된 접근입니다.", model);
   		
   		log.info("myDetail 호출 성공");
-  		HttpSession session = request.getSession();
-  		String m_id = (String)session.getAttribute("userId");
-  		log.info("m_id = " + m_id);	
-  		mvo.setM_id(m_id);
-  		session.setAttribute("m_id", m_id);
-  		MemberVO detail = new MemberVO();
-  		detail=mypageService.myDetail(mvo);
   		
-  		model.addAttribute("detail", detail);
+  		log.info("m_id = " + userId);
+  		if(userId != null) {
+	  		mvo.setM_id(userId);
+	  		session.setAttribute("m_id", userId);
+	  		MemberVO detail = new MemberVO();
+	  		detail=mypageService.myDetail(mvo);
+	  		
+	  		model.addAttribute("detail", detail);
+		}
   		return "client/mypage/mypageMyinfo";
   			 
   	}
