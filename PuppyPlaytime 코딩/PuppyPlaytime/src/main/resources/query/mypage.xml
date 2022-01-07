@@ -113,7 +113,7 @@
     				rownum as rnum
     			FROM reservation_tbl a INNER JOIN cageroom_tbl b ON a.c_no = b.c_no)
     	WHERE (m_id = #{m_id}) and rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-    			ORDER BY r_no
+    			ORDER BY r_no desc
 		
 		]]>
 
