@@ -99,6 +99,7 @@
 				c_type,
 				r_status,
 				r_approval,
+				r_requestdate,
 				m_id
     	 FROM (select a.r_no,
     	 				a.c_no,
@@ -109,11 +110,12 @@
 						b.c_type,
 						a.r_status,
 						a.r_approval,
+						a.r_requestdate
 						a.m_id,
-    				rownum as rnum
+    				row_number() over(order by a.r_requestdate DESC) as rnum
     			FROM reservation_tbl a INNER JOIN cageroom_tbl b ON a.c_no = b.c_no)
     	WHERE (m_id = #{m_id}) and rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-    			ORDER BY r_no desc
+    			
 		
 		]]>
 
