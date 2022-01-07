@@ -10,7 +10,6 @@
 		<title>댓글</title>
 
 		<!-- jQuery Framework 참조하기 -->
-		<script type="text/javascript" src="/resources/include/js/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
 		$(function() {
 			/** 기본 덧글 목록 불러오기 */
@@ -19,10 +18,6 @@
 
 			/** 덧글 내용 저장 이벤트 */
 			$("#replyInsert").click(function() {
-				// 작성자 이름에 대한 입력여부 검사
-				if (!chkData("#reply_registrant","이름을"))	return;
-				else if (!chkData("#reply_content","내용을"))	return;
-				else{
 					var insertUrl = "/reply/replyInsert";
 					/** 글 저장을 위한 Post 방식의 Ajax 연동 처리 */
 					$.ajax({
@@ -50,7 +45,6 @@
 							}
 						}
 					});
-				}
 			});
 			
 			/** 수정버튼 클릭시 수정폼 출력 */
@@ -84,8 +78,8 @@
 			$(document).on("click", ".update_btn", function() {
 				var reply_no = $(this).parents("li").attr("data-num");
 				var reply_content = $("#content").val();
-				if (!chkData("#content","댓글 내용을"))	return;
-				else {	
+				/*  if (!chkData("#content","댓글 내용을"))	return;
+				else { */	 
 					$.ajax({
 						url:'/reply/'+reply_no,
 						type:'put',
@@ -103,7 +97,7 @@
 							}
 						}
 					}); 
-				}
+				//}
 			});
 			
 			/** 글 삭제를 위한  Ajax 연동 처리 */
@@ -207,14 +201,19 @@
 			<h1></h1>
 			<div id="comment_write" class="alert alert-dismissible alert-secondary">
 				<form id="comment_form">
-					<div >
-						<label for="reply_registrant">작성자</label>
-						<input type="text" name="reply_registrant" id="reply_registrant" value="admin" />
-						<input type="button" id="replyInsert" value="저장하기" class="btn btn-primary"  />
+					<table>
+						<tr>
+							<th>작성자</th>
+								<td>${userId }</td>
+						</tr>
+					</table>
+					<div>
+						<input type="hidden" id="reply_registrant" name="reply_registrant" value="${userId}" >
 					</div>
 					<div>
-						<label for="reply_content">덧글내용</label>
-						<textarea name="reply_content" id="reply_content"></textarea>
+						<label for="reply_content" >덧글내용</label><br>
+						<textarea name="reply_content" id="reply_content"></textarea><br>
+						<input type="button" id="replyInsert" value="저장하기" class="btn btn-primary"  />
 					</div>
 				</form>
 			</div>
