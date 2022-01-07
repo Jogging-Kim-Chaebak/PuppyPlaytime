@@ -4,7 +4,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -160,7 +159,10 @@ public class ReservationController {
 		rDate.setEndReservation(format.parse(rDate.getEndDate()));
 		
 		List<CageRoomVO> roomList = reservationService.listRoom(rDate);
-	
+		
+		// 펫 체급 받아오기
+		String p_weight = reservationService.getPetWeight(p_no);
+		
 		// 페이징 네비게이션 정보를 뷰에 전달한다.
 		Pagination pagination = new Pagination();
 		
@@ -171,6 +173,7 @@ public class ReservationController {
 		model.addAttribute("rDate", rDate);
 		model.addAttribute("roomList", roomList);
 		model.addAttribute("p_no", p_no);
+		model.addAttribute("p_weight", p_weight);
 		
 		return "client/reserve/reserveRoom";
 	}

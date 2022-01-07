@@ -156,4 +156,10 @@
 		]]>
 	</select>
 	
+	<!-- 펫 무게 받아오기 -->
+	<select id="getPetWeight" resultType="String">
+		select p_weight
+		from pet_tbl
+		where p_no = #{p_no}
+	</select>
 </mapper>

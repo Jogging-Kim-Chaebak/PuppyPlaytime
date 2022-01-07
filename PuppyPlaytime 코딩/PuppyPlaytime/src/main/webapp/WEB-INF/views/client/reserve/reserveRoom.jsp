@@ -37,10 +37,20 @@
 					<img width="100%" height="500px" class="card-img-top" src="/image/roomImages/${room.c_picture}"/>
 
 					<div class="card-body">
-						<h4 class="card-title">${room.c_kind}&nbsp;${room.c_type }</h4>
+						<c:choose>
+							<c:when test="${room.c_kind eq 'small' }">
+								<h4 class="card-title">소형&nbsp;${room.c_type }</h4>
+							</c:when>
+							<c:when test="${room.c_kind eq 'middle' }">
+								<h4 class="card-title">중형&nbsp;${room.c_type }</h4>
+							</c:when>
+							<c:when test="${room.c_kind eq 'big' }">
+								<h4 class="card-title">대형&nbsp;${room.c_type }</h4>
+							</c:when>
+						</c:choose>
 						<p class="card-text">${room.c_explain }</p>
 						<p class="card-text">1박당 가격 : ${room.c_price }</p>
-						<a onclick="reservationDetail(${room.c_no})" class="btn btn-primary text-right">예약하기</a>
+						<a onclick="reservationDetail(${room.c_no}, '${p_weight}', '${room.c_kind}')" class="btn btn-primary text-right">예약하기</a>
 					</div>
 			  	</div>
 			  	<br>

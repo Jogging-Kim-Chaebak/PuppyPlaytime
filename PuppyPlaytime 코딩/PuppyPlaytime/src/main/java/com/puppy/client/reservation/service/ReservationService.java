@@ -33,4 +33,7 @@ public interface ReservationService {
 
 	// 예약 룸 건수를 반환한다.
 	public int roomCount(ReserveDate rDate) throws Exception;
+
+	// 펫 체급 받아오기
+	public String getPetWeight(int p_no) throws Exception;
 }
