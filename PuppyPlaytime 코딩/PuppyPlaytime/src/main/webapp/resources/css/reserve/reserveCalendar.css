@@ -2,6 +2,15 @@
 
 /* 기본스타일  */
 
+h2{
+	text-align: center;
+}
+
+#calendarWrap{
+	margin: 0 auto;
+	width : 700px;
+}
+
 #table2 {
 	 display : none;
 }
