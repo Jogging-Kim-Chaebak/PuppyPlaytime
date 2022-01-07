@@ -13,8 +13,11 @@
 <meta charset="UTF-8">
 <title>글 목록</title>
 <style>
-.pagination{ justify-content:center; }
-th,td{text-align: center; }
+
+.pagination{ justify-content:center; margin-top:40px; margin-bottom:40px;
+			 
+}
+td{text-align: center; }
 </style>
 
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
@@ -22,8 +25,7 @@ th,td{text-align: center; }
 <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" 
-src="/resources/include/assets/js/common.js"></script>
+
 <script type="text/javascript">
 $(function(){
 		
@@ -41,7 +43,7 @@ $(function(){
 </head>
 <body>
 
-	<div class="contentTit"></div>
+	<div class="contentContainer">
 <%-- ============= 상세 페이지 이동을 위한 FORM ============== --%>
 <form name="detailForm" id="detailForm">
 	<input type="hidden" name="n_no" id="n_no" />
@@ -78,8 +80,7 @@ $(function(){
 				<td>${notice.n_no}</td>
 				<td class="name">
 				${notice.n_registrant}</td>
-				
-				<td class ="goDetail tal"><a href="/client/notice/noticeDetail${pgrq.toUriString(pgrq.page)}&n_no=${notice.n_no}"><c:out value="${notice.n_title}"/></td>
+				<td class="tal"><a href="/client/notice/noticeDetail${pgrq.toUriString(pgrq.page)}&n_no=${notice.n_no}"><c:out value="${notice.n_title}"/></td>
 				<td>${notice.n_regdate}</td>
 	
 			</tr>
@@ -96,7 +97,7 @@ $(function(){
 </table>
 
 <!-- 페이징 네비게이션 -->
-<ul class="pagination justify-content">
+<ul class="pagination">
 	<c:if test="${pagination.prev}">
 		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">&laquo;</a></li>
 	</c:if>
@@ -111,7 +112,7 @@ var="idx">
 </ul>
 
 <%--============== 리스트 종료 =============== --%>
-
+</div>
 </div>
 </body>
 </html>

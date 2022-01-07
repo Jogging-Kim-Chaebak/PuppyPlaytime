@@ -91,19 +91,16 @@ function modifyForm(n_no){
 	<!-- 데이터 출력 -->
 	<c:choose>
 		<c:when test="${not empty noticeList}">
-			<c:forEach var="notice" items="${noticeList}"
-			varStatus="status">
+			<c:forEach var="notice" items="${noticeList}">
 			<tr class="tac" data-num="${notice.n_no}">
 				<td>${notice.n_no}</td>
 				<td>${notice.n_regdate}</td>
-				<td class ="goDetail tal">${notice.n_title}</td>
+				<td class="tal"><a href="/admin/notice/noticeDetail${pgrq.toUriString(pgrq.page)}&n_no=${notice.n_no}"><c:out value="${notice.n_title}"/></td>
 				<td class="name">
 				${notice.n_registrant}</td>
 				<td>
 					<input type="button" id = "delNUp_Btn" value="[수정/삭제]" onclick="modifyForm(${notice.n_no})">
 				</td>
-			
-				
 			</tr>
 			</c:forEach>
 		</c:when>
@@ -117,6 +114,7 @@ function modifyForm(n_no){
 </tbody>
 </table>
 
+
 <%--============== 등록 버튼 출력 시작 =============== --%>
 
 <div class="contentBtn">
@@ -124,11 +122,25 @@ function modifyForm(n_no){
 </div>
 <%--============== 등록 버튼 출력 종료 =============== --%>
 
-</div>
+
+
+<!-- 페이징 네비게이션 -->
+<ul class="pagination">
+	<c:if test="${pagination.prev}">
+		<li class="page-item"><a class="page-link" href="${pagination.startPage - 1}">&laquo;</a></li>
+	</c:if>
+	
+	<c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="idx">
+	<li class="page-item"><a class="page-link" href="/admin/notice/noticeList${pagination.makeQuery(idx)}">${idx}</a></li>
+	</c:forEach>
+	
+	<c:if test="${pagination.next && pagination.endPage > 0}">
+		<li class="page-item"><a class="page-link" href="${pagination.endPage +1}">&raquo;</a></li>
+	</c:if>
+</ul>
 
 <%--============== 리스트 종료 =============== --%>
-
-
+</div>
 </div>
 </body>
 </html>

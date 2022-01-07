@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.puppy.admin.notice.dao.AdminNoticeDAO;
 import com.puppy.client.notice.vo.NoticeVO;
+import com.puppy.common.vo.PageRequest;
 
 @Service
 @Transactional
@@ -30,13 +31,11 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return result;
 	}
 	
-	//글 목록 구현
-	@Override
-	public List<NoticeVO> noticeList() throws Exception{
-		List<NoticeVO> myList = null;
-		myList = noticeDao.noticeList();
-		return myList;
-	}
+	//글 목록 구현(삭제)
+	/*
+	 * @Override public List<NoticeVO> noticeList() throws Exception{ List<NoticeVO>
+	 * myList = null; myList = noticeDao.noticeList(); return myList; }
+	 */
 
 	//글상세 구현
 	@Override
@@ -65,7 +64,7 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 
 	//수정목록조회 구현
 	@Override
-	public List<NoticeVO> getNoticeList() throws Exception {
+	public List<NoticeVO> getNoticeList(PageRequest pageRequest) throws Exception {
 		
 		return noticeDao.getNoticeList();
 	}
@@ -83,4 +82,20 @@ public class AdminNoticeServiceImpl implements AdminNoticeService {
 		return result;
 			
 	}
+	
+	// 페이징 요청 정보를 매개 변수로 받아 페이징 처리를 한 게시글 목록을 반환한다.
+	@Override
+	public List<NoticeVO> noticeList(PageRequest pageRequest) throws Exception {
+				
+		return noticeDao.noticeList(pageRequest);
+	}
+			
+	// 게시글 전체 건수를 반환한다.
+	@Override
+	public int count() throws Exception {
+				
+		return noticeDao.count();
+	}
+	
+	
 }

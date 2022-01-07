@@ -16,6 +16,14 @@ src="/resources/include/assets/js/common.js"></script>
 <script type="text/javascript">
 
 	$(function(){
+		
+		var formObj = $("#f_writeForm");
+		
+		//현재 페이지 번호와 페이징 크기
+		var pageObj = $("#page");
+		var sizePerPageObj = $("#sizePerPage");
+		var pageVal = pageObj.val();
+		var sizePerPageVal = sizePerPageObj.val();
 			
 			/*수정 버튼 클릭 시 처리 이벤트*/
 			$("#modifyBtn").click(function(){
@@ -26,7 +34,7 @@ src="/resources/include/assets/js/common.js"></script>
 				else{
 			
 			var goUrl=""; //이동할 경로를 저장할 변수
-			alert($('#n_no').val())
+			
 			$("#f_writeForm").attr({
 				"method":"POST",
 				"action":"/admin/notice/modify"
@@ -50,18 +58,30 @@ src="/resources/include/assets/js/common.js"></script>
 		
 		/*취소 버튼 클릭 시 처리 이벤트(목록으로 이동)*/
 		$("#cancelBtn").click(function(){
-			location.href="/admin/notice/noticeList";
+			
+			//페이징 관련 정보를 쿼리 파라미터로 전달한다.
+			self.location = "noticeList${pgrq.toUriString()}";
+			
+			
 		});
 	});
 </script>
 </head>
 <body>
+
+
+
 <div class="contentContainer">
 	<div class="contentTit"><h3>공지사항 글수정</h3></div>
 	<div class="contentTB">
 	<form id="f_writeForm" name="f_writeForm">
 	<input type="hidden" name="n_no" id="n_no" value="${updateData.n_no}"/>
-		
+	
+	<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+	
+	<input type="hidden" name="page" value="${pgrq.page}"/>
+	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}"/>
+	
 		<%-- ========== 수정 정보 보여주기 시작 ========== --%>
 		<table>
 			<colgroup>
