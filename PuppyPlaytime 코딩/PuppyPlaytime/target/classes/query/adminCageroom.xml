@@ -21,11 +21,18 @@
 	</resultMap>
 	
 	<select id="roomList" resultType="com.puppy.admin.room.vo.CageRoomVO">
-		<![CDATA[select c_no,c_kind,c_type,c_price
+	<!-- 	<![CDATA[select c_no,c_kind,c_type,c_price
 		from (select c_no,c_kind,c_type,c_price, rownum as rnum 
 		from cageroom_tbl where c_status = 'use')
 		where rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-		order by c_no asc]]>
+		order by c_no asc]]> -->
+		
+		SELECT * FROM(select a.*,rownum as rnum from
+			(select c_no,c_kind,c_type,c_price 
+			from cageroom_tbl 
+			where c_status = 'use' 
+	        ORDER BY c_no ASC)
+	a) WHERE rnum between #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	
 	<select id="roomDetail" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
