@@ -80,7 +80,8 @@ function reserveRoom(){
 		<div class="container" id="mypetInputForm">
 			<c:if test="${empty petList }">
 				펫이 존재하지 않습니다.<br>
-				마이페이지에서 펫을 추가하고 와주세요.
+				마이페이지에서 펫을 추가하고 와주세요.<br><br><br>
+				<a id="noPet" href="/client/mypage/petList">마이페이지 펫리스트</a>
 			</c:if>
 			<c:if test="${not empty petList }">
 			<form id="mypetForm">
