@@ -100,13 +100,11 @@ public class CageRoomController {
 		String[] s_no = request.getParameterValues("sno");
 		if(s_no!=null) {
 			for(String str : s_no) {
-				System.out.println(str);
 				svo.setS_no(Integer.parseInt(str));
 				svo.setS_explain("임시");
 				svo.setS_name("임시");
 				svo.setS_price(Integer.parseInt(str));
 				svo.setS_status("임시");
-				System.out.println(svo.getS_no());
 				extraServiceService.extraServiceAdd2(svo);
 			}
 		}
@@ -121,6 +119,8 @@ public class CageRoomController {
 			resultStr = "케이지 등록이 문제가 있어 완료하지 못하였습니다.";
 		}
 		mav.addObject("file", cvo.getC_picture());
+		
+		System.out.println(cvo.getC_picture().length());
 		mav.addObject("result", resultStr);
 		mav.setViewName(CONTEXT_PATH + "/cageRoomList");
 		

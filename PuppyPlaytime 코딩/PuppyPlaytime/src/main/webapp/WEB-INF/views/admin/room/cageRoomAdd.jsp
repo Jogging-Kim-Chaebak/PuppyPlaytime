@@ -62,16 +62,25 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 			var fileForm = /(.*?)\.(jpg|jpeg|png|gif|bmp|pdf)$/;
 			var fileSize;
 			var maxSize = 5 * 1024 * 1024;
+			var fileValue = $("#file").val().split("\\");
+			var fileName = fileValue[fileValue.length-1];
 			
 			if($("#file").val() != "" && $("#file").val() != null) {
 				fileSize =  document.roomForm.file.files[0].size;
-			if(!$("#file").val().match(fileForm)){
-				alert('이미지 파일만 업로드 가능합니다.');
-				return false;
-			}
-			if(fileSize > maxSize){
-				alert("파일 사이즈는 5MB까지 가능");
-		        return;
+				
+				alert(fileName);
+				
+				if(fileName > 20){
+					alert('이미지 파일 이름이 너무 깁니다.(20자 이내)');	
+					return;
+				}
+				if(!$("#file").val().match(fileForm)){
+					alert('이미지 파일만 업로드 가능합니다.');
+					return;
+				}
+				if(fileSize > maxSize){
+					alert("파일 사이즈는 5MB까지 가능");
+			        return;
 				}
 			}
 			
