@@ -105,7 +105,7 @@ public class InquiryController {
    }
    
    private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
-        session = request.getSession();
+       session = request.getSession();
        userId = (String) session.getAttribute("userId");
 
        if(userId == null){

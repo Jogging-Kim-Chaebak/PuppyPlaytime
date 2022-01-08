@@ -185,13 +185,12 @@
 			content_p.html(reply_content);
 
 			// 조립하기
-			writer_p.append(name_span).append(date_span).append(up_input).append(del_input)
+			writer_p.append(name_span).append(date_span).append(up_input).append("&nbsp;&nbsp;").append(del_input)
 			new_li.append(writer_p).append(content_p);
 			$("#comment_list").append(new_li);
 		}
 		
 		function dataReset() {
-			$("#reply_registrant").val("");
 			$("#reply_content").val("");
 		}
 		</script>
@@ -208,9 +207,7 @@
 						</tr>
 					</table>
 					<div>
-						<input type="hidden" id="reply_registrant" name="reply_registrant" value="${userId}" >
-					</div>
-					<div>
+						<input type="hidden" id="reply_registrant" name="reply_registrant" value="admin" >
 						<label for="reply_content" >덧글내용</label><br>
 						<textarea name="reply_content" id="reply_content"></textarea><br>
 						<input type="button" id="replyInsert" value="저장하기" class="btn btn-primary"  />

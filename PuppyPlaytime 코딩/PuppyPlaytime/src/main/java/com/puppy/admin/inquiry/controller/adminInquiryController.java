@@ -76,6 +76,9 @@ public class adminInquiryController {
 		int result = 0;
 		String url = "";
 		
+		// 선행적으로 댓글 삭제
+		inquiryService.deleteRelatedReplies(ivo.getQ_no());
+		
 		result = inquiryService.inquiryDelete(ivo.getQ_no());
 		
 		if(result==1) {
@@ -85,6 +88,7 @@ public class adminInquiryController {
 		}
 		return "redirect:" + url;
 	}
+	
 	private void sessionCheck(HttpServletRequest request, HttpServletResponse response, String message, Model model) throws Exception {
   		session = request.getSession();
   		userId = (String) session.getAttribute("userId");

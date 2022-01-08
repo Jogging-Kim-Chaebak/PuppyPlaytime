@@ -32,7 +32,6 @@
 	</head>
 	<body>
 		<div class="contentContainer">
-			<div class="contentTit"><h3>문의게시판 리스트</h3></div>
 			
 			<%-- ======= 상세 페이지 이동을 위한 FORM ============ --%>
 			<form name="inquirydetail" id="inquirydetail">
@@ -41,7 +40,7 @@
 			
 			<%-- ================= 리스트 시작  =============== --%>
 			<div id="inquiryList">
-			<table summary="문의게시판 리스트"  class="table table-hover">
+			<table summary="문의게시판 리스트"  class="table table-dark table-striped">
 				<colgroup>
 					<col width="10%" />
 					<col width="62%" />

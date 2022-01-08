@@ -49,4 +49,9 @@ public class InquiryDaoImpl implements InquiryDao {
 		return session.selectList("inquiryMyList", userId);
 	}
 
+	@Override
+	public void deleteRelatedReplies(int q_no) throws Exception {
+		session.delete("deleteRelatedReplies", q_no);
+	}
+
 }

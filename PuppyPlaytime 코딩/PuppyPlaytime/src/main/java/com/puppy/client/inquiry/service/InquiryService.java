@@ -17,4 +17,6 @@ public interface InquiryService {
 	public int inquiryDelete(int q_no);
 
 	public List<InquiryVO> inquiryMyList(String m_id);
+
+	public void deleteRelatedReplies(int q_no) throws Exception;
 }

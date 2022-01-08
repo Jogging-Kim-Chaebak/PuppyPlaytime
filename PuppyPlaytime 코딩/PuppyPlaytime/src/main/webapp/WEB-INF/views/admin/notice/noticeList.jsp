@@ -69,7 +69,7 @@ function modifyForm(n_no){
 <%--============== 리스트 시작 =============== --%>
 <div id="noticeList">
 	
-<table border="1" summary="공지사항 리스트">
+<table border="1" summary="공지사항 리스트" class="table table-dark table-striped">
 	<colgroup>
 		<col width="10%">
 		<col width="15%">

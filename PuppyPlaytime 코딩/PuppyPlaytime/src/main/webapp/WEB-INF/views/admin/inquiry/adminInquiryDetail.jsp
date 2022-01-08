@@ -27,14 +27,13 @@
 <body>
 	<div class="contentContainer">
 		<div class="contentTit">
-			<h3>문의게시판 상세보기</h3>
 		</div>
 		<form name="inquiryUpdate" id="inquiryUpdate">
 			<input type="hidden" name="q_no" id="q_no" value="${detail.q_no}">
 		</form>
 		<%-- =============== 상세 정보 보여주기 시작 ============ --%>
 		<div class="contentTB">
-			<table  class="table table-hover">
+			<table class="table table-dark table-striped">
 				<colgroup>
 					<col width="17%" />
 					<col width="33%" />
@@ -61,7 +60,7 @@
 		</div>
 		<%-- =============== 상세 정보 보여주기 종료 ============ --%>
 
-		<table id="inquiryPwdBut">
+		<table id="inquiryPwdBut" >
 			<tr>
 
 				<td id="btd2">
