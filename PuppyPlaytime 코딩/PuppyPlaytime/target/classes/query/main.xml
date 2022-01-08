@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="query.main">
+	
+	<!-- 공지사항 불러오기 -->
+	<select id="showRecentNotice" resultType="notice">
+		<![CDATA[
+		select
+			n_no,
+   			to_char(n_regdate,'YYYY-MM-DD HH24:MI:SS') as n_regdate,
+   			n_content,
+   			n_title,
+    		n_registrant
+    	FROM notice_tbl
+    	WHERE ROWNUM <= 2
+    	ORDER BY n_regdate desc
+    	]]>
+	</select>
+	
+	<!-- 룸 사진 불러오기 -->
+	<select id="showCageRooms" resultType="cageroom">
+		select 
+			c_no,
+			c_kind,
+			c_type,
+			c_price,
+			c_explain,
+			c_picture
+		from cageroom_tbl
+	</select>
+
+</mapper>

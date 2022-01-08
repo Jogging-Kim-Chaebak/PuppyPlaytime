@@ -1,7 +1,5 @@
 package com.puppy.admin.reply.vo;
 
-import java.sql.Date;
-
 public class ReplyVO {
 
 	private int reply_no; // 댓글번호

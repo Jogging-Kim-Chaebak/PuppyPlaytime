@@ -19,19 +19,16 @@ public class AdminMemberDAOImpl implements AdminMemberDAO {
 	private static final String namespace = "query.adminMember";
 	@Override
 	public List<MemberVO> adminMemberList(PageRequest pageRequest) {
-		// TODO Auto-generated method stub
 		return SqlSession.selectList(namespace+".adminMemberList",pageRequest);
 	}
 
 	@Override
 	public int adminMemberDisabled(String m_id) {
-		// TODO Auto-generated method stub
 		return SqlSession.update(namespace+".adminMemberDisabled",m_id);
 	}
 
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
 		return (Integer)SqlSession.selectOne(namespace + ".adminMemberCnt");
 	}
 

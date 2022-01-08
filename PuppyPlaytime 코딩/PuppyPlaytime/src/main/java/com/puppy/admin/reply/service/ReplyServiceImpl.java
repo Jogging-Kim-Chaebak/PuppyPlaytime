@@ -2,8 +2,6 @@ package com.puppy.admin.reply.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +12,6 @@ import com.puppy.admin.reply.vo.ReplyVO;
 @Service
 @Transactional
 public class ReplyServiceImpl implements ReplyService {
-
-	private Logger log = LoggerFactory.getLogger(ReplyServiceImpl.class);
-
 	@Autowired
 	private ReplyDao replyDao;
 	
