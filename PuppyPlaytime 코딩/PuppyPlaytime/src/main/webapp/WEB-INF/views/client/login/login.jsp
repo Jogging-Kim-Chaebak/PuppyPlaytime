@@ -14,6 +14,7 @@
    width: 600px;
    padding: 20px;
    margin-left: auto;
+   margin-top:65px;
    border: 1px solid #d9230f;
    text-align: center;
    margin-right: auto;
@@ -24,8 +25,6 @@
    src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
-<script type="text/javascript" src="/resources/include/js/common.js"></script>
-<script type="text/javascript" src="/resources/include/js/login.js"></script>
 <script type="text/javascript"
    src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -35,81 +34,75 @@
         var form = document.form1;
         var special = "~!@#$%^&*( )_=+|\\{}[];:\‘\“<>,?/"; // 특수문자 일람
         var bool = false; // Boolean 초기값
-
           
-          if (bool) {
+        if (bool) {
              alert("특수문자는 ID에 사용할 수 없습니다");
-          } 
+        } 
         //아이디에서 입력 필수 조건문
         if (form.m_id.value == ""){
              alert("아이디를 입력해야 합니다.");
              form.m_id.focus();//id박스로 이동.
              return;
-            }
-
+        }
         if(form.m_id.value != "admin"){
-
             //아이디 입력 문자수를 8~15자로 제한하는 조건문
-              if (form.m_id.value.length < 8 || form.m_id.value.length > 15){
-                   alert("아이디는 8~15자 이내로 입력 가능합니다.");
-                   form.m_id.select();//입력한 문자를 선택 상태로 만듬.
-                   return;
-                } 
+             if (form.m_id.value.length < 8 || form.m_id.value.length > 15){
+                  alert("아이디는 8~15자 이내로 입력 가능합니다.");
+                  form.m_id.select();//입력한 문자를 선택 상태로 만듬.
+                  return;
+              } 
             
-          }
-
-          if(form.m_pw.value != "1234"){
+        }
+        if(form.m_pw.value != "1234"){
             //패스워드 검사
-              if (form.m_pw.value == ""){
-                   alert("패스워드를 입력 해야 합니다.");
-                   form.m_pw.focus();//포커스를 Password박스로 이동.
-                   return;
-              }
-              if (form.m_pw.value.length < 8 || form.m_pw.value.length > 15)
-              {
-                   alert("비밀번호는 8~15 이내로 입력 가능 합니다.");
-                   form.m_pw.select();
-                   return;
-              }
-          }
+            if (form.m_pw.value == ""){
+               alert("패스워드를 입력 해야 합니다.");
+               form.m_pw.focus();//포커스를 Password박스로 이동.
+               return;
+            }
+            if (form.m_pw.value.length < 8 || form.m_pw.value.length > 15){
+               alert("비밀번호는 8~15 이내로 입력 가능 합니다.");
+               form.m_pw.select();
+               return;
+            }
+        }
 
-   form.submit();
+      form.submit();
    }
 </script>
 </head>
-<body>
-   <div class="form">
-      <form name="form1" action="#" method="post">
+	<body>
+   		<div class="form">
+      		<form name="form1" action="#" method="post">
 
-         <div class="form-group">
-            <h1><label class="form-label mt-4">로그인</label></h1>
-            <div class="form-floating mb-3">
-               <input type="text" class="form-control" id="m_id" name="m_id"
-                  placeholder="아이디"> <label for="m_id">아이디</label>
-            </div>
-            <div class="form-floating">
-               <input type="password" class="form-control" id="m_pw" name="m_pw"
-                  placeholder="Password"> <label for="m_pw">패스워드</label><br>
-            </div>
-            <div class="d-grid gap-2">
-               <button type="button" class="btn btn-lg btn-primary"
-                  onclick="login()">로그인</button>
-            </div>
-         </div>
+         		<div class="form-group">
+            		<h1><label class="form-label mt-4">로그인</label></h1>
+            		<div class="form-floating mb-3">
+               			<input type="text" class="form-control" id="m_id" name="m_id" >
+               			<label for="m_id">아이디</label>
+            		</div>
+           
+            		<div class="form-floating">
+               			<input type="password" class="form-control" id="m_pw" name="m_pw"> 
+               			<label for="m_pw">패스워드</label><br>
+            		</div>
+          
+            		<div class="d-grid gap-2">
+               			<button type="button" class="btn btn-lg btn-primary" onclick="login()">로그인</button>
+            		</div>
+         		</div>
 
-      </form>
-      <br>
+      		</form>
+      		<br>
 
-      <div class="form-group">
-         <button type="button" class="btn btn-primary"
-            onclick="location.href='http://localhost:8080/client/member/joinForm' ">회원가입</button>
-         <button type="button" class="btn btn-primary"
-            onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디
-            찾기</button>
-         <button type="button" class="btn btn-primary"
-            onclick="location.href='http://localhost:8080/client/login/find_pw' ">비밀번호
-            찾기</button>
-      </div>
-   </div>
-</body>
+      		<div class="form-group">
+         		<button type="button" class="btn btn-primary"
+           		 onclick="location.href='http://localhost:8080/client/member/joinForm' ">회원가입</button>
+         		<button type="button" class="btn btn-primary"
+           		 onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디 찾기</button>
+         		<button type="button" class="btn btn-primary"
+            	 onclick="location.href='http://localhost:8080/client/login/find_pw' ">비밀번호 찾기</button>
+      		</div>
+  	 	</div>
+	</body>
 </html>

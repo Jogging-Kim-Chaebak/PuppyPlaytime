@@ -8,6 +8,19 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경 팝업</title>
+<style type="text/css">
+.form {
+    height:400;
+	width: 700px;
+	padding: 20px;
+	margin-left: auto;
+	border: 1px solid #d9230f;
+	text-align: center;
+	margin-right: auto;
+	margin-top:65px;
+	margin-bottom: 10px;
+}
+</style>
 <!-- 모바일 웹 페이지 설정 끝 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -15,6 +28,7 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.js"></script>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
 
 <script type="text/javascript">
 	function pwUpdate() {
@@ -60,26 +74,20 @@
 </script>
 </head>
 <body>
-	<div>
-		<form id="updatePw" name="updatePw" method="post">
-
-
-			<div class="form-group">
-			<input type="hidden" id="m_id" name="m_id" value="${m_id}">
-				<label class="form-label mt-4">비밀번호 수정 팝업창</label>
-				<div class="form-floating mb-3">
-					<input type="password" class="form-control" id="m_pw" name="m_pw"
-						placeholder="비밀번호를 입력해주세요"><label for="m_pw">비밀번호</label><br>
+		<div class="form">
+			<form id="updatePw" name="updatePw" method="post">
+				<div class="form-group">
+					<input type="hidden" id="m_id" name="m_id" value="${m_id}">
+					<label class="form-label mt-4">비밀번호 수정 팝업창</label>
+					<div class="form-floating mb-3">
+						<input type="password" class="form-control" id="m_pw" name="m_pw" placeholder="비밀번호를 입력해주세요">
+						<label for="m_pw">비밀번호</label><br>
+					</div>
 				</div>
-
+			</form>
+			<div class="form-group">
+				<button type="button" value="수정" onclick="pwUpdate()" id="updateData" class="btn btn-primary mb-2">수정</button>
+				<button type="button" value="닫기" onclick="window.close();" class="btn btn-primary mb-2">닫기</button>
 			</div>
-		</form>
-		<button type="button" value="수정" onclick="pwUpdate()" id="updateData"
-			class="col-sm-2 control-label">수정</button>
-		<button type="button" value="닫기"
-			onclick="window.close();"
-			class="col-sm-2 control-label">닫기</button>
-
-	</div>
-</body>
+	</body>
 </html>
