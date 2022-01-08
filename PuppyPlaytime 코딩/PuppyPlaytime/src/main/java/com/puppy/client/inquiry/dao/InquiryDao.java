@@ -18,4 +18,6 @@ public interface InquiryDao {
 
 	public List<InquiryVO> inquiryMyList(String userId);
 
+	public void deleteRelatedReplies(int q_no) throws Exception;
+
 }

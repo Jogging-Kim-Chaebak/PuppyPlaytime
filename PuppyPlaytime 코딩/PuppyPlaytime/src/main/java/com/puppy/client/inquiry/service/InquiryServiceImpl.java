@@ -78,4 +78,9 @@ public class InquiryServiceImpl implements InquiryService {
 		return inquiryDao.inquiryMyList(userId);
 	}
 
+	@Override
+	public void deleteRelatedReplies(int q_no) throws Exception {
+		inquiryDao.deleteRelatedReplies(q_no);
+	}
+
 }

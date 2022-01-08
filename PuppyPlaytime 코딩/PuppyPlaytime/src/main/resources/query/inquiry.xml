@@ -59,6 +59,10 @@
 		delete from inquiry_tbl where q_no = #{q_no}
 	</delete>
 	
-	
+	<!-- 문의게시판 삭제할 때 댓글들 모두 삭제 -->
+	<delete id="deleteRelatedReplies">
+		delete from reply_tbl
+		where q_no = #{q_no}
+	</delete>
 	
 </mapper>
