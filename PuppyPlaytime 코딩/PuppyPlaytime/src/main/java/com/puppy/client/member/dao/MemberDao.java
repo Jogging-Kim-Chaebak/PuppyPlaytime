@@ -1,5 +1,7 @@
 package com.puppy.client.member.dao;
 
+import java.util.List;
+
 import com.puppy.client.member.vo.MemberVO;
 
 public interface MemberDao {
@@ -23,10 +25,7 @@ public interface MemberDao {
 	// 비밀번호 수정 팝업 페이지
 	public void update(MemberVO mvo) throws Exception;
 
-	
-
-	
-	
-
+	// 이메일 리스트 받아오기
+	public List<String> getEmailList() throws Exception;
 	
 }

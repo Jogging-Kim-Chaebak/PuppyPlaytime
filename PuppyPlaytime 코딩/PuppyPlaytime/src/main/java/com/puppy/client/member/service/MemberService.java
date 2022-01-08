@@ -1,5 +1,7 @@
 package com.puppy.client.member.service;
 
+import java.util.List;
+
 import com.puppy.client.member.vo.MemberVO;
 
 public interface MemberService {
@@ -22,8 +24,6 @@ public interface MemberService {
 	// 비밀번호 수정 팝업 등록 페이지
 	public void update(MemberVO mvo)throws Exception;
 
-	
-
-	
-
+	// 이메일 리스트 받아오기
+	public List<String> getEmailList() throws Exception;
 }

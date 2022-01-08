@@ -223,19 +223,42 @@
 		/* 인증번호 이메일 전송 */
 		$("#mailCheckBtn").on("click", function() {
 			var email = $("#m_email").val(); // 입력한 이메일
+			
+			var checkEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/; //Email 유효성 검사 정규식
+			
+			//이메일에서 입력 필수 조건문
+			if (email == "") {
+				alert("이메일을 입력하세요.");
+				return;
+			}
+			
+			//이메일 형식 입력
+			if (!checkEmail.test(email)) {
+				alert("이메일 ---@---.com 형식으로 입력 가능합니다.");
+				return;
+			}
+			
 			var checkBox = $("#m_emailNumber"); // 인증번호 입력란
 
 			$.ajax({
 				type : "GET",
 				url : "mailCheck?email=" + email,
 				success : function(data) {
-					alert("인증번호를 보냈습니다.");
-					$("#mailCheckBtn").val("true");
-					checkBox.attr("disabled", false);
-					code = data;
+					var userEmail = document.getElementById("m_email"); //이메일
 					
+					// 이메일 중복체크
+					if(data === "Already Registered"){
+						alert("이미 등록된 이메일입니다.");
+					}else{
+						alert("인증번호를 보냈습니다.");
+						$("#mailCheckBtn").val("true");
+						checkBox.attr("disabled", false);
+						code = data;
+					}
+				},
+				error:function(request,status,error){
+				    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
-			
 			});
 		});
 
@@ -390,7 +413,7 @@
 				<br>
 				<div class="m_emailNumber_box_warn">
 					<div class="input-group mb-3">
-						<input type="text" id="m_email" name="m_email" placeholder="이메일" class="form-control"
+						<input type="text" id="m_email" name="m_email" placeholder="이메일(이메일은 1개만 등록 가능합니다.)" class="form-control"
 							aria-describedby="button-addon2">
 						<label for="m_email"></label>
 						<button type="button" value="인증하기" name="mailCheckBtn" id="mailCheckBtn"
