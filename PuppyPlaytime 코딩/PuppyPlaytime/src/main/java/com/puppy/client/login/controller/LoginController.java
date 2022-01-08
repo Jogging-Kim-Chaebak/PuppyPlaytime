@@ -83,7 +83,7 @@ public class LoginController {
 			if (lvo.getM_id().equals("admin")) {
 				return "redirect:/admin";
 			} else {
-				return "intro";
+				return "redirect:/";
 			}
 		}
 	}
@@ -117,19 +117,17 @@ public class LoginController {
 
 	// 로그아웃 메소드
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletResponse response, HttpServletRequest request) throws Exception {
+	public void logout(HttpServletResponse response, HttpServletRequest request) throws Exception {
 		response.setContentType("text/html; charset=euc-kr");
-		PrintWriter out = response.getWriter();
-
 		session = request.getSession();
 		session.removeAttribute("userId");
-
+		
+		PrintWriter out = response.getWriter();
 		out.println("<script type='text/javascript'>");
 		out.println("alert('로그아웃 되었습니다.');");
+		out.println("location.href='/';");
 		out.println("</script>");
 		out.flush();
-
-		return "intro";
 	}
 
 	// 비밀번호 찾기 페이지
@@ -187,7 +185,6 @@ public class LoginController {
 
 		memberService.update(mvo);
 		return "client/login/pw_popup";
-
 	}
 	
 	/* 이메일 인증 */
@@ -208,8 +205,8 @@ public class LoginController {
 		/* 이메일 보내기 */
 		String setFrom = "PuppyPlaytime<chan978@naver.com>";
 		String toMail = email;
-		String title = "회원가입 인증 이메일 입니다.";
-		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
+		String title = "비밀번호 찾기 인증 이메일 입니다.";
+		String content = "비밀번호를 찾기 위해 인증번호를 입력해주세요." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
 		try {

@@ -6,8 +6,12 @@
 	<definition name="intro" template="/WEB-INF/views/template/client/mainLayout.jsp">
 		<put-attribute name="title" value="" />
 		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
-		<put-attribute name="body" value="/WEB-INF/views/client/main/mainPage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<definition name="*" extends="intro">
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp"/>	
 	</definition>
 	
 	<definition name="content1" template="/WEB-INF/views/template/client/subLayout.jsp">

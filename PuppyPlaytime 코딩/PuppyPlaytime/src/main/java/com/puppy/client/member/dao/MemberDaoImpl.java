@@ -1,5 +1,7 @@
 package com.puppy.client.member.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,7 +15,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Inject
 	private SqlSession session;
 
-	private static final String namespace = "com.puppy.client.member.dao.MemberDao";
+	private static final String namespace = "query.member";
 
 	// 회원가입 처리
 	@Override
@@ -52,6 +54,12 @@ public class MemberDaoImpl implements MemberDao {
 		// System.out.println("aaaaaaaaa"+mvo.getM_pw());
 		session.update(namespace + ".update", mvo);
 
+	}
+
+	// 이메일 리스트 받아오기
+	@Override
+	public List<String> getEmailList() throws Exception {
+		return session.selectList(namespace+".getEmailList");
 	}
 
 }

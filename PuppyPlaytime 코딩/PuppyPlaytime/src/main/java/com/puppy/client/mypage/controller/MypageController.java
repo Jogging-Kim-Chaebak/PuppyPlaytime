@@ -293,7 +293,7 @@ public class MypageController {
 			
 			mypageService.reservationCancel(rvo);
 			
-			return "redirect:/client/mypage/reservationList";
+			return "redirect:/client/mypage/mypageReservation";
 		}
   	
   	//내정보 구현하기

@@ -1,5 +1,7 @@
 package com.puppy.client.member.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,9 +53,9 @@ public class MemberServiceImpl implements MemberService {
 		 memberDao.update(mvo);
 	}
 
-	
-	
-	
-
-	
+	// 이메일 리스트 받아오기
+	@Override
+	public List<String> getEmailList() throws Exception {
+		return memberDao.getEmailList();
+	}
 }

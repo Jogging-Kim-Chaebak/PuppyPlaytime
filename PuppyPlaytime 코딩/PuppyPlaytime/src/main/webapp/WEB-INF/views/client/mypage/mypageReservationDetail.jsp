@@ -24,7 +24,7 @@ th, td {
 	$(function(){
 		/* 목록 버튼 클릭 시 처리 이벤트 */
 		$("#reservationListBtn").click(function(){
-			location.href="/client/mypage/reservationList";
+			location.href="/client/mypage/mypageReservation";
 		});
 	
 		/* 예약취소 버튼 클릭 시 처리 이벤트 */
