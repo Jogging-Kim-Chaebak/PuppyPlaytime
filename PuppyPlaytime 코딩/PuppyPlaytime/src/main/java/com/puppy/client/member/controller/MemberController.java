@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.puppy.client.member.service.MemberService;
 import com.puppy.client.member.vo.MemberVO;
-
 import com.puppy.common.crypt.SHA256;
 
 //회원가입 창
@@ -57,8 +56,8 @@ public class MemberController {
 		SHA256 sha = SHA256.getInsatnce();
 		String shaPass = sha.getSha256(mvo.getM_pw().getBytes());
 		mvo.setM_pw(shaPass);// 비밀번호를 보냄
-		
-		if(mvo.getM_optional()==null) {
+
+		if (mvo.getM_optional() == null) {
 			mvo.setM_optional("N");
 		}
 
@@ -109,7 +108,7 @@ public class MemberController {
 		String content = "홈페이지를 방문해주셔서 감사합니다." + "<br><br>" + "인증 번호는 " + checkNum + "입니다." + "<br>"
 				+ "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
 
-		/*try {
+		try {
 
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
@@ -121,7 +120,7 @@ public class MemberController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 
 		String num = Integer.toString(checkNum);
 
