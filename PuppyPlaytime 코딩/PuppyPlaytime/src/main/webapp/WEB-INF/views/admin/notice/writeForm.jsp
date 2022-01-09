@@ -47,7 +47,7 @@ src="/resources/include/assets/js/common.js"></script>
 	
 	<div class="contentTB">
 	<form id="f_writeForm" name="f_writeForm">
-		<table id="noticeWrite">
+		<table class="table table-dark table-striped">
 			<colgroup>
 				<col width="17%"/>
 				<col width="83%"/>
