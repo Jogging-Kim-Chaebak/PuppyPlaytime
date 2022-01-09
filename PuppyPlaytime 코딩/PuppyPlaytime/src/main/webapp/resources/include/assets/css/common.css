@@ -5,9 +5,17 @@
 a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
 .vm{vertical-align:middle;}
 .tac{text-align:center;}
-.tal{text-align:left}
+.tal{text-align:left; padding:8px; text-align:center; background-color:#FFE7D8; font-weight:bold}
+.tad{text-align:left; padding:8px; font-weight:bold}
+.tads{text-align:center; padding:8px; font-weight:bold}
+.tat{text-align:left; padding:12px;}
 .tar{text-align:right}
-.required{color:red;}
+
+/*타이틀 영역*/
+h2 {
+	text-align: left;
+	padding:15px;
+}
 
 
 
@@ -17,6 +25,7 @@ a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
 	text-align:center;
 	margin:0 auto;
 	margin-top:70px;
+	margin-bottom:70px;
 
 }
 
@@ -25,8 +34,13 @@ a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
 /*제목 영역*/
 .contentContainer.contentTit{
 	width:100%; text-align:center;
-	margin-top:20px; font-weight:bold;
+	margin-top:20px; margin-bottom:40px;font-weight:bold;
 }
+/*제목 영역*/
+tab-content .contentContainer .cTitle{ text-align:left; 
+		 font-weight:bold; display: inline-block;
+}
+
 
 /* 본문 내용 출력 영역 */
 
@@ -56,18 +70,44 @@ a, a:hover, a:active, a:link, a:visted{text-decoration:none;color:#000000;}
 	border-bottom:0px;  margin-top:10px;
 }
 .contentContainer .contentTB td{
-	 border-bottom:1px solid #000000;
+	border-bottom:1px solid #000000;
 	border-left:1px solid #000000;
 	width:90px
 }
 
 
 .contentContainer .contentTB .ctr{width:90px; height:150px;  border-bottom:1px solid #000000;
-	padding:12px; text-align:left; border-left:1px solid #000066; vertical-align:top}
+	padding:8px; text-align:left; border-left:1px solid #000066; vertical-align:top}
 .contentContainer .contentTB .ac{
 	width:155px; padding:8px; text-align:center; background-color:#FFE7D8; font-weight:bold}
+
+/********* 게시판 리스트 화면 *********/
+/*리스트 부분*/
+#List{margin-top:10px; margin-bottom:20px}
+#List table{width:100%; padding:0px; border:1px solid #000000; border-bottom:0px;}
+#List tr{padding:0px;}
+#List th, #List td{padding:8px; border-bottom:1px solid #000000; line-height:155%}
+#List th{border-right:1px solid #000000; background-color:#FFB689;}
+
+#List .borcle{border-right:0px;}
+#List .rCount{font-size:10px;}
+
+
+/*게시판 전체 적용 내용*/
+caption{display:none;}
+img{border:0px}
+input[type="text"],input[type="password"],select{font-size:80%; padding:3px;}
+input[type="text"],input[type="password"]{width:250px;}
+input[type="button"]{padding:3px;font-size:80%;}
+table{border-collapse:collapse;}
+ul{list-style:none;}
+
 
 
 
 /*버튼 영역*/
 .btn{width:70px; height:35px; margin-top:30px; margin-bottom:80px; text-align:center;  font-weight:bold;  font-size:medium; display: inline-block;}
+.btnR{ margin-bottom:80px; float:right;  font-size:medium; text-align:center; display: inline-block;}
+.btnL{width:70px; height:35px; margin-top:30px; margin-bottom:80px;  float:left; padding:4px; font-size:medium; text-align:center; display: inline-block;}
+
+.img{ padding:8px; display: inline-block; margin-bottom:80px;}

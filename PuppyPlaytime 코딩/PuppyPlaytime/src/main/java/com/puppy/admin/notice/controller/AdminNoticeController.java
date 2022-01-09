@@ -1,6 +1,7 @@
 package com.puppy.admin.notice.controller;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.puppy.admin.notice.service.AdminNoticeService;
@@ -109,7 +112,7 @@ public class AdminNoticeController {
 	 * *********************************************************/
 	
 	@RequestMapping(value="/noticeDetail", method=RequestMethod.GET)
-	public String noticeDetail(@ModelAttribute NoticeVO nvo, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
+	public String noticeDetail(@ModelAttribute NoticeVO nvo, @ModelAttribute("pgrq") PageRequest pageRequest, Model model, HttpServletRequest request, HttpServletResponse response)throws Exception {
 		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		log.info("noticeDetail 호출 성공");
 		log.info("n_no = " + nvo.getN_no());
@@ -208,13 +211,13 @@ public class AdminNoticeController {
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		
-		if(result==1) {
-			url="/admin/notice/noticeList";
-		}else {
-			url="/admin/notice/noticeDetail?n_no="+ nvo.getN_no();
-		}
+		/*
+		 * if(result==1) { url="/admin/notice/noticeDetail?n_no="+ nvo.getN_no();
+		 * 
+		 * }else { url="/admin/notice/noticeList"; }
+		 */
 		
-		return "redirect:" + url;
+		return "redirect:/admin/notice/noticeList";
 		
 	}
 	

@@ -9,8 +9,8 @@ m_address VARCHAR2(50) not null,
 m_optional VARCHAR2(2) not null,
 m_required1 VARCHAR2(2) not null,
 m_required2 VARCHAR2(2) not null,
-m_regdate date sysdate,
-m_status VARCHAR2(15) not null check(m_status in('member','secession')),
+m_regdate DATE DEFAULT SYSDATE,
+m_status VARCHAR2(15) default 'member' not null, check(m_status in('member','secession')),
 CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
 );
 
