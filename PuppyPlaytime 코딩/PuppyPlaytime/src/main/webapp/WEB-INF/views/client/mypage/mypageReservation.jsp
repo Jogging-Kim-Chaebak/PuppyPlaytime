@@ -99,7 +99,7 @@ th, td {
 						<td><c:set var="name" value="${list.r_approval}" />
 							<c:set var="st" value="${list.r_status}" />
 								<c:choose> 
-								    <c:when test="${name eq 'y'}">
+								    <c:when test="${name eq 'Y'}">
 								    	<c:if test="${st eq 'done'}">
 								        	<a>이용완료</a>
 								      	</c:if>
@@ -116,7 +116,7 @@ th, td {
 								    <c:when test="${name eq 'W'}">
 								        <a>승인대기중</a>
 								    </c:when>
-								    <c:when test="${name eq 'n'}">
+								    <c:when test="${name eq 'N'}">
 								        <a>승인취소</a>
 								    </c:when>
 								</c:choose>
