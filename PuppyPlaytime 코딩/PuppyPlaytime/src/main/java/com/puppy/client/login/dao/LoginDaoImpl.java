@@ -26,6 +26,9 @@ public class LoginDaoImpl implements LoginDao{
 		return (MemberVO) session.selectOne("loginSelect",mvo);
 	}
 
-	
-
+	// 아이디로 이메일 불러오기
+	@Override
+	public String findRealEmail(String m_id) {
+		return session.selectOne("findRealEmail", m_id);
+	}
 }

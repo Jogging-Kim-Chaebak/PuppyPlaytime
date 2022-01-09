@@ -9,6 +9,9 @@ public interface LoginService {
 	//로그인 처리 메서드
 	public MemberVO userLogin(MemberVO mvo) throws Exception;
 
+	// ID 일치
+	public String findRealEmail(String id) throws Exception;
+
 	
 
 

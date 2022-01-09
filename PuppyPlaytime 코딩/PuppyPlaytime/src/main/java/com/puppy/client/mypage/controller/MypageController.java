@@ -53,7 +53,7 @@ public class MypageController {
 	//펫리스트 구현하기
 	@RequestMapping(value="/petList", method=RequestMethod.GET)
 	public String petList(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		sessionCheck(request, response, "로그인 후 마이페이지를 이용할 수 있습니다.", model);
+		sessionCheck(request, response, "잘못된 접근입니다.", model);
 		
 		log.info("petList 호출 성공");
   		log.info("m_id = " + userId);
@@ -299,7 +299,7 @@ public class MypageController {
   	//내정보 구현하기
   	@RequestMapping(value="/myDetail", method = RequestMethod.GET)
   	public String myDetail(@ModelAttribute MemberVO mvo, HttpServletResponse response, Model model, HttpServletRequest request) throws Exception{
-  		sessionCheck(request, response, "잘못된 접근입니다.", model);
+  		sessionCheck(request, response, "로그인 후 마이페이지를 이용할 수 있습니다.", model);
   		
   		log.info("myDetail 호출 성공");
   		

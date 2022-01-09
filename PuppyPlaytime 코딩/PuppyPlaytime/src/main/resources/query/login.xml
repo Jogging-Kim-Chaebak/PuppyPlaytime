@@ -38,10 +38,11 @@
 		#{m_pw}
 	</select>
 	
-	
-
-
-
-
-
+	<!-- id 로 이메일 불러오기 -->
+	<select id="findRealEmail" parameterType="String" resultType="String">
+		<!-- 로그인 처리 -->
+		SELECT m_email
+		FROM member_tbl
+		WHERE m_id = #{m_id}
+	</select>
 </mapper>

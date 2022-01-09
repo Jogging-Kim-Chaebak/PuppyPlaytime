@@ -27,10 +27,8 @@ public class LoginServiceImpl implements LoginService{
 		return mvo;
 	}
 
-	
-
-	
-	
-	
-
+	@Override
+	public String findRealEmail(String m_id) throws Exception {
+		return loginDao.findRealEmail(m_id);
+	}
 }
