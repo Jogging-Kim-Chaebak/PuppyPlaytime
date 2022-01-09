@@ -114,17 +114,24 @@
 		
 	/* 인증번호 이메일 전송 */
 	$("#mailCheckBtn").on("click",function(){
-		 var email = $("#m_email").val();        // 입력한 이메일
+		 var id = $("#m_id").val();        	// 입력한 아이디
+		 var email = $("#m_email").val();	// 입력한 이메일
 		 var checkBox = $("#m_emailNumber");        // 인증번호 입력란
 		 
 		 $.ajax({
 		        type:"GET",
-		        url:"mailCheck?email=" + email,
+		        url:"mailCheck?id=" + id + "&email=" + email,
 		        success:function(data){
-		        	alert("인증번호를 보냈습니다.");
-		        	$("#mailCheckBtn").val("true");
-		        	checkBox.attr("disabled",false);
-		        	code=data;
+		        	// 아이디와 이메일이 동일한지 체크
+		        	if(data === "Not equal"){
+		        		alert("아이디에 등록된 이메일이 아닙니다.");
+		        		return;
+		        	}else{
+		        		alert("인증번호를 보냈습니다.");
+			        	$("#mailCheckBtn").val("true");
+			        	checkBox.attr("disabled",false);
+			        	code=data;
+		        	}
 		        }       
 		    });
 		});

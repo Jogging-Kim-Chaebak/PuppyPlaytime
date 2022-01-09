@@ -162,7 +162,7 @@
 	<update id="reservationCancel"
 		parameterType="com.puppy.client.reservation.vo.ReservationVO">
 		update reservation_tbl
-		set r_status=#{r_status}
+		set r_status='cancle'
 		where r_no=#{r_no}
 	</update>
 

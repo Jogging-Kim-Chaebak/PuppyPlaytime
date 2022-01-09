@@ -10,6 +10,6 @@ public interface LoginDao {
 	//로그인 처리 메서드
 	public MemberVO loginSelect(MemberVO mvo) throws Exception;
 
-	
-
+	// 아이디로 이메일 불러오기
+	public String findRealEmail(String id);
 }

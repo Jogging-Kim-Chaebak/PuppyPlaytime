@@ -105,20 +105,4 @@
 				</c:if>
 			</div>
 		</div>
-		<br>
-		<br>
-		<br>
-		<br>
-		<div>
-			<ul class="nav nav-pills justify-content-center">
-				<li class="nav-item"><a class="nav-link active" href="client/notice/noticeList">아아아</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">이용안내</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">문의게시판</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">예약하기</a>
-				</li>
-			</ul>
-			<hr class="d-sm-none">
-		</div>
 	</div>
-
