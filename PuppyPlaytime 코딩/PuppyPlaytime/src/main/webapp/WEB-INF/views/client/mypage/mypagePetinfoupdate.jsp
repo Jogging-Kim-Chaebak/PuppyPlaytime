@@ -14,14 +14,34 @@
 		$("#petUpdateBtn").click(function(){			
 			var name = document.getElementById("p_name"); //이름
 			var dogbreed = document.getElementById("p_dogbreed"); //견종
+			var unique = document.getElementById("p_unique");	//특이사항
 			
 			if (name.value == '') {
 				alert("이름을 입력해야 합니다.");
+				name.focus();
+				return false;
+			}
+			
+			if (name.value.length>10 ) {
+				alert("이름은 10글자를 초과할 수 없습니다.");
+				name.focus();
 				return false;
 			}
 			
 			if (dogbreed.value == '') {
 				alert("견종을 입력해야 합니다.");
+				return false;
+			}
+			
+			if (dogbreed.value.length>10 ) {
+				alert("견종은 10글자를 초과할 수 없습니다.");
+				dogbreed.focus();
+				return false;
+			}
+			
+			if (unique.value.length>60 ) {
+				alert("60글자를 초과할 수 없습니다.");
+				unique.focus();
 				return false;
 			}
 			
