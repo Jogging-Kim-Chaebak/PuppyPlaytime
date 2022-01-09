@@ -69,6 +69,7 @@ th, td {
 				<col width="10%" />
 				<col width="20%" />
 				<col width="10%" />
+				<col width="10%" />
 			</colgroup>
 			<thead>
 				<tr class="table-primary">
@@ -79,6 +80,7 @@ th, td {
 					<th>이용시작날짜</th>
 					<th>이용종료날짜</th>
 					<th>결제금액</th>
+					<th>승인상태</th>
 					<th>진행상태</th>
 					<th>상세보기</th>
 				</tr>
@@ -98,27 +100,33 @@ th, td {
 						<td>${list.r_payPrice}원</td>
 						<td><c:set var="name" value="${list.r_approval}" />
 								<c:choose> 
-								    <c:when test="${name eq 'Y'}">
-								       <c:set var="name" value="${list.r_status}" />
-										<c:choose> 
-										   <c:when test="${name eq 'done'}">
-								        		<a>이용완료</a>
-								   			</c:when>
-								    		<c:when test="${name eq 'cancel'}">
-								    		    <a>예약취소</a>
-								    		</c:when>
-								    		<c:when test="${name eq 'refunded'}">
-								        		<a>환불완료</a>
-								    		</c:when>
-								    	</c:choose>
+								    <c:when test="${name eq 'y'}">
+								       	<a>승인완료</a>
 								    </c:when>
 								    <c:when test="${name eq 'W'}">
 								        <a>승인대기중</a>
 								    </c:when>
-								    <c:when test="${name eq 'N'}">
+								    <c:when test="${name eq 'n'}">
 								        <a>승인취소</a>
 								    </c:when>
 								</c:choose>
+								</td>
+						<td><c:set var="name" value="${list.r_status}" />
+							<c:choose> 
+								    <c:when test="${name eq 'done'}">
+								        <a>이용완료</a>
+								    </c:when>
+								    <c:when test="${name eq 'cancle'}">
+								        <a>예약취소</a>
+								    </c:when>
+								    <c:when test="${name eq 'refunded'}">
+								        <a>환불완료</a>
+								    </c:when>
+								    <c:otherwise>
+								        <a>예약완료</a>
+								    </c:otherwise>
+								</c:choose>
+						
 						<%-- <c:set var="name" value="${list.r_status}" />
 								<c:choose> 
 								    <c:when test="${name eq 'done'}">
