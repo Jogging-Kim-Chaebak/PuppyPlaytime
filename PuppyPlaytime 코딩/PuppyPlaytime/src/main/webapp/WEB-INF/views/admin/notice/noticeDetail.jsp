@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>글 상세보기</title>
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 
@@ -16,7 +16,7 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 	
 	$(function(){
 		
-var formObj = $("#f_data");
+		var formObj = $("#f_data");
 		
 		//현재 페이지 번호와 페이징 크기
 		var pageObj = $("#page");
@@ -36,7 +36,8 @@ var formObj = $("#f_data");
 		
 		/*목록 버튼 클릭 시 처리 이벤트*/
 		$("#noticeListBtn").click(function(){
-			location.href="/admin/notice/noticeList";
+			self.location = "noticeList${pgrq.toUriString()}";
+			//location.href="/admin/notice/noticeList";
 		});
 		
 		/*수정 버튼 클릭 시 처리 이벤트*/
@@ -76,18 +77,36 @@ var formObj = $("#f_data");
 </head>
 <body>
 
-<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
-	<input type="hidden" name="page" value="${pgrq.page}">
-	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
+
 
 	<div class="contentContainer">
 		<div class="contentTit"><!-- <h3>게시판 상세보기</h3> --></div>
 		<form name="f_data" id="f_data" method="GET">
 			<input type="hidden" name="n_no" value="${detail.n_no}"/>
+			<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
+			<input type="hidden" name="page" value="${pgrq.page}">
+			<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}">
 		</form>
 	
 	
 	<%-- ========== 상세 정보 보여주기 시작 ========== --%>
+	<div class="contentTBT">
+					<table>
+						<colgroup>
+						<col width="25%"/>
+					
+						</colgroup>
+						
+							<tbody>
+								<tr>
+									<td class="aca">글번호</td>
+									<td>${detail.n_no}</td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+	
 	<div class="contentTB">
 		<table>
 			<colgroup>
@@ -104,35 +123,25 @@ var formObj = $("#f_data");
 					<td>${detail.n_regdate}</td>
 				</tr>
 				<tr>
-					<td class="ac">제목</td>
-					<td colspan="3">${detail.n_title}</td>
+					<td class="tal">제목</td>
+					<td class="tat" colspan="3">${detail.n_title}</td>
 				</tr>
 				<tr>
 					<td class="ac vm">내용</td>
-					<td colspan="3">${detail.n_content}</td>
+					<td class="ctr" colspan="3">${detail.n_content}</td>
 				</tr>
 			</tbody>
 		</table>
-	
-	
 	</div>
 	<%-- ========== 상세 정보 보여주기 종료 ========== --%>
-	
-	</div>
-	
-	<%-- ========== 버튼 추가 시작 ========== --%>
-	
-	<table id="noticeBut">
-		<tr>
-			<td id="btd2">
-				
-				<input type="button" value="수정" id="updateBtn">
-				<input type="button" value="삭제" id="deleteBtn">
-				<input type="button" value="목록" id="noticeListBtn">
-			</td>
-		</tr>
-	</table>
-	<%-- ========== 버튼 추가 종료 ========== --%>
 
+	<%-- ========== 버튼 추가 시작 ========== --%>
+	<div>
+				<input type="button" value="수정" id="updateBtn" class="btn btn-primary">
+				<input type="button" value="삭제" id="deleteBtn" class="btn btn-primary">
+				<input type="button" value="목록" id="noticeListBtn" class="btn btn-primary">
+	</div>
+	<%-- ========== 버튼 추가 종료 ========== --%>
+</div>
 </body>
 </html>

@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>글 상세보기</title>
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
 
 <script type="text/javascript"
@@ -57,7 +56,7 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 					<table>
 						<colgroup>
 						<col width="25%"/>
-						<col width="25%"/>
+					
 						</colgroup>
 						
 							<tbody>
@@ -65,29 +64,38 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 									<td class="aca">글번호</td>
 									<td>${detail.n_no}</td>
 								</tr>
-								<tr>
-									<td class="aca">작성자</td>
-									<td>${detail.n_registrant}</td>
-								</tr>
+								
 							</tbody>
 						</table>
 					</div>
 					<div class="contentTB">
 						<table>
+						
+							<colgroup>
+								<col width="17%"/>
+								<col width="33%"/>
+								<col width="17%"/>
+								<col width="33%"/>
+							</colgroup>
 							
 								<tbody>
 									<tr>
-										<td class="ac">제목</td>
-										<td colspan="3">${detail.n_title}</td>
+										<td class="ac">작성자</td>
+										<td>${detail.n_registrant}</td>
+								
+										<td class="ac">작성일</td>
+										<td colspan="3">${detail.n_regdate}</td>
+										
+									</tr>
+									<tr>
+										<td class="tal">제목</td>
+										<td class="tat"colspan="3">${detail.n_title}</td>
 									</tr>
 									<tr>
 										<td class="ac vm">내용</td>
 										<td colspan="3" class="ctr">${detail.n_content}</td>
 									</tr>
-									<tr>
-										<td class="ac">작성일</td>
-										<td colspan="3">${detail.n_regdate}</td>
-									</tr>
+									
 								</tbody>
 						</table>	
 					</div>

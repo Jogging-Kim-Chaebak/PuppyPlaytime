@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 <title>수정 화면</title>
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
+
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" 
@@ -25,22 +26,22 @@ src="/resources/include/assets/js/common.js"></script>
 		var pageVal = pageObj.val();
 		var sizePerPageVal = sizePerPageObj.val();
 			
-			/*수정 버튼 클릭 시 처리 이벤트*/
-			$("#modifyBtn").click(function(){
-				//입력값 체크
-				if(!chkSubmit($('#n_title'),"제목을")) return;
-				else if(!chkSubmit($('#n_registrant'),"작성자를")) return;
-				else if(!chkSubmit($('#n_content'),"작성할 내용을")) return;
-				else{
+		/*수정 버튼 클릭 시 처리 이벤트*/
+		$("#modifyBtn").click(function(){
+			//입력값 체크
+			if(!chkSubmit($('#n_title'),"제목을")) return;
+			else if(!chkSubmit($('#n_registrant'),"작성자를")) return;
+			else if(!chkSubmit($('#n_content'),"작성할 내용을")) return;
+			else{
 			
 			var goUrl=""; //이동할 경로를 저장할 변수
 			
-			$("#f_writeForm").attr({
+			formObj.attr({
 				"method":"POST",
 				"action":"/admin/notice/modify"
 					
 			});
-			$("#f_writeForm").submit();
+			formObj.submit();
 					
 		}
 		});
@@ -48,11 +49,10 @@ src="/resources/include/assets/js/common.js"></script>
 		/*삭제 버튼 클릭 시 처리 이벤트*/
 		$("#deleteBtn").click(function(){
 		var goUrl=""; //이동할 경로를 저장할 변수
-			
 		goUrl = "/admin/notice/noticeDelete";
 		
-		$("#f_writeForm").attr("action",goUrl);
-		$("#f_writeForm").submit();
+		formObj.attr("action",goUrl);
+		formObj.submit();
 		});
 		
 		
@@ -83,6 +83,7 @@ src="/resources/include/assets/js/common.js"></script>
 	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}"/>
 	
 		<%-- ========== 수정 정보 보여주기 시작 ========== --%>
+	<div id="List">
 		<table>
 			<colgroup>
 				<col width="17%"/>
@@ -117,11 +118,11 @@ src="/resources/include/assets/js/common.js"></script>
 	</form>
 </div>
 	<%-- ========== 상세 정보 보여주기 종료 ========== --%>
-
-<div class="contentBtn">
-	<input type="button" value="수정" id="modifyBtn">
-	<input type="button" value="삭제" id="deleteBtn">
-	<input type="button" value="취소" id="cancelBtn">
+</div>
+<div>
+	<input type="button" value="수정" id="modifyBtn" class="btn btn-primary">
+	<input type="button" value="삭제" id="deleteBtn" class="btn btn-primary">
+	<input type="button" value="취소" id="cancelBtn" class="btn btn-primary">
 </div>
 </div>
 </body>

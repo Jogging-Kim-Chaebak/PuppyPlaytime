@@ -11,37 +11,15 @@
 <head>
 <meta charset="UTF-8">
 <title>이용안내 목록</title>
-<style>
-h2 {
-	text-align: center;
-}
-</style>
+
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/include/assets/css/common.css" />
-<link rel="stylesheet" type="text/css"
-	href="/resources/include/assets/css/noticeList.css" />
-
 <script type="text/javascript">
-
 	$(function(){
 		var file = "<c:out value='${cageRoomVO.c_picture}'/>";
 		$("#fileImage").attr({
 			src:"/roomPicture/${cageRoomVO.c_picture}",width:"450px",height:"200px"
-		});
-		
-		/* 제목 클릭시 상세 페이지 이동을 위한 처리 이벤트 */
-		$(".goDetail").click(function() {
-			var c_no = $(this).parents("tr").attr("data-num");
-			$("#c_no").val(c_no);
-			console.log("글번호 : " + c_no);
-
-			/* 상세 페이지로 이동하기 위해 form추가 */
-			$("#detailForm").attr({
-				"method" : "get",
-				"action" : "/client/guide/roomDetail"
-			});
-			$("#detailForm").submit();
 		});
 	});
 </script>
@@ -50,8 +28,8 @@ h2 {
 <body>
 	<div class="tab-content">
 		<div id="guideList" class="contentContainer tab-pane active">
-			<div class="contentTit">
-				<h2>룸 리스트</h2>
+			<div class="cTitle">
+				<h2>룸 안내</h2>
 			</div>
 			
 			<%-- ============= 룸 상세 페이지 이동을 위한 FORM ============== --%>
@@ -60,7 +38,7 @@ h2 {
 			</form>
 	
 			<%--============== 룸 리스트 시작 =============== --%>
-			<div id="noticeList">
+			<div id="List">
 	
 				<table border="1" summary="룸 리스트">
 					<colgroup>
@@ -80,7 +58,8 @@ h2 {
 							
 						</tr>
 					</thead>
-					<tbody id="list">
+					
+				
 					<!-- 데이터 출력 -->
 						<c:choose>
 							<c:when test="${not empty roomList}">
@@ -111,13 +90,16 @@ h2 {
 	
 					</tbody>
 				</table>
+			</div>
 				<%--============== 리스트 종료 =============== --%>
 	
-				<div class="contentTit">
-					<h2>부가서비스 리스트</h2>
-				</div>
 				<%-- ============== 부가서비스 리스트 시작 =============== --%>
-				<div id="noticeList">
+				
+				<div class="cTitle">
+					<h2>부가서비스 리스트 안내</h2>
+				</div>
+				
+				<div id="List">
 	
 					<table border="1" summary="부가서비스 리스트">
 						<colgroup>
@@ -156,30 +138,27 @@ h2 {
 					<%-- ============== 부가서비스 리스트 종료 =============== --%>
 				</div>
 			</div>
-		</div>
+
 			
 		<div id="guideInfo" class="tab-pane fade">
-				
-			<h2>시설 안내</h2>
-				
-			<br/>
+			<div id="List">
 			<br/>
 			<h2>오시는 길</h2>
 			
 			<table border="1">
-			<tr align="center">
-			<td colspan="1">주소</td>
-			<td>서울특별시 성동구 왕십리로 149 도그파크에비뉴 4층 (행당동)<br/>
+			
+			<td class="tads">주소</td>
+			<td class="tat vm">서울특별시 성동구 왕십리로 149 도그파크에비뉴 4층 (행당동)<br/>
 			※ 주차안내 : 평일주차 무료, 주말주차 30분 무료 (이후 10분 당 500원)</td>
 			</tr>
 			<tr>
-			<td>지하철 주소</td>
-			<td>왕십리역(2호선, 5호선, 분당선, 경의중앙선) 12번 출구, 도보 10분<br/>
+			<td class="tads">지하철 주소</td>
+			<td class="tat vm">왕십리역(2호선, 5호선, 분당선, 경의중앙선) 12번 출구, 도보 10분<br/>
 			한양대역(2호선) 4번출구, 도보 8분</td>
 			</tr>
 			<tr>
-			<td>버스정류장</td>
-			<td>행당1동 주민센터, 성동소방서 | 행당동삼부아파트 도보 5분<br/>
+			<td class="tads">버스정류장</td>
+			<td class="tat vm">행당1동 주민센터, 성동소방서 | 행당동삼부아파트 도보 5분<br/>
 				일반 2012, 2013, 2014, 2016, 2222<br/>
 			  	간선 302, N62<br/>
 			<br/>
@@ -192,16 +171,15 @@ h2 {
 				<br/>
 				<br/>
 				
-			<section>
-				<h3>지도(건물위치)</h3><br/>
+			<section class="img">
+				<h3>건물위치</h3><br/>
 				
 				<img src="/resources/images/puppymap.jpg"
-				style="width:450px;"
+				style="width:550px;"
 				/>
-				<br/>
-				<br/>
 			</section>
 		</div>
+	</div>
 	</div>
 </body>
 </html>
