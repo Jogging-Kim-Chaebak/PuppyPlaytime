@@ -83,8 +83,8 @@ src="/resources/include/assets/js/common.js"></script>
 	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}"/>
 	
 		<%-- ========== 수정 정보 보여주기 시작 ========== --%>
-	<div id="List">
-		<table>
+	<div>
+		<table class="table table-dark table-striped">
 			<colgroup>
 				<col width="17%"/>
 				<col width="33%"/>
@@ -93,13 +93,13 @@ src="/resources/include/assets/js/common.js"></script>
 			</colgroup>
 			<tbody>
 				<tr>
-					<td class="ac">글번호</td>
+					<td>글번호</td>
 					<td>${updateData.n_no}</td>
-					<td class="ac">작성일</td>
+					<td>작성일</td>
 					<td>${updateData.n_regdate}</td>
 				</tr>
 				<tr>
-					<td class="ac">작성자</td>
+					<td>작성자</td>
 					<td colspan="3">
 					<input type="text" id="n_registrant" name="n_registrant" value="${updateData.n_registrant}"/></td>
 				</tr>
@@ -109,7 +109,7 @@ src="/resources/include/assets/js/common.js"></script>
 					<input type="text" name="n_title" id="n_title" value="${updateData.n_title}"/></td>
 				</tr>
 				<tr>
-					<td class="ac vm">내용</td>
+					<td>내용</td>
 					<td colspan="3">
 					<textarea name="n_content" id="n_content">${updateData.n_content}</textarea></td>
 				</tr>

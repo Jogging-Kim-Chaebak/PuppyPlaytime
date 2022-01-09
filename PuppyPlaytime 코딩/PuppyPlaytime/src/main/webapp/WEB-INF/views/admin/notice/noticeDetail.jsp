@@ -91,7 +91,7 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 	
 	<%-- ========== 상세 정보 보여주기 시작 ========== --%>
 	<div class="contentTBT">
-					<table>
+					<table class="table table-dark table-striped">
 						<colgroup>
 						<col width="25%"/>
 					
@@ -108,7 +108,7 @@ src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 					</div>
 	
 	<div class="contentTB">
-		<table>
+		<table class="table table-dark table-striped">
 			<colgroup>
 				<col width="17%"/>
 				<col width="33%"/>
