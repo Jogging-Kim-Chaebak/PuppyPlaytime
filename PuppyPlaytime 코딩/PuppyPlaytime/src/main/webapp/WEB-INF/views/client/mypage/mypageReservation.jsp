@@ -114,12 +114,18 @@ th, td {
 								   		</c:if>
 								    </c:when>
 								    <c:when test="${name eq 'W'}">
-								        <a>승인대기중</a>
-								    </c:when>
+								        <c:if test="${st eq 'cancle'}">
+								       		<a>예약취소</a>
+								  		</c:if>
+								  		<c:if test="${st ne 'cancle'}">
+								       		<a>승인대기중</a>
+								  		</c:if>
+								  		
+								    </c:when>					    
 								    <c:when test="${name eq 'N'}">
 								        <a>승인취소</a>
-								    </c:when>
-								</c:choose>
+								    </c:when>		
+								    </c:choose>		
 								</td>
 						<td><input type="button" id="reservationdetailBtn" name="reservationdetailBtn"
 			class="reservationdetailBtn" value="상세보기"></td>
