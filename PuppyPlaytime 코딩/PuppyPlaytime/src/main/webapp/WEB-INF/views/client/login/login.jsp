@@ -97,11 +97,11 @@
 
       		<div class="form-group">
          		<button type="button" class="btn btn-primary"
-           		 onclick="location.href='http://localhost:8080/client/member/joinForm' ">회원가입</button>
+           		 onclick="location.href='/client/member/joinForm' ">회원가입</button>
          		<button type="button" class="btn btn-primary"
-           		 onclick="location.href='http://localhost:8080/client/login/find_id' ">아이디 찾기</button>
+           		 onclick="location.href='/client/login/find_id' ">아이디 찾기</button>
          		<button type="button" class="btn btn-primary"
-            	 onclick="location.href='http://localhost:8080/client/login/find_pw' ">비밀번호 찾기</button>
+            	 onclick="location.href='/client/login/find_pw' ">비밀번호 찾기</button>
       		</div>
   	 	</div>
 	</body>

@@ -86,9 +86,9 @@
 
 				<div class="form-group">
 					<button type="button" class="btn btn-primary"
-					onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
+					onclick="location.href='/client/login/login'">돌아가기</button>
 					<button type="button" class="btn btn-primary"
-					onclick="location.href='http://localhost:8080/client/login/find_id'">다시입력</button>
+					onclick="location.href='/client/login/find_id'">다시입력</button>
 				</div>
 			</form>
 

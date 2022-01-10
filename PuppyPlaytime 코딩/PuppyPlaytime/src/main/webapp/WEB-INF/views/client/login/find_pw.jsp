@@ -186,9 +186,9 @@
 						<button type="button" value="찾기" onclick="pwFind()" id="updatePw"
 						 class="btn btn-primary mb-2">비밀번호 변경</button>
 						 <button type="button" class="btn btn-primary mb-2"
-							onclick="location.href='http://localhost:8080/client/login/login'">돌아가기</button>
+							onclick="location.href='/client/login/login'">돌아가기</button>
 						<button type="button" class="btn btn-primary mb-2"
-							onclick="location.href='http://localhost:8080/client/login/find_pw'">다시입력</button>
+							onclick="location.href='/client/login/find_pw'">다시입력</button>
 					</div>
 				</div>
 			</form>
