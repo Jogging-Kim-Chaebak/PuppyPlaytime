@@ -21,14 +21,22 @@
     			c_picture,
     			c_status,
     			rownum as rnum
-    		from cageroom_tbl)
-    	WHERE not c_no in (select c_no
+    			from (select
+    				c_no,
+   					c_kind,
+   					c_type,
+   					c_price,
+    				c_explain,
+    				c_picture,
+    				c_status
+    				from cageroom_tbl
+    				WHERE not c_no in (select c_no
 						from reservation_tbl
 						where (r_startdate >= #{startReservation}) and
 						(r_enddate <= #{endReservation}))
-		and rnum between #{pageRequest.sizePerPage}*#{pageRequest.page}-9 and #{pageRequest.sizePerPage}*#{pageRequest.page}
-		and c_status='use'
-		order by c_no	
+					and c_status='use'
+					order by c_no))
+		where rnum between #{pageRequest.sizePerPage}*#{pageRequest.page}-9 and #{pageRequest.sizePerPage}*#{pageRequest.page}
 		]]>
 	</select>
 
@@ -154,6 +162,7 @@
 						from reservation_tbl
 						where (r_startdate >= #{startReservation}) and
 						(r_enddate <= #{endReservation}))			
+		and c_status='use'
 		]]>
 	</select>
 	
