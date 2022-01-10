@@ -27,6 +27,7 @@
 						where (r_startdate >= #{startReservation}) and
 						(r_enddate <= #{endReservation}))
 		and rnum between #{pageRequest.sizePerPage}*#{pageRequest.page}-9 and #{pageRequest.sizePerPage}*#{pageRequest.page}
+		and c_status='use'
 		order by c_no	
 		]]>
 	</select>
