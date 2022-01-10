@@ -29,6 +29,7 @@
 			c_explain,
 			c_picture
 		from cageroom_tbl
+		where c_status = 'use'
 	</select>
 
 </mapper>

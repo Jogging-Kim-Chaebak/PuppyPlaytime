@@ -38,8 +38,6 @@ public class AdminMainController {
 		List<ReservationVO> list = reservationService.todayReservationList(param);
 		int map = satisticsService.adminTodayJoinStatistics();
 		
-		System.out.println("리스트"+list);
-		System.out.println("맵"+map);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("reservationList", list);
 		mav.addObject("join",map);
