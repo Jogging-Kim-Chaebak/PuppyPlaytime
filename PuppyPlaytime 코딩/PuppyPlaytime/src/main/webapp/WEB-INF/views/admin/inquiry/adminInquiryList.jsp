@@ -37,7 +37,7 @@
 			<form name="inquirydetail" id="inquirydetail">
 			      <input type="hidden" name="q_no" id="q_no">
 			</form>
-			
+			<h3>문의사항 리스트</h3>
 			<%-- ================= 리스트 시작  =============== --%>
 			<div id="inquiryList">
 			<table summary="문의게시판 리스트"  class="table table-dark table-striped">

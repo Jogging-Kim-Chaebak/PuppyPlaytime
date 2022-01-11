@@ -56,6 +56,7 @@ $(function(){
 </form>
 
 <%--============== 리스트 시작 =============== --%>
+<h3>공지사항 리스트</h3>
 <div>
 	
 <table border="1" summary="공지사항 리스트" class="table table-dark table-striped">

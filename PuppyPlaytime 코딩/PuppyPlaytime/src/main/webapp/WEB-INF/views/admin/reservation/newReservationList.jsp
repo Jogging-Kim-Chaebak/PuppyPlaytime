@@ -29,7 +29,7 @@
 	<form id ="detailForm" name="detailForm" method ="post">
 		<input type ="hidden" name="r_no" id ="r_no"/>
 	</form>
-	
+		<h3>새로운 예약 리스트</h3>
 		<div>
 			<table class="table table-dark table-striped">
 				<colgroup>

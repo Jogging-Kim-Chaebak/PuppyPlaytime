@@ -31,6 +31,7 @@ function updateData(m_id){
 	<form id ="memberForm" name="memberForm" method ="post">
 		<input type ="hidden" name="m_id" id ="m_id"/>
 	</form>
+	<h3>회원 리스트</h3>
 	<div>
 		<table class="table table-dark table-striped">
 			<caption>회원 리스트</caption>

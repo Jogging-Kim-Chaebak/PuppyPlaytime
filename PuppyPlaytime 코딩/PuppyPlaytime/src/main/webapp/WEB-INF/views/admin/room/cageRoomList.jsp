@@ -42,6 +42,7 @@
 	<form id ="detailForm" name="detailForm" method ="post">
 		<input type ="hidden" name="c_no" id ="c_no"/>
 	</form>
+	<h3>룸 리스트</h3>
 	<div>
 		<table class="table table-dark table-striped">
 			<caption>룸 리스트</caption>
