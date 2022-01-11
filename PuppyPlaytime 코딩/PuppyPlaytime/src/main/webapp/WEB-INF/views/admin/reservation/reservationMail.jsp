@@ -52,7 +52,9 @@ $(function(){
 </head>
 <body>
 	<div>
+	
 		<form id ="mailForm" name="mailForm">
+			<h3>예약거부/취소 사유 메일 전송</h3>
 			<table class="table table-dark table-striped">
 				<thead>
 					<tr>

@@ -29,9 +29,9 @@
 	<form id ="detailForm" name="detailForm" method ="post">
 		<input type ="hidden" name="r_no" id ="r_no"/>
 	</form>
+	<h3>당일 방문 예약 리스트</h3>
 	<div>
 		<table class="table table-dark table-striped">
-			<caption>룸 리스트</caption>
 			<colgroup>
 				<col width="100px" />
 				<col width="100px" />
@@ -83,7 +83,7 @@
 		
 				<c:if test="${!empty join}">
 					<tr>
-						<td align ="center">금일 가입자 수 : </td>
+						<td align ="center">금일 회원가입자 수 : </td>
 						<td align ="center">${join}명</td>
 					</tr>
 				</c:if> 
