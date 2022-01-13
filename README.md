@@ -17,6 +17,3 @@
   [박찬영](https://github.com/solarplant97) [![](https://img.shields.io/badge/Github-solarplant97-E34F26?style=flat-square&logo=Github)](https://github.com/solarplant97)</br>
   [조민의](https://github.com/min-eui) [![](https://img.shields.io/badge/Github-min_eui-E34F26?style=flat-square&logo=Github)](https://github.com/min-eui) </br>
   [최성호](https://github.com/sohosoho) [![](https://img.shields.io/badge/Github-sohosoho-E34F26?style=flat-square&logo=Github)](https://github.com/sohosoho) </br>[허성경](https://github.com/akazka) [![](https://img.shields.io/badge/Github-akazka-E34F26?style=flat-square&logo=Github)](https://github.com/akazka) </br></br>
-
-## 테이블 모델링
-![Puppy Playtime 물리적 모델링](https://user-images.githubusercontent.com/27558778/146195481-1732fd37-1dbd-450c-9df9-081dbf76bd79.png)
