@@ -27,6 +27,7 @@ import com.puppy.client.mypage.service.MypageService;
 import com.puppy.client.mypage.vo.MypagePagination;
 import com.puppy.client.mypage.vo.MypageVO;
 import com.puppy.client.reservation.vo.ReservationVO;
+import com.puppy.common.crypt.SHA256;
 import com.puppy.common.file.FileUploadUtil;
 import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PageRequest;
@@ -344,6 +345,12 @@ public class MypageController {
   		HttpSession session = request.getSession();
   		String m_id = (String)session.getAttribute("userId");
   		log.info("m_id = " + m_id);	
+  		
+  		// 비밀번호 암호화
+  		SHA256 sha = SHA256.getInsatnce();
+  		String shaPass = sha.getSha256(mvo.getM_pw().getBytes());
+  		mvo.setM_pw(shaPass);// 비밀번호를 보냄
+  		
   		mvo.setM_id(m_id);
   		session.setAttribute("m_id", m_id);
   		
