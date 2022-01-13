@@ -14,6 +14,7 @@
 	<select id="roomList" resultType="cageroom">
 		SELECT c_no, c_kind, c_type, c_price, c_explain, c_picture
 		FROM cageroom_tbl
+		where c_status = 'use'
 	</select>
 
 
