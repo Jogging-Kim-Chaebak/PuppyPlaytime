@@ -103,7 +103,7 @@ th, td {
 								    	<c:if test="${st eq 'done'}">
 								        	<a>이용완료</a>
 								      	</c:if>
-								   		<c:if test="${st eq 'cancle'}">
+								   		<c:if test="${st eq 'cancel'}">
 								       		<a>예약취소</a>
 								  		</c:if>
 								  		<c:if test="${st eq 'refunded'}">

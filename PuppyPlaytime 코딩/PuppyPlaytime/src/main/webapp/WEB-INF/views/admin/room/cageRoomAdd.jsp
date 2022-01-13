@@ -68,8 +68,6 @@ input,textarea,select { margin:0; padding:0;border:0;display:inline}
 			if($("#file").val() != "" && $("#file").val() != null) {
 				fileSize =  document.roomForm.file.files[0].size;
 				
-				alert(fileName);
-				
 				if(fileName > 20){
 					alert('이미지 파일 이름이 너무 깁니다.(20자 이내)');	
 					return;

@@ -271,12 +271,14 @@
 			if (inputCode == code) { // 일치할 경우
 				alert("인증번호가 일치합니다.");
 				$("#m_emailNumber_box").val("true");
+				$("#mailCheckBtn").val("true");
 				$("#m_emailNumber").attr("disabled", true);
 				$("#updatePw").attr("disabled", true);
 
 			} else { // 일치하지 않을 경우
 				alert("인증번호를 다시 확인해주세요.");
 				$("#mailCheckBtn").val("false");
+				$("#m_emailNumber_box").val("false");
 			}
 		});
 	});
