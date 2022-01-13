@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.puppy.admin.extraservice.service.ExtraServiceService;
 import com.puppy.admin.room.service.CageRoomService;
 import com.puppy.admin.room.vo.CageRoomVO;
+import com.puppy.client.guide.service.GuideService;
 import com.puppy.common.vo.ExtraServiceVO;
 import com.puppy.common.vo.PageRequest;
 
@@ -29,6 +30,9 @@ public class GuideController {
 	@Autowired
 	private ExtraServiceService extraServiceService;
 	
+	@Autowired
+	private GuideService guideService;
+	
 	private static final String CONTEXT_PATH = "client/guide";
 		
 	//private static final String UPLOAD_PATH = "\\resources\\images"
@@ -40,7 +44,7 @@ public class GuideController {
 		@RequestMapping("/guideRoomList") // 케이지 리스트
 		public ModelAndView roomList(PageRequest pageRequest) throws Exception {
 
-			List<CageRoomVO> list = cageRoomService.roomList(pageRequest);
+			List<CageRoomVO> list = guideService.roomList();
 
 			ModelAndView mav = new ModelAndView();
 			mav.addObject("roomList", list);
@@ -98,13 +102,14 @@ public class GuideController {
    
    /****************************************************************
 	 * 룸 리스트와 부가서비스 리스트 jsp로 전송
+ * @throws Exception 
 	 ****************************************************************/	
    @RequestMapping(value="/guideList")
-   public ModelAndView view(PageRequest pageRequest,@ModelAttribute ExtraServiceVO param2) {
+   public ModelAndView view(@ModelAttribute ExtraServiceVO param2) throws Exception {
 	   ModelAndView mav = new ModelAndView();
 	   //데이터만 설정이 가능
 	   
-	    List<CageRoomVO> rlist = cageRoomService.roomList(pageRequest);
+	    List<CageRoomVO> rlist = guideService.roomList();
 
 		List<ExtraServiceVO> elist = extraServiceService.extraServiceList(param2);
 

@@ -10,13 +10,11 @@
 		<result property="c_picture" column="c_picture"></result>
 		<result property="c_status" column="c_status"></result>
 	</resultMap>
-<!-- 룸 리스트 구현 -->
-<select id="roomList" resultType="cageroom">
-	SELECT c_no, c_kind,c_type,c_price,c_explain,
-		   c_picture,c_status
-	  FROM cageroom_tbl
-  ORDER BY c_no asc
-</select>
+	<!-- 룸 리스트 구현 -->
+	<select id="roomList" resultType="cageroom">
+		SELECT c_no, c_kind, c_type, c_price, c_explain, c_picture
+		FROM cageroom_tbl
+	</select>
 
 
 <!-- 부가서비스 리스트 구현 -->
@@ -24,15 +22,14 @@
 	SELECT s_no, s_name, s_explain, s_status, s_price
 	  FROM EXTRASERVICE_TBL
   ORDER BY s_no desc
-
 </select>
+
 <!-- 룸 상세 페이지를 위한 게시물 조회 -->
 <select id="roomDetail" parameterType="com.puppy.admin.room.vo.CageRoomVO" resultMap="cageRoomVO">
 		
 		SELECT c.c_no,c.c_kind,c.c_type,c.c_price,c.c_explain,c.c_picture
 		FROM cageroom_tbl c 
 		WHERE c.c_no =#{c_no}
-		
 </select>
 
 </mapper>

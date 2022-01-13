@@ -91,13 +91,13 @@ $(function(){
 						<th><span class ="required"></span>케이지 사진</th>
 						
 						<c:if test="${empty roomData.c_picture}">
-									<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
-							</c:if>
-									<td colspan="3"><img src="/image/roomImages/${roomData.c_picture}"/></td>
-						
+							<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
+						</c:if>
+						<c:if test="${!empty roomData.c_picture}">
+							<td colspan="3"><img src="/image/roomImages/${roomData.c_picture}" width="200px" height="200px"/></td>
+						</c:if>
 					</tr>
-					
-					
+			
 				</tbody>
 			</table>
 		
