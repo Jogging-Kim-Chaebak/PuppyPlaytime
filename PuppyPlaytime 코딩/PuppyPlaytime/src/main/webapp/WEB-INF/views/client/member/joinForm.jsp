@@ -277,10 +277,7 @@
 			} else { // 일치하지 않을 경우
 				alert("인증번호를 다시 확인해주세요.");
 				$("#mailCheckBtn").val("false");
-				$("#m_emailNumber").attr("disabled", true);
-
 			}
-			
 		});
 	});
 </script>

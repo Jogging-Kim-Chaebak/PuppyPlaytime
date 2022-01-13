@@ -21,9 +21,9 @@ public class GuideServiceImpl implements GuideService {
 	
 	//룸 리스트 구현
 	@Override
-	public List<CageRoomVO> roomList(CageRoomVO param) throws Exception{
+	public List<CageRoomVO> roomList() throws Exception{
 		List<CageRoomVO> roomList= new ArrayList<CageRoomVO>();
-		roomList = guideDao.roomList(param);
+		roomList = guideDao.roomList();
 		return roomList;
 	}
 

@@ -19,7 +19,7 @@
 	$(function(){
 		var file = "<c:out value='${cageRoomVO.c_picture}'/>";
 		$("#fileImage").attr({
-			src:"/roomPicture/${cageRoomVO.c_picture}",width:"450px",height:"200px"
+			src:"/image/roomPicture/${cageRoomVO.c_picture}",width:"450px",height:"200px"
 		});
 	});
 </script>
@@ -69,8 +69,8 @@
 									<c:if test="${empty room.c_picture}">
 										<td><a href='/client/guide/roomDetail?c_no=${room.c_no}'>등록된 사진 정보가 존재하지 않습니다.</a></td>
 									</c:if>
-									<c:if test="${not empty room.c_picture}">
-										<td><a href='/client/guide/roomDetail?c_no=${room.c_no}'><img src="/image/roomImages/${room.c_picture}"/></a></td>
+									<c:if test="${!empty room.c_picture}">
+										<td><a href='/client/guide/roomDetail?c_no=${room.c_no}'><img src="/image/roomImages/${room.c_picture}" width="200px" height="200px"/></a></td>
 									</c:if>
 										<td>${room.c_kind}</td>
 								

@@ -91,9 +91,11 @@ $(function(){
 						<th><span class ="required"></span>강아지 사진</th>
 						
 						<c:if test="${empty petVO.p_picture}">
-									<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
-							</c:if>
-									<td colspan="3"><img src="/image/petImages/${pet.p_picture}"/></td>
+							<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
+						</c:if>
+						<c:if test="${!empty petVO.p_picture}">
+                        	<td colspan="3"><img src="/image/petImages/${pet.p_picture}" width="520" height="250"/></td>
+                     	</c:if>
 						
 					</tr>
 					<tr>

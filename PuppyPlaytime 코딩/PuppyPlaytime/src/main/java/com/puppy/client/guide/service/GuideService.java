@@ -8,7 +8,7 @@ import com.puppy.common.vo.ExtraServiceVO;
 
 public interface GuideService {
 	//룸 리스트 구현
-	public List<CageRoomVO> roomList(CageRoomVO param) throws Exception;
+	public List<CageRoomVO> roomList() throws Exception;
 	
 	//부가서비스 리스트 구현 
 	public List<ExtraServiceVO> extraServiceList(ExtraServiceVO param) throws Exception;

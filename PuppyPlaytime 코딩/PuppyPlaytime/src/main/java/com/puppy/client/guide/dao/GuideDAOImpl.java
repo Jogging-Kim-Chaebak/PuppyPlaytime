@@ -21,9 +21,9 @@ public class GuideDAOImpl implements GuideDAO {
 	
 	//룸리스트 구현
 	@Override
-	public List<CageRoomVO> roomList(CageRoomVO param) throws Exception {
+	public List<CageRoomVO> roomList() throws Exception {
 		
-		return session.selectList(namespace+".roomList",param);
+		return session.selectList(namespace+".roomList");
 	}
 	
 	
