@@ -14,6 +14,8 @@ th{font-weight:bold}
 <head>
 <meta charset="UTF-8">
 <title>글쓰기 화면</title>
+<script type="text/javascript" 
+src="/resources/include/assets/js/common.js"></script>
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 
