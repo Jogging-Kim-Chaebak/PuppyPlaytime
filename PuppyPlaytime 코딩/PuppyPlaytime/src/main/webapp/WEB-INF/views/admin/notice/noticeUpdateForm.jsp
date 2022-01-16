@@ -4,10 +4,17 @@
 <%@ taglib prefix="fn" uri ="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
+<style>
+td{text-align:left}
+th{text-align:center; font-weight:bold}
+.contentContainer{margin-top:30px; margin-bottom:30px; text-align:center; margin:0 auto}
+ #contentForm { width: 40%; text-align:left; padding:8px}
+.contentTit{ margin-top:30px; margin-bottom:30px; text-align:left;}
+.btn{ margin-top:30px; margin-bottom:30px; font-weight:bold; font-size:medium; margin:auto; display:inline-block}
+</style>
 <head>
 <meta charset="UTF-8">
 <title>수정 화면</title>
-<link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="/resources/include/dist/css/bootstrap.css"/>
 
 <script type="text/javascript"
@@ -62,28 +69,28 @@ src="/resources/include/assets/js/common.js"></script>
 			//페이징 관련 정보를 쿼리 파라미터로 전달한다.
 			self.location = "noticeList${pgrq.toUriString()}";
 			
-			
 		});
 	});
 </script>
 </head>
 <body>
 
-
-
 <div class="contentContainer">
 	<div class="contentTit"><h3>공지사항 글수정</h3></div>
-	<div class="contentTB">
+	
+
+	
+		<%-- ========== 수정 정보 보여주기 시작 ========== --%>
+	
+
 	<form id="f_writeForm" name="f_writeForm">
 	<input type="hidden" name="n_no" id="n_no" value="${updateData.n_no}"/>
 	
 	<!-- 현재 페이지 번호와 페이징 크기를 숨겨진 필드 요소를 사용하여 전달한다. -->
-	
 	<input type="hidden" name="page" value="${pgrq.page}"/>
 	<input type="hidden" name="sizePerPage" value="${pgrq.sizePerPage}"/>
 	
-		<%-- ========== 수정 정보 보여주기 시작 ========== --%>
-	<div>
+	<div class="contentTB">
 		<table class="table table-dark table-striped">
 			<colgroup>
 				<col width="17%"/>
@@ -93,33 +100,44 @@ src="/resources/include/assets/js/common.js"></script>
 			</colgroup>
 			<tbody>
 				<tr>
-					<td>글번호</td>
-					<td>${updateData.n_no}</td>
-					<td>작성일</td>
-					<td>${updateData.n_regdate}</td>
+					<th>글번호</th>
+						<td>${updateData.n_no}</td>
 				</tr>
 				<tr>
-					<td>작성자</td>
-					<td colspan="3">
-					<input type="text" id="n_registrant" name="n_registrant" value="${updateData.n_registrant}"/></td>
+					<th>작성일</th>
+						<td>${updateData.n_regdate}</td>
 				</tr>
 				<tr>
-					<td class="ac">제목</td>
-					<td colspan="3">
-					<input type="text" name="n_title" id="n_title" value="${updateData.n_title}"/></td>
+					<th>작성자</th>
+						<td>
+							<div style="width: 100px">
+								<input type="text" name="n_registrant" id="n_registrant" value="${updateData.n_registrant}" readonly="true" class="form-control"/>
+							</div>
+						</td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td colspan="3">
-					<textarea name="n_content" id="n_content">${updateData.n_content}</textarea></td>
+					<th>제목</th>
+					<td>
+						<div style="width: 600px;">
+							<input type="text" name="n_title" id="n_title" value="${updateData.n_title}" class="form-control" >
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+					<div style="width: 800px;">
+						<textarea class="form-control" rows="12" cols="150" name="n_content" id="n_content">${updateData.n_content}</textarea>
+					</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>
-	</form>
-</div>
+		</div>
+		</form>
+	
 	<%-- ========== 상세 정보 보여주기 종료 ========== --%>
-</div>
-<div>
+<div class="btn">
 	<input type="button" value="수정" id="modifyBtn" class="btn btn-primary">
 	<input type="button" value="삭제" id="deleteBtn" class="btn btn-primary">
 	<input type="button" value="취소" id="cancelBtn" class="btn btn-primary">
