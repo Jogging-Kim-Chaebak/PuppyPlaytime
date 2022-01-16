@@ -38,22 +38,6 @@ public class AdminNoticeController {
 	/************************************************************
 	 * 글목록 구현하기(목록을 페이징처리로 변경)
 	 * *********************************************************/
-	/*
-	 * @RequestMapping(value="/noticeList", method=RequestMethod.GET) public String
-	 * noticeList(Model model, HttpServletRequest request, HttpServletResponse
-	 * response)throws Exception {
-	 * 
-	 * sessionCheck(request, response, "잘못된 접근입니다.", model);
-	 * log.info("noticeList 호출 성공");
-	 * 
-	 * List<NoticeVO> noticeList = null; try { noticeList =
-	 * noticeService.noticeList(); } catch (Exception e) {
-	 * 
-	 * e.printStackTrace(); } model.addAttribute("noticeList",noticeList);
-	 * model.addAttribute("data");
-	 * 
-	 * return "admin/notice/noticeList"; }
-	 */
 	
 	//페이징 요청 정보를 매개 변수로 받고 다시 뷰에 전달한다
 	@RequestMapping(value="/noticeList", method = RequestMethod.GET)
@@ -147,7 +131,7 @@ public class AdminNoticeController {
 		//조회한 게시글 상세 정보를 뷰에 전달한다.
 		model.addAttribute("updateData",noticeService.noticeDetail(nvo));
 		
-		return "/admin/notice/noticeUpdateForm";
+		return "admin/notice/noticeUpdateForm";
 	
 	}
 	
@@ -178,7 +162,7 @@ public class AdminNoticeController {
 			
 			
 		}
-		System.out.println(nvo);
+
 		return "redirect:"+url;
 	}
 	

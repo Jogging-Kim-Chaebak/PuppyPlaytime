@@ -12,7 +12,7 @@
 <title>케이지 테이블 팝업</title>
 
 <link rel="stylesheet" type="text/css" href="/resources/include/assets/css/common.css"/>
-<link rel="stylesheet" type="text/css" href="/resources/include/assets/css/noticeList.css"/>
+
 <script type="text/javascript"
 src="/resources/include/assets/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" 
@@ -21,9 +21,13 @@ src="/resources/include/assets/js/common.js"></script>
 
 
 <style type="text/css">
+.contentContainer{ text-align:center; margin-top:30px; margin-bottom:30px}
+th {text-align:center; padding:8px}
 body { margin:0 }
-input { margin:0; padding:0;border:0;display:inline}
-textarea { margin:0; padding:0;border:0;display:inline}
+td {padding:8px}
+input { margin:0; padding:0;border:0; text-align:left }
+textarea { margin:0; padding:8px; border:0;display:inline}
+.btn{font-weight:bold; font-size:medium; display:inline-block}
 </style>
 
 <script type="text/javascript">
@@ -57,57 +61,52 @@ $(function(){
 </script>
 </head>
 <body>
-	<div>
+	<div class="contentContainer">
 		<form name="rForm" id ="rForm" method="post">
 		<%-- <input type="hidden" name="c_no" value="${roomData.c_no}"/> --%>
 		</form>
-			<table border="1">
-				<thead>
-					<tr>
-						<td colspan="4" align="center"><h4>룸 상세 정보</h4></td>
-					</tr>
-				</thead>
+		<div class="contentTB">
+			<table>
+				<colgroup>
+					<col width="25%"/>
+				</colgroup>
 				<tbody>
 					<tr>
-						<th><span class ="required"></span>케이지 종류</th>
+						<td class="ac">케이지 종류</td>
 						<td><input type="text" id="c_kind" name="c_kind" value="${roomData.c_kind}" readonly="readonly"/></td>
-						<th><span class ="required"></span>케이지 유형</th>
+						<td class="ac">케이지 유형</td>
 						<td><input type="text" id="c_type" name="c_type" value="${roomData.c_type}" readonly="readonly"/></td>
 					</tr>
 
-<%-- 					<tr>
+<%-- 				<tr>
 						<th><span class ="required"></span>케이지 번호</th>
 						<td colspan ="3"><input type="text" id="c_no" name="c_no" value="${roomData.c_no}" readonly="readonly"/></td>
 					</tr> --%>
 					<tr>
-						<th><span class ="required"></span>가격</th>
-						<td colspan ="3"><input type="text" id="c_price" name="c_price" value="${roomData.c_price}" readonly="readonly"/></td>
+						<td class="ac">가격</td>
+						<td colspan ="3"><input type="text" id="c_price" name="c_price" value="${roomData.c_price} 원" readonly="readonly" rows="8"/></td>
 					</tr>
 					<tr>
-						<th><span class ="required"></span>케이지 설명</th>
-						<td colspan ="3"><textarea cols="60" rows="10" id="c_explain" name="c_explain" readonly="readonly"><c:out value="${roomData.c_explain}"/></textarea></td>
+						<td class="ac vm">케이지 설명</td>
+						<td colspan ="3"><textarea cols="70" rows="4" id="c_explain" name="c_explain" readonly="readonly"><c:out value="${roomData.c_explain}"/></textarea></td>
 					</tr>
 					<tr>
-						<th><span class ="required"></span>케이지 사진</th>
+						<td class="ac vm">케이지 사진</td>
 						
 						<c:if test="${empty roomData.c_picture}">
 							<td colspan="3" align="center">등록된 사진 정보가 존재하지 않습니다.</td>
 						</c:if>
 						<c:if test="${!empty roomData.c_picture}">
-							<td colspan="3"><img src="/image/roomImages/${roomData.c_picture}" width="200px" height="200px"/></td>
+							<td colspan="3"><img src="/image/roomImages/${roomData.c_picture}" width="400px" height="250px"/></td>
 						</c:if>
 					</tr>
 			
 				</tbody>
 			</table>
-		
 	</div>
-	<div>
-		<p></p>
-		<table>
-				<td><input type="button" value="목록" id ="listBtn"  /></td>
-			</tr>
-		</table>
+	<div class="btn">
+		<input type="button" value="목록" id ="listBtn"  class="btn btn-primary" />	
+	</div>
 	</div>
 </body>
 </html>
