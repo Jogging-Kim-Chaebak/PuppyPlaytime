@@ -51,6 +51,15 @@
 		<beans:property name="defaultEncoding" value="UTF-8"/>
 		<beans:property name="maxUploadSize" value="5242880"/>
 	</beans:bean>
-	
+	<!-- csrf hidden을 form에 자동으로 추가해주는 class -->
+	<beans:bean id="requestDataValueProcessor" class="com.puppy.common.interceptor.CSRFRequestDataValueProcessor"/>
+	<!-- 인터셉터 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean
+				class="com.puppy.common.interceptor.CSRFInterceptor" />
+		</interceptor>
+	</interceptors>
 	<context:component-scan base-package="com.puppy.**.**.**" />
 </beans:beans>
