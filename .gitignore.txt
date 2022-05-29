@@ -1,4 +1,4 @@
 # ignore all .class files
 *.class
 
-target/
+META-INF/
