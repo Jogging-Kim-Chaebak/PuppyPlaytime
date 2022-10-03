@@ -1,0 +1,160 @@
+create table cageroom_tbl(
+c_no number(6) not null,
+c_kind varchar2(15) not null,
+c_type varchar2(10) not null,
+c_price number(7) not null,
+c_explain varchar2(1000) not null,
+c_picture varchar2(50) not null,
+c_status varchar2(15) not null check(c_status in('unuse','use')),
+CONSTRAINT cageroom_tbl_pk PRIMARY KEY(c_no));
+
+
+create sequence cageroom_tbl_seq
+start with 1
+increment by 1 
+nocache;
+
+
+CREATE TABLE EXTRASERVICE_TBL(
+    s_no VARCHAR2(5) NOT NULL,
+    s_name VARCHAR2(30) NOT NULL,
+    s_explain VARCHAR2(500) NOT NULL,
+    s_status VARCHAR2(15) NOT NULL,
+    s_price NUMBER(7) NOT NULL,
+    c_no NUMBER(6),
+    CONSTRAINT EXTRASERVICE_TBL_PK PRIMARY KEY(s_no),
+    CONSTRAINT EXTRASERVICE_TBL_FK FOREIGN KEY(c_no) REFERENCES CAGEROOM_TBL(c_no)
+);
+
+--부가서비스 게시판에 사용할 시퀀스 생성
+CREATE SEQUENCE EXTRASERVICE_TBL_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+
+create table Inquiry_tbl(
+    q_no number(6) not null ,
+    q_title varchar2(50) not null,
+    q_content varchar2(3000) not null,
+    q_regdate DATE DEFAULT sysdate,
+    m_id varchar2(20) not null,
+    CONSTRAINT inquiry_tbl_pk PRIMARY KEY(q_no),
+    CONSTRAINT inquiry_tbl_fk foreign key(m_id) references Member_tbl(m_id)
+);
+
+create SEQUENCE inquiry_tbl_seq
+start with 1
+INCREMENT by 1
+NOCYCLE;
+
+
+CREATE table Member_tbl(
+m_id VARCHAR2(20) not null,
+m_pw VARCHAR2(80) not null,
+m_name VARCHAR2(30)not null,
+m_birth DATE not null,
+m_email VARCHAR2(30) not null,
+m_phone VARCHAR2(20) not null,
+m_address VARCHAR2(50) not null,
+m_optional VARCHAR2(2) not null,
+m_required1 VARCHAR2(2) not null,
+m_required2 VARCHAR2(2) not null,
+m_regdate DATE DEFAULT SYSDATE,
+m_status VARCHAR2(15) default 'member' not null, check(m_status in('member','secession')),
+CONSTRAINT Member_tbl_pk PRIMARY KEY(m_id)
+);
+
+insert into member_tbl
+values('ghld12345', '1234', '김주영', '1997-01-01', 
+'asdf@naver.com', '010xxxxxxxx', '사랑시 후해동', 
+'Y', 'Y','Y','member');
+
+
+CREATE TABLE NOTICE_TBL(
+    n_no NUMBER(6) NOT NULL,
+    n_regdate DATE DEFAULT SYSDATE,
+    n_content VARCHAR2(3000) NOT NULL,
+    n_title VARCHAR2(50) NOT NULL,
+    n_registrant VARCHAR2(10) NOT NULL,
+    CONSTRAINT NOTICE_TBL_PK PRIMARY KEY(n_no)
+);
+--공지사항 게시판에 사용할 시퀀스 생성
+CREATE SEQUENCE NOTICE_TBL_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+
+
+create table Pet_tbl(
+	p_no number(6) not null,
+	p_name varchar2(30) not null,
+	p_dogbreed varchar2(30) not null,
+	p_unique varchar2(200),
+	p_gender varchar2(2) not null,
+	p_weight varchar2(15) not null,
+	p_picture varchar2(50),
+	m_id varchar2(20) not null,
+	constraint Pet_tbl_pk primary key(p_no),
+	constraint Pet_tbl_fk foreign key(m_id) references Member_tbl(m_id)
+);
+
+create sequence pet_tbl_seq
+start with 1
+increment by 1;
+
+
+create table reply_tbl(
+    reply_no number(10) not null,
+    reply_regdate date DEFAULT sysdate,
+    reply_content varchar2(1000) not null,
+    reply_registrant varchar2(10) not null,
+    q_no number(6) not null,
+    CONSTRAINT reply_tbl_pk PRIMARY KEY(reply_no),
+    CONSTRAINT reply_tbl_fk foreign key(q_no) references inquiry_tbl(q_no)
+);
+
+create SEQUENCE reply_tbl_seq
+start with 1
+INCREMENT by 1
+NOCYCLE;
+
+
+create table Reservation_tbl(
+	r_no number(6) not null,
+	r_approval varchar2(2) not null,
+	r_payprice number(7) not null,
+	r_status varchar2(15),
+	r_requestdate date default sysdate,
+	r_startdate date not null,
+	r_enddate date not null,
+	r_extraservice1 number(5),
+   	r_extraservice2 number(5),
+    	r_extraservice3 number(5),
+    	r_extraservice4 number(5),
+	m_id varchar2(20) not null,
+	c_no number(6) not null,
+	r_pet number(6) not null,
+	constraint Reservation_tbl_pk primary key(r_no),
+	constraint Reservation_tbl_fk1 foreign key(m_id) references Member_tbl(m_id),
+	constraint Reservation_tbl_fk2 foreign key(c_no) references CageRoom_tbl(c_no)
+);
+
+create sequence reservation_tbl_seq
+start with 1
+increment by 1;
+
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'N', 123, 'valid', 
+'2021-12-24', '2021-12-27', 'ghld12345', '94', 122);
+
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'N', 35000, 'valid', 
+'2021-12-28', '2021-12-29', 'ghld12345', '94', 124);
+
+insert into reservation_tbl (r_no, r_approval, r_payprice, 
+r_status, r_startdate,r_enddate, m_id, c_no, r_pet)
+values(reservation_tbl_seq.nextval, 'W', 35000, 'valid', 
+'2021-12-30', '2021-12-31', 'helix1234', '94', 124);
